@@ -1,0 +1,81 @@
+.dv-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0 15px;
+  font-family: Arial, sans-serif;
+}
+
+.dv-title {
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.dv-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.dv-search {
+  flex: 1;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+.dv-btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  border-radius: 4px;
+}
+
+.dv-add { background-color: #28a745; }
+.dv-view { background-color: #17a2b8; margin-right: 4px; }
+.dv-edit { background-color: #ffc107; color: black; margin-right: 4px; }
+.dv-delete { background-color: #dc3545; }
+
+.dv-table-wrapper {
+  overflow-x: auto;
+}
+
+.dv-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.dv-table th, .dv-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.dv-table th {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dv-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.dv-empty {
+  text-align: center;
+  color: #888;
+}
+
+.dv-loading {
+  text-align: center;
+  padding: 20px;
+}
+
+.dv-actions {
+  display: flex;
+  flex-wrap: wrap;
+}

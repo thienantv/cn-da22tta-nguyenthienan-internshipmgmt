@@ -1,0 +1,85 @@
+/* List / Table Cán bộ */
+.cb-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  max-width: 1000px;
+  margin: 20px auto;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+}
+
+.cb-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.cb-toolbar input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 250px;
+}
+
+.cb-btn-add {
+  padding: 6px 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.cb-btn-add:hover {
+  background-color: #218838;
+}
+
+.cb-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.cb-table th, .cb-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.cb-table th {
+  background-color: #007bff;
+  color: white;
+  font-weight: 600;
+}
+
+.cb-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.cb-btn-view, .cb-btn-edit, .cb-btn-delete {
+  margin-right: 5px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.cb-btn-view { background-color: #17a2b8; }
+.cb-btn-view:hover { background-color: #138496; }
+
+.cb-btn-edit { background-color: #ffc107; color: #212529; }
+.cb-btn-edit:hover { background-color: #e0a800; }
+
+.cb-btn-delete { background-color: #dc3545; }
+.cb-btn-delete:hover { background-color: #c82333; }

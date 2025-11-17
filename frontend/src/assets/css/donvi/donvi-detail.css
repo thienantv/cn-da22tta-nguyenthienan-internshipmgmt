@@ -1,0 +1,38 @@
+.donvi-container {
+  padding: 20px;
+  max-width: 700px;
+  margin: auto;
+}
+
+.donvi-container h2 {
+  margin-bottom: 20px;
+  color: #0d6efd;
+}
+
+.donvi-table {
+  width: 100%;
+  border-collapse: collapse;
+  max-width: 600px;
+  margin-top: 15px;
+}
+
+.donvi-table th,
+.donvi-table td {
+  border: 1px solid #dee2e6;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.donvi-table th {
+  width: 30%;
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.donvi-table td {
+  background-color: #ffffff;
+}
+
+.text-danger {
+  color: #dc3545;
+}
