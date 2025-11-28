@@ -1,0 +1,206 @@
+/* Logo container */
+.header-logo a {
+  display: flex;
+  align-items: center; /* căn logo và chữ theo chiều dọc */
+  gap: 0.75rem;        /* khoảng cách giữa ảnh và chữ */
+  text-decoration: none;
+  color: white;
+}
+
+/* Logo ảnh */
+.header-logo .logo-image {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 5px; /* tùy chọn */
+}
+
+/* Tiêu đề bên cạnh logo */
+.header-logo h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+/* Hover hiệu ứng */
+.header-logo a:hover {
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-logo a {
+    justify-content: center;
+  }
+
+  .header-logo .logo-image {
+    width: 40px;
+    height: 40px;
+  }
+
+  .header-logo h1 {
+    font-size: 1.25rem;
+  }
+}
+
+
+.header {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.header-logo a {
+  color: white;
+  text-decoration: none;
+}
+
+.header-logo a:hover {
+  opacity: 0.9;
+}
+
+.header-user,
+.header-auth {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.user-role {
+  font-size: 0.875rem;
+  opacity: 0.9;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  padding-right: 1.5rem;
+}
+
+.user-name {
+  font-weight: 500;
+}
+
+.header-link {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  transition: background-color 0.3s ease;
+}
+
+.header-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-logout {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .header-user,
+  .header-auth {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .user-role {
+    border-right: none;
+    padding-right: 0;
+  }
+
+  .header-logo h1 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Navigation bên trong Header */
+.header-nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.header-nav .nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  transition: background-color 0.3s ease;
+  font-weight: 500;
+}
+
+.header-nav .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Nếu muốn dropdown cho admin (tuỳ chọn) */
+.header-nav .dropdown {
+  position: relative;
+}
+
+.header-nav .dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--primary-color);
+  min-width: 200px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 0.3rem;
+  z-index: 100;
+  flex-direction: column;
+}
+
+.header-nav .dropdown:hover .dropdown-content {
+  display: flex;
+}
+
+.header-nav .dropdown-content .nav-link {
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 768px) {
+  .header-nav {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .header-nav .dropdown-content {
+    position: static;
+    box-shadow: none;
+  }
+}
