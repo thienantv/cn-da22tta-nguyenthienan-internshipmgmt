@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -20,6 +20,7 @@ import CanBoQuanLyCanBoHuongDan from './pages/canboquanly/cb_quan_ly_can_bo';
 import CanBoQuanLyDonVi from './pages/canboquanly/cb_quan_ly_don_vi';
 import CanBoThemCanBoHuongDan from './pages/canboquanly/cb_them_can_bo';
 import CanBoThemDonVi from './pages/canboquanly/cb_them_don_vi';
+import CanBoSuaDonVi from './pages/canboquanly/cb_sua_don_vi';
 import CanBoThongTinCaNhan from './pages/canboquanly/cb_thong_tin';
 import CanBoTrangChu from './pages/canboquanly/cb_trang_chu';
 
@@ -48,11 +49,11 @@ const AppWrapper = () => {
       {showHeader && <Header />}
       <main className="main-content">
         <Routes>
-          {/* Public routes */}
+          {/* Khi chưa đăng nhập */}
           <Route path="/dang-nhap" element={<TrangDangNhap />} />
           <Route path="/dang-ky" element={<TrangDangKy />} />
 
-          {/* Protected routes */}
+          {/* Khi đã đăng nhập */}
           <Route
             path="*"
             element={
@@ -128,6 +129,14 @@ const AppWrapper = () => {
                     }
                   />
                   <Route
+                    path="/can-bo/sua-don-vi/:ma_don_vi"
+                    element={
+                      <ProtectedRoute requiredRole="can_bo_quan_ly">
+                        <CanBoSuaDonVi />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
                     path="/them-can-bo-huong-dan"
                     element={
                       <ProtectedRoute requiredRole="can_bo_quan_ly">
@@ -136,18 +145,18 @@ const AppWrapper = () => {
                     }
                   />
                   <Route
-                    path="/can-bo/chi-tiet-don-vi/:maDonVi"
-                    element={
-                      <ProtectedRoute requiredRole="can_bo_quan_ly">
-                        <CanBoChiTietDonVi />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
                     path="/can-bo/chi-tiet-can-bo/:maCanBo"
                     element={
                       <ProtectedRoute requiredRole="can_bo_quan_ly">
                         <CanBoChiTietCanBo />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/can-bo/chi-tiet-don-vi/:maDonVi"
+                    element={
+                      <ProtectedRoute requiredRole="can_bo_quan_ly">
+                        <CanBoChiTietDonVi />
                       </ProtectedRoute>
                     }
                   />

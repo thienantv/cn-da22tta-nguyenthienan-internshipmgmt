@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { donViService } from '../../services/api';
-import '../../styles/them_don_vi.css';
+import '../../styles/canboquanly/cb_them_donvi.css';
 
 const CanBoThemDonVi = () => {
   const [donVi, setDonVi] = useState({
@@ -11,12 +11,13 @@ const CanBoThemDonVi = () => {
     email_don_vi: '',
     gioi_thieu: '',
     dieu_kien_thuc_tap: '',
-    hinh_anh: '',
+    hinh_anh: '',  // Chúng ta sẽ lưu trữ dữ liệu base64 của hình ảnh
   });
 
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const [imagePreview, setImagePreview] = useState('');  // Để hiển thị hình ảnh đã chọn trước khi gửi
   const navigate = useNavigate();
 
   const validateForm = () => {
@@ -38,6 +39,18 @@ const CanBoThemDonVi = () => {
 
   const handleChange = (e) => {
     setDonVi({ ...donVi, [e.target.name]: e.target.value });
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];  // Lấy file được chọn
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setDonVi({ ...donVi, hinh_anh: reader.result });  // Cập nhật hinh_anh với dữ liệu base64
+        setImagePreview(reader.result);  // Hiển thị hình ảnh đã chọn
+      };
+      reader.readAsDataURL(file);  // Đọc file và chuyển sang base64
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -99,9 +112,15 @@ const CanBoThemDonVi = () => {
           <textarea name="dieu_kien_thuc_tap" onChange={handleChange} />
         </div>
 
+        {/* Thêm phần tải lên hình ảnh */}
         <div className="full">
-          <label>Hình ảnh (URL):</label>
-          <input type="text" name="hinh_anh" placeholder="https://example.com/image.jpg" onChange={handleChange} />
+          <label>Hình ảnh:</label>
+          <input type="file" name="hinh_anh" accept="image/*" onChange={handleImageChange} />
+          
+          {/* Hiển thị ảnh đã chọn nếu có */}
+          {imagePreview && <div className="image_preview">
+            <img src={imagePreview} alt="Hình ảnh xem trước" style={{ width: '150px', height: 'auto' }} />
+          </div>}
         </div>
 
         <button type="submit" disabled={loading}>

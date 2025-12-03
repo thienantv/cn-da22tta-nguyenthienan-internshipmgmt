@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { donViService } from '../../services/api';
-import '../../styles/chitiet/chi_tiet_don_vi.css';
+import '../../styles/sinhvien/sv_chitiet_donvi.css';
 
 const SinhVienChiTietDonVi = () => {
   const { maDonVi } = useParams();

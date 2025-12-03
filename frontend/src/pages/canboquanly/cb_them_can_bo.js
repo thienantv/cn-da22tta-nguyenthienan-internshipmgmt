@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { canBoHuongDanService, donViService } from '../../services/api';
-import '../../styles/them_can_bo_huong_dan.css';
+import '../../styles/canboquanly/cb_them_canbo.css';
 
 const CanBoThemCanBoHuongDan = () => {
   const [canBo, setCanBo] = useState({

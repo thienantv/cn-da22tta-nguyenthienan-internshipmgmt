@@ -131,23 +131,27 @@ const deleteDonVi = async (req, res) => {
 /* ================= Tìm kiếm chung ================= */
 const searchDonVi = async (req, res) => {
   try {
-    const { query } = req.query; // query chung
+    const { query } = req.query; // Lấy query chung từ request
 
-    let sql = "SELECT * FROM don_vi WHERE 1=1";
-    const params = [];
+    let sql = "SELECT * FROM don_vi WHERE 1=1";  // Bắt đầu SQL query
+    const params = [];  // Khởi tạo mảng tham số cho SQL
+
+    // Nếu có query tìm kiếm
     if (query) {
-      sql += " AND (ten_don_vi LIKE ? OR dia_chi LIKE ?)";
-      params.push(`%${query}%`, `%${query}%`);
+      sql += " AND (ten_don_vi LIKE ? OR dia_chi LIKE ? OR so_dien_thoai LIKE ? OR email_don_vi LIKE ?)";
+      params.push(`%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`);
     }
-    sql += " ORDER BY created_at DESC";
 
-    const conn = await pool.getConnection();
-    const [rows] = await conn.execute(sql, params);
-    conn.release();
-    return res.status(200).json(rows);
+    sql += " ORDER BY created_at DESC";  // Sắp xếp theo ngày tạo
+
+    const conn = await pool.getConnection();  // Kết nối với database
+    const [rows] = await conn.execute(sql, params);  // Thực thi SQL với các tham số đã chuẩn bị
+    conn.release();  // Giải phóng kết nối
+
+    return res.status(200).json(rows);  // Trả về kết quả tìm kiếm
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ message: "Lỗi máy chủ" });
+    console.error(err);  // Log lỗi nếu có
+    return res.status(500).json({ message: "Lỗi máy chủ" });  // Trả về lỗi server nếu gặp vấn đề
   }
 };
 

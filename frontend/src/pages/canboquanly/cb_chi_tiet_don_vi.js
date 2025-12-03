@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
 import { donViService } from '../../services/api';
-import '../../styles/chitiet/chi_tiet_don_vi.css';
+import '../../styles/canboquanly/cb_chitiet_donvi.css';
 
 const CanBoChiTietDonVi = () => {
   const { maDonVi } = useParams();
   const [donVi, setDonVi] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+  //const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
   
   // Khai báo hook useNavigate
   const navigate = useNavigate();

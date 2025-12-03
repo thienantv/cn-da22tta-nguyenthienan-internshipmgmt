@@ -1,0 +1,142 @@
+/* chi_tiet_can_bo.css */
+
+.chi_tiet_container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.chi_tiet_container > button {
+  margin-bottom: 2rem;
+}
+
+.chi_tiet_content {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.chi_tiet_header {
+  width: 100%;
+}
+
+.chi_tiet_image {
+  width: 100%;
+  height: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.chi_tiet_image:hover {
+  transform: scale(1.05);
+}
+
+.chi_tiet_body {
+  padding: 2rem;
+}
+
+.chi_tiet_body h1 {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  font-size: 2rem;
+}
+
+.chi_tiet_section {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.chi_tiet_section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.chi_tiet_section h3 {
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  font-size: 1.25rem;
+}
+
+.info_row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: flex-start;
+}
+
+.info_row .label {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.info_row .value {
+  color: var(--text-light);
+  word-break: break-word;
+}
+
+.can_bo_list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.can_bo_item {
+  background: var(--light-bg);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+.can_bo_item h4 {
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.can_bo_item p {
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+.can_bo_item strong {
+  color: var(--text-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chi_tiet_body {
+    padding: 1.5rem;
+  }
+
+  .chi_tiet_body h1 {
+    font-size: 1.5rem;
+  }
+
+  .info_row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .can_bo_list {
+    grid-template-columns: 1fr;
+  }
+
+  .chi_tiet_image {
+    max-height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chi_tiet_image {
+    max-height: 200px;
+  }
+
+  .chi_tiet_body h1 {
+    font-size: 1.25rem;
+  }
+}

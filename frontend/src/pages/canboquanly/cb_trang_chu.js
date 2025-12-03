@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { donViService, canBoHuongDanService } from '../../services/api';
-import '../../styles/trangchu/trang_chu_can_bo.css';
+import '../../styles/canboquanly/cb_trangchu.css';
 
 const CanBoTrangChu = () => {
   const [thongKe, setThongKe] = useState({ donVi: 0, canBoHuongDan: 0 });

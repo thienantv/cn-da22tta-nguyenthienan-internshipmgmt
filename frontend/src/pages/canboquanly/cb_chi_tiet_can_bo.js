@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
 import { canBoHuongDanService } from '../../services/api';
-import '../../styles/chitiet/chi_tiet_can_bo.css';
+import '../../styles/canboquanly/cb_chitiet_canbo.css';
 
 const CanBoChiTietCanBo = () => {
   const { maCanBo } = useParams();
   const [canBo, setCanBo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+  //const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 
   // Khai báo hook useNavigate
   const navigate = useNavigate();

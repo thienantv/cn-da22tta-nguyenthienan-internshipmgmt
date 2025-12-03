@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { adminService } from '../../services/api';
-import '../../styles/trangchu/trang_chu_admin.css';
+import '../../styles/admin/ad_trangchu.css';
 
 const AdminTrangChu = () => {
   const [thongKe, setThongKe] = useState(null);

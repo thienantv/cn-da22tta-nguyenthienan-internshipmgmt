@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { donViService } from '../../services/api';
-import '../../styles/danhsach/danh_sach_don_vi.css';
+import '../../styles/sinhvien/sv_danhsach_donvi.css';
 
 const SinhVienDanhSachDonVi = () => {
   const [donVi, setDonVi] = useState([]);
@@ -53,17 +53,6 @@ const SinhVienDanhSachDonVi = () => {
       dia_chi: '',
     });
     fetchDonVi();
-  };
-
-  const handleDelete = async (maDonVi) => {
-    if (window.confirm('Bạn chắc chắn muốn xóa đơn vị này?')) {
-      try {
-        await donViService.delete(maDonVi);
-        setDonVi(donVi.filter(dv => dv.ma_don_vi !== maDonVi));
-      } catch (err) {
-        setError('Xóa đơn vị thất bại');
-      }
-    }
   };
 
   if (loading) return <div className="loading">Đang tải...</div>;

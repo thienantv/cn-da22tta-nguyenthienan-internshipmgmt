@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { canBoHuongDanService } from '../../services/api';
-import '../../styles/danhsach/danh_sach_can_bo.css';
+import '../../styles/sinhvien/sv_danhsach_canbo.css';
 
 const SinhVienDanhSachCanBo = () => {
   const [canBo, setCanBo] = useState([]);
@@ -56,17 +56,6 @@ const SinhVienDanhSachCanBo = () => {
       ma_don_vi: '',
     });
     fetchCanBo();
-  };
-
-  const handleDelete = async (maCanBo) => {
-    if (window.confirm('Bạn chắc chắn muốn xóa cán bộ này?')) {
-      try {
-        await canBoHuongDanService.delete(maCanBo);
-        setCanBo(canBo.filter(cb => cb.ma_can_bo !== maCanBo));
-      } catch (err) {
-        setError('Xóa cán bộ thất bại');
-      }
-    }
   };
 
   if (loading) return <div className="loading">Đang tải...</div>;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { canBoHuongDanService } from '../../services/api';
-import '../../styles/chitiet/chi_tiet_can_bo.css';
+import '../../styles/sinhvien/sv_chitiet_canbo.css';
 
 const SinhVienChiTietCanBo = () => {
   const { maCanBo } = useParams();

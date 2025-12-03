@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService, canBoQuanLyService, sinhVienService } from '../../services/api';
-import '../../styles/thong_tin_ca_nhan.css';
+import '../../styles/admin/ad_thongtin_canhan.css';
 
 const AdminThongTinCaNhan = () => {
   const [user, setUser] = useState(null);

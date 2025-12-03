@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { sinhVienService } from '../../services/api';
-import '../../styles/admin/quan_ly.css';
+import '../../styles/admin/ad_quanly_sinhvien.css';
 
 const AdminQuanLySinhVien = () => {
   const [sinhVien, setSinhVien] = useState([]);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { canBoHuongDanService } from '../../services/api';
-import '../../styles/danhsach/danh_sach_can_bo.css';
+import '../../styles/canboquanly/cb_quanly_canbo.css';
 
 const CanBoQuanLyCanBoHuongDan = () => {
   const [canBo, setCanBo] = useState([]);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { canBoQuanLyService } from '../../services/api';
-import '../../styles/admin/quan_ly.css';
+import '../../styles/admin/ad_quanly_canbo.css';
 
 const AdminQuanLyCanBo = () => {
   const [canBo, setCanBo] = useState([]);

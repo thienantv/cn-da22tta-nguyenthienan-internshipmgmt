@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../../styles/trangchu/trang_chu_sinh_vien.css';
+import '../../styles/sinhvien/sv_trangchu.css';
 
 const SinhVienTrangChu = () => {
   return (
