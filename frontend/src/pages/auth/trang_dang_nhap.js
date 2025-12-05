@@ -47,6 +47,10 @@ const TrangDangNhap = () => {
 
   return (
     <div className="auth-container">
+      {/* <div className="auth-logo">
+        <h1>Hệ thống</h1>
+        <h1>Quản lý Thực tập Sinh viên</h1>
+      </div> */}
       <div className="auth-box">
         <h2>Đăng nhập</h2>
 

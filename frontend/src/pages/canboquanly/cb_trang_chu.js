@@ -43,7 +43,7 @@ const CanBoTrangChu = () => {
           <div className="thong_ke_item">
             <h3>Đơn vị thực tập</h3>
             <p className="thong_ke_number">{thongKe.donVi}</p>
-            <Link to="/danh-sach-don-vi" className="link-quanly">
+            <Link to="/quan-ly-don-vi" className="link-quanly">
               Quản lý
             </Link>
           </div>
@@ -51,7 +51,7 @@ const CanBoTrangChu = () => {
           <div className="thong_ke_item">
             <h3>Cán bộ hướng dẫn</h3>
             <p className="thong_ke_number">{thongKe.canBoHuongDan}</p>
-            <Link to="/danh-sach-can-bo" className="link-quanly">
+            <Link to="/quan-ly-can-bo-huong-dan" className="link-quanly">
               Quản lý
             </Link>
           </div>

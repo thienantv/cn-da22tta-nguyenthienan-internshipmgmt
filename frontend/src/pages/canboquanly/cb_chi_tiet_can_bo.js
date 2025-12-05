@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { canBoHuongDanService } from '../../services/api';
 import '../../styles/canboquanly/cb_chitiet_canbo.css';
 
@@ -8,9 +8,6 @@ const CanBoChiTietCanBo = () => {
   const [canBo, setCanBo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  //const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
-
-  // Khai báo hook useNavigate
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,7 +23,18 @@ const CanBoChiTietCanBo = () => {
     };
 
     fetchCanBoDetail();
-  }, [maCanBo]); // chỉ thêm maCanBo làm dependency
+  }, [maCanBo]);
+
+  const handleDelete = async () => {
+    if (!window.confirm("Bạn chắc chắn muốn xoá cán bộ này?")) return;
+    try {
+      await canBoHuongDanService.delete(maCanBo);
+      alert("Xoá cán bộ thành công!");
+      navigate("/can-bo/danh-sach"); // quay về danh sách cán bộ
+    } catch (err) {
+      alert("Xoá thất bại!");
+    }
+  };
 
   if (loading) return <div className="loading">Đang tải...</div>;
   if (error) return <div className="error-message">{error}</div>;
@@ -105,6 +113,16 @@ const CanBoChiTietCanBo = () => {
               )}
             </div>
           )}
+        </div>
+
+        {/* Footer với nút Sửa và Xóa căn giữa */}
+        <div className="detail_footer">
+          <Link to={`/can-bo/sua-can-bo/${maCanBo}`} className="btn btn-warning">
+            ✏ Sửa
+          </Link>
+          <button onClick={handleDelete} className="btn btn-danger">
+            🗑 Xóa
+          </button>
         </div>
       </div>
     </div>

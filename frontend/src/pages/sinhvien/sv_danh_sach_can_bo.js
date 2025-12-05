@@ -7,29 +7,22 @@ const SinhVienDanhSachCanBo = () => {
   const [canBo, setCanBo] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [searchFilters, setSearchFilters] = useState({
-    ho_ten: '',
-    email_can_bo: '',
-    chuyen_mon: '',
-    ma_don_vi: '',
-  });
+  const [searchQuery, setSearchQuery] = useState('');
   const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 
   useEffect(() => {
     fetchCanBo();
   }, []);
 
-  const fetchCanBo = async (filters = null) => {
+  const fetchCanBo = async (query = '') => {
     try {
       setLoading(true);
       let response;
-      
-      if (filters && Object.values(filters).some(v => v)) {
-        response = await canBoHuongDanService.search(filters);
+      if (query) {
+        response = await canBoHuongDanService.search({ query });
       } else {
         response = await canBoHuongDanService.getAll();
       }
-      
       setCanBo(response.data);
       setError('');
     } catch (err) {
@@ -39,22 +32,12 @@ const SinhVienDanhSachCanBo = () => {
     }
   };
 
-  const handleSearchChange = (e) => {
-    const { name, value } = e.target;
-    setSearchFilters({ ...searchFilters, [name]: value });
-  };
-
   const handleSearch = () => {
-    fetchCanBo(searchFilters);
+    fetchCanBo(searchQuery);
   };
 
   const handleReset = () => {
-    setSearchFilters({
-      ho_ten: '',
-      email_can_bo: '',
-      chuyen_mon: '',
-      ma_don_vi: '',
-    });
+    setSearchQuery('');
     fetchCanBo();
   };
 
@@ -64,62 +47,36 @@ const SinhVienDanhSachCanBo = () => {
 
   return (
     <div className="danh_sach_container">
-      <h1>Danh sách Cán bộ hướng dẫn</h1>
 
       {error && <div className="error-message">{error}</div>}
 
-      {/* Bộ lọc nâng cao */}
+      {/* Bộ lọc tìm kiếm đơn */}
       <div className="filter_section">
-        <h3>Tìm kiếm và lọc</h3>
         <div className="filter_grid">
           <div className="filter_item">
-            <label>Họ tên:</label>
+            <label>Tìm kiếm:</label>
             <input
               type="text"
-              name="ho_ten"
-              value={searchFilters.ho_ten}
-              onChange={handleSearchChange}
-              placeholder="Nhập họ tên"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleSearch();
+                }
+              }}
+              placeholder="Tìm theo tên, email, chuyên môn, đơn vị..."
             />
           </div>
-          <div className="filter_item">
-            <label>Email:</label>
-            <input
-              type="email"
-              name="email_can_bo"
-              value={searchFilters.email_can_bo}
-              onChange={handleSearchChange}
-              placeholder="Nhập email"
-            />
+
+          <div className="filter_buttons">
+            <button className="btn btn-primary" onClick={handleSearch}>
+              Tìm kiếm
+            </button>
+            <button className="btn btn-secondary" onClick={handleReset}>
+              Đặt lại
+            </button>
           </div>
-          <div className="filter_item">
-            <label>Chuyên môn:</label>
-            <input
-              type="text"
-              name="chuyen_mon"
-              value={searchFilters.chuyen_mon}
-              onChange={handleSearchChange}
-              placeholder="Nhập chuyên môn"
-            />
-          </div>
-          <div className="filter_item">
-            <label>Mã đơn vị:</label>
-            <input
-              type="text"
-              name="ma_don_vi"
-              value={searchFilters.ma_don_vi}
-              onChange={handleSearchChange}
-              placeholder="Nhập mã đơn vị"
-            />
-          </div>
-        </div>
-        <div className="filter_buttons">
-          <button className="btn btn-primary" onClick={handleSearch}>
-            Tìm kiếm
-          </button>
-          <button className="btn btn-secondary" onClick={handleReset}>
-            Đặt lại
-          </button>
         </div>
       </div>
 
@@ -143,7 +100,7 @@ const SinhVienDanhSachCanBo = () => {
                 <th>Mã cán bộ</th>
                 <th>Họ tên</th>
                 <th>Giới tính</th>
-                <th>Số điện thoai</th>
+                <th>Số điện thoại</th>
                 <th>Email</th>
                 <th>Chức vụ</th>
                 <th>Chuyên môn</th>

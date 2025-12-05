@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { donViService } from '../../services/api';
 import '../../styles/canboquanly/cb_chitiet_donvi.css';
 
@@ -8,9 +8,6 @@ const CanBoChiTietDonVi = () => {
   const [donVi, setDonVi] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  //const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
-  
-  // Khai báo hook useNavigate
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,7 +23,19 @@ const CanBoChiTietDonVi = () => {
     };
 
     fetchDonViDetail();
-  }, [maDonVi]); // chỉ thêm maDonVi
+  }, [maDonVi]);
+
+  const handleDelete = async () => {
+    if (!window.confirm("Bạn chắc chắn muốn xoá đơn vị này?")) return;
+
+    try {
+      await donViService.delete(maDonVi);
+      alert("Xoá đơn vị thành công!");
+      navigate("/can-bo/don-vi");
+    } catch (err) {
+      alert("Xoá thất bại!");
+    }
+  };
 
   if (loading) return <div className="loading">Đang tải...</div>;
   if (error) return <div className="error-message">{error}</div>;
@@ -34,7 +43,9 @@ const CanBoChiTietDonVi = () => {
 
   return (
     <div className="chi_tiet_container">
-      <button onClick={() => navigate(-1)} className="btn btn-secondary">
+
+      {/* Nút quay lại */}
+      <button onClick={() => navigate(-1)} className="btn btn-secondary back_btn">
         ← Quay lại
       </button>
 
@@ -99,6 +110,17 @@ const CanBoChiTietDonVi = () => {
             </div>
           )}
         </div>
+
+        {/* 🔵 NÚT SỬA + XÓA DƯỚI CÙNG */}
+        <div className="detail_footer">
+          <Link to={`/can-bo/sua-don-vi/${maDonVi}`} className="btn btn-warning">
+            ✏ Sửa
+          </Link>
+          <button onClick={handleDelete} className="btn btn-danger">
+            🗑 Xóa
+          </button>
+        </div>
+
       </div>
     </div>
   );

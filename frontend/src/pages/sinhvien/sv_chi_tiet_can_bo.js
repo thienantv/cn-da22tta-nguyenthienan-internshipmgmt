@@ -38,13 +38,12 @@ useEffect(() => {
 
       <div className="chi_tiet_content">
         <div className="chi_tiet_body">
-          <h1>{canBo.ho_ten}</h1>
 
           <div className="chi_tiet_section">
             <h3>Thông tin cơ bản</h3>
             <div className="info_row">
-              <span className="label">Mã cán bộ:</span>
-              <span className="value">{canBo.ma_can_bo}</span>
+              <span className="label">Tên cán bộ:</span>
+              <span className="value">{canBo.ho_ten}</span>
             </div>
             <div className="info_row">
               <span className="label">Giới tính:</span>

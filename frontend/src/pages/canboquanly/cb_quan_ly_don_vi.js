@@ -7,7 +7,8 @@ const CanBoQuanLyDonVi = () => {
   const [donVi, setDonVi] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');  // Chỉ dùng 1 trường tìm kiếm
+  const [searchQuery, setSearchQuery] = useState('');
+  const [viewMode, setViewMode] = useState('table'); // Mặc định bảng
   const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 
   useEffect(() => {
@@ -20,9 +21,9 @@ const CanBoQuanLyDonVi = () => {
       let response;
 
       if (query) {
-        response = await donViService.search({ query });  // Truyền query tìm kiếm chung
+        response = await donViService.search({ query });
       } else {
-        response = await donViService.getAll(); // Lấy tất cả đơn vị nếu không có tìm kiếm
+        response = await donViService.getAll();
       }
 
       setDonVi(response.data);
@@ -34,24 +35,20 @@ const CanBoQuanLyDonVi = () => {
     }
   };
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
   const handleSearch = () => {
-    fetchDonVi(searchQuery);  // Truyền giá trị tìm kiếm khi người dùng click tìm kiếm
+    fetchDonVi(searchQuery);
   };
 
   const handleReset = () => {
-    setSearchQuery(''); // Reset lại ô tìm kiếm
-    fetchDonVi();  // Lấy lại tất cả đơn vị khi reset
+    setSearchQuery('');
+    fetchDonVi();
   };
 
   const handleDelete = async (maDonVi) => {
     if (window.confirm('Bạn chắc chắn muốn xóa đơn vị này?')) {
       try {
-        await donViService.delete(maDonVi);  // Gọi API để xóa đơn vị
-        setDonVi(donVi.filter(dv => dv.ma_don_vi !== maDonVi));  // Cập nhật lại danh sách sau khi xóa
+        await donViService.delete(maDonVi);
+        setDonVi(donVi.filter((dv) => dv.ma_don_vi !== maDonVi));
       } catch (err) {
         setError('Xóa đơn vị thất bại');
       }
@@ -64,7 +61,6 @@ const CanBoQuanLyDonVi = () => {
 
   return (
     <div className="danh_sach_container">
-      <h1>Danh sách Đơn vị thực tập</h1>
 
       {error && <div className="error-message">{error}</div>}
 
@@ -76,16 +72,17 @@ const CanBoQuanLyDonVi = () => {
             <input
               type="text"
               value={searchQuery}
-              onChange={handleSearchChange}
+              onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
-                  e.preventDefault(); // Ngăn form submit nếu có
-                  handleSearch();     // Gọi hàm tìm kiếm
+                  e.preventDefault();
+                  handleSearch();
                 }
               }}
-              placeholder="Tìm kiếm theo tên đơn vị, địa chỉ, số điện thoại, email"
+              placeholder="Tìm theo tên đơn vị, địa chỉ, điện thoại, email"
             />
           </div>
+
           <div className="filter_buttons">
             <button className="btn btn-primary" onClick={handleSearch}>
               Tìm kiếm
@@ -97,19 +94,74 @@ const CanBoQuanLyDonVi = () => {
         </div>
       </div>
 
-      {/* Nút thêm */}
-      {isCanBo && (
-        <div className="action_bar" align="center">
+      {/* Nút thêm + chuyển chế độ xem */}
+      <div className="action_bar" align="center">
+        {isCanBo && (
           <Link to="/them-don-vi" className="btn btn-primary">
             + Thêm đơn vị
           </Link>
+        )}
+
+        <div className="view_toggle">
+          <button
+            className={`view-btn ${viewMode === 'card' ? 'active' : ''}`}
+            onClick={() => setViewMode('card')}
+          >
+            Card
+          </button>
+          <button
+            className={`view-btn ${viewMode === 'table' ? 'active' : ''}`}
+            onClick={() => setViewMode('table')}
+          >
+            Bảng
+          </button>
         </div>
-      )}
+      </div>
 
       {/* Hiển thị danh sách */}
       {donVi.length === 0 ? (
         <div className="empty-message">Không có đơn vị nào</div>
+      ) : viewMode === 'card' ? (
+        /* CARD VIEW */
+        <div className="don_vi_cards">
+          {donVi.map((dv) => (
+            <div key={dv.ma_don_vi} className="don_vi_card">
+
+              <div className="card_image">
+                <img
+                  src={
+                    dv.hinh_anh
+                      ? dv.hinh_anh.startsWith('data:')
+                        ? dv.hinh_anh
+                        : dv.hinh_anh
+                      : 'https://via.placeholder.com/300x200?text=No+Image'
+                  }
+                  alt={dv.ten_don_vi}
+                />
+              </div>
+
+              <div className="card_content">
+                <h3>{dv.ten_don_vi}</h3>
+                <p className="card_address">{dv.dia_chi}</p>
+                <p className="card_description">{dv.gioi_thieu?.substring(0, 100)}...</p>
+
+                <div className="card_buttons">
+                  <Link to={`/can-bo/chi-tiet-don-vi/${dv.ma_don_vi}`} className="btn-modern">Chi tiết</Link>
+
+                  {isCanBo && (
+                    <>
+                      <Link to={`/can-bo/sua-don-vi/${dv.ma_don_vi}`} className="btn-modern warning">Sửa</Link>
+                      <button className="btn-modern danger" onClick={() => handleDelete(dv.ma_don_vi)}>Xóa</button>
+                    </>
+                  )}
+                </div>
+
+              </div>
+            </div>
+          ))}
+        </div>
       ) : (
+        /* TABLE VIEW */
         <div className="don_vi_table_wrapper">
           <table className="don_vi_table">
             <thead>
@@ -130,27 +182,30 @@ const CanBoQuanLyDonVi = () => {
                   <td>{dv.dia_chi}</td>
                   <td>{dv.so_dien_thoai}</td>
                   <td>{dv.email_don_vi}</td>
+
                   <td className="action_cell">
-                    {/* Nút Chi tiết */}
-                    <Link to={`/can-bo/chi-tiet-don-vi/${dv.ma_don_vi}`} className="btn-link">
+                    <Link
+                      to={`/can-bo/chi-tiet-don-vi/${dv.ma_don_vi}`}
+                      className="btn-link"
+                    >
                       Chi tiết
                     </Link>
 
-                    {/* Nút sửa */}
                     {isCanBo && (
-                      <Link to={`/can-bo/sua-don-vi/${dv.ma_don_vi}`} className="btn-link btn-warning">
-                        Sửa
-                      </Link>
-                    )}
-
-                    {/* Nút xóa */}
-                    {isCanBo && (
-                      <button
-                        onClick={() => handleDelete(dv.ma_don_vi)}
-                        className="btn-link btn-danger"
-                      >
-                        Xóa
-                      </button>
+                      <>
+                        <Link
+                          to={`/can-bo/sua-don-vi/${dv.ma_don_vi}`}
+                          className="btn-link btn-warning"
+                        >
+                          Sửa
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(dv.ma_don_vi)}
+                          className="btn-link btn-danger"
+                        >
+                          Xóa
+                        </button>
+                      </>
                     )}
                   </td>
                 </tr>
