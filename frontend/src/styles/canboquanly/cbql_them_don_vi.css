@@ -1,0 +1,180 @@
+/* ==========================
+   CONTAINER FORM
+========================== */
+.form_container {
+  max-width: 850px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.form_container h1 {
+  text-align: center;
+  color: #053485;
+  font-weight: 700;
+  margin-bottom: 1.8rem;
+}
+
+/* ==========================
+   MESSAGES
+========================== */
+.error-message, .success-message {
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.error-message {
+  background: #fff1f0;
+  color: #ff4d4f;
+  border: 1px solid #ffa39e;
+}
+
+.success-message {
+  background: #f6ffed;
+  color: #389e0d;
+  border: 1px solid #b7eb8f;
+}
+
+/* ==========================
+   FORM GRID
+========================== */
+.form_grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.4rem 1.6rem;
+}
+
+.form_grid label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  display: block;
+  color: #333;
+}
+
+.form_grid input,
+.form_grid textarea,
+.form_grid select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* SHORT FIELD = 1 CỘT */
+.half {
+  grid-column: span 1;
+}
+
+/* FULL WIDTH FIELD */
+.full {
+  grid-column: span 2;
+}
+
+textarea.full {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* ==========================
+   IMAGE UPLOAD GRID
+========================== */
+.image_upload_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.image_input label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+.image_input input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+}
+
+.image_preview img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+/* ==========================
+   FORM BUTTONS - 2 CỘT FULL WIDTH
+========================== */
+.form_actions {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 cột */
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.form_actions button {
+  width: 100%; /* full width trong cột */
+  padding: 0.85rem 1.5rem;
+  font-size: 1.05rem;
+  border-radius: 6px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: 0.25s;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form_actions button[type="submit"] {
+  background-color: #053485;
+  color: #fff;
+}
+
+.form_actions button[type="submit"]:hover {
+  background-color: #0952c0;
+}
+
+.cancel_btn {
+  background-color: #6c757d;
+  color: #ffffff;
+}
+
+.cancel_btn:hover {
+  background-color: #5a6268;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+@media (max-width: 700px) {
+  .form_grid {
+    grid-template-columns: 1fr;
+  }
+
+  .half, .full, .image_upload_grid {
+    grid-column: 1 / -1 !important;
+  }
+
+  .form_actions {
+    grid-template-columns: 1fr; /* mobile: 1 cột */
+  }
+
+  .form_actions button {
+    width: 100%;
+  }
+
+  .image_preview img {
+    max-width: 100%;
+    height: auto;
+  }
+}

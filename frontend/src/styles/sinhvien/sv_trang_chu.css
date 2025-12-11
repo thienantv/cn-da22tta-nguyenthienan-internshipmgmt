@@ -1,0 +1,86 @@
+/* trang_chu_sinh_vien.css */
+
+.sv__trang_chu {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sv__trang_chu h1 {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+.sv__trang_chu--welcome_section {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  font-size: 1.125rem;
+  text-align: center;
+  color: var(--text-light);
+}
+
+.sv__trang_chu--action_container {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.sv__trang_chu--action_container h2 {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+.sv__trang_chu--action_buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.sv__trang_chu--action_buttons .btn {
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.sv__trang_chu--info_section {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sv__trang_chu--info_section h2 {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+.sv__trang_chu--info_section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sv__trang_chu--info_section li {
+  padding: 0.75rem 0;
+  padding-left: 2rem;
+  position: relative;
+  color: var(--text-light);
+}
+
+.sv__trang_chu--info_section li:before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .sv__trang_chu--action_buttons {
+    grid-template-columns: 1fr;
+  }
+}

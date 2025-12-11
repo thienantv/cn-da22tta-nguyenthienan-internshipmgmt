@@ -4,25 +4,25 @@ import Header from './components/Header';
 import ProtectedRoute from './components/ProtectedRoute';
 
 // Pages Admin
-import AdminQuanLyCanBo from './pages/admin/ad_quan_ly_can_bo';
-import AdminQuanLySinhVien from './pages/admin/ad_quan_ly_sinh_vien';
-import AdminTrangChu from './pages/admin/ad_trang_chu';
-import AdminThongTin from './pages/admin/ad_thong_tin';
+import AdminQuanLyCanBo from './pages/admin/qtv_quan_ly_can_bo';
+import AdminQuanLySinhVien from './pages/admin/qtv_quan_ly_sinh_vien';
+import AdminTrangChu from './pages/admin/qtv_trang_chu';
+import AdminThongTin from './pages/admin/qtv_thong_tin';
 
 // Pages Auth
 import TrangDangKy from './pages/auth/trang_dang_ky';
 import TrangDangNhap from './pages/auth/trang_dang_nhap';
 
 // Pages Cán bộ quản lý
-import CanBoChiTietCanBo from './pages/canboquanly/cb_chi_tiet_can_bo';
-import CanBoChiTietDonVi from './pages/canboquanly/cb_chi_tiet_don_vi';
-import CanBoQuanLyCanBoHuongDan from './pages/canboquanly/cb_quan_ly_can_bo';
-import CanBoQuanLyDonVi from './pages/canboquanly/cb_quan_ly_don_vi';
-import CanBoThemCanBoHuongDan from './pages/canboquanly/cb_them_can_bo';
-import CanBoThemDonVi from './pages/canboquanly/cb_them_don_vi';
-import CanBoSuaDonVi from './pages/canboquanly/cb_sua_don_vi';
-import CanBoThongTinCaNhan from './pages/canboquanly/cb_thong_tin';
-import CanBoTrangChu from './pages/canboquanly/cb_trang_chu';
+import CanBoChiTietCanBo from './pages/canboquanly/cbql_chi_tiet_can_bo';
+import CanBoChiTietDonVi from './pages/canboquanly/cbql_chi_tiet_don_vi';
+import CanBoQuanLyCanBoHuongDan from './pages/canboquanly/cbql_quan_ly_can_bo';
+import CanBoQuanLyDonVi from './pages/canboquanly/cbql_quan_ly_don_vi';
+import CanBoThemCanBoHuongDan from './pages/canboquanly/cbql_them_can_bo';
+import CanBoThemDonVi from './pages/canboquanly/cbql_them_don_vi';
+import CanBoSuaDonVi from './pages/canboquanly/cbql_sua_don_vi';
+import CanBoThongTinCaNhan from './pages/canboquanly/cbql_thong_tin';
+import CanBoTrangChu from './pages/canboquanly/cbql_trang_chu';
 
 // Pages Sinh viên
 import SinhVienChiTietCanBo from './pages/sinhvien/sv_chi_tiet_can_bo';

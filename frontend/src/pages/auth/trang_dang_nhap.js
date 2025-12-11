@@ -46,55 +46,60 @@ const TrangDangNhap = () => {
   };
 
   return (
-    <div className="auth-container">
-      {/* <div className="auth-logo">
-        <h1>Hệ thống</h1>
-        <h1>Quản lý Thực tập Sinh viên</h1>
-      </div> */}
-      <div className="auth-box">
-        <h2>Đăng nhập</h2>
+  <div className="auth-container">
 
-        {error && <div className="error-message">{error}</div>}
-
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleInputChange}
-              required
-              placeholder="Nhập username"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-              placeholder="Nhập password"
-            />
-          </div>
-
-          <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
-          </button>
-        </form>
-
-        <p className="auth-link">
-          Chưa có tài khoản? <Link to="/dang-ky">Đăng ký tại đây</Link>
-        </p>
-
-      </div>
+    {/* LEFT BOX — LOGO BOX */}
+    <div className="auth-left">
+      <h1>Hệ thống quản lý</h1>
+      <h1>Thông tin đơn vị thực tập</h1>
+      {/* <h1>Sinh viên khoa Công nghệ thông tin</h1> */}
     </div>
-  );
+
+    {/* RIGHT BOX — LOGIN BOX */}
+    <div className="auth-box">
+      <h2>Đăng nhập</h2>
+
+      {error && <div className="error-message">{error}</div>}
+
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleInputChange}
+            required
+            placeholder="Nhập username"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+            placeholder="Nhập password"
+          />
+        </div>
+
+        <button type="submit" className="btn-primary" disabled={loading}>
+          {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
+        </button>
+      </form>
+
+      <p className="auth-link">
+        Chưa có tài khoản? <Link to="/dang-ky">Đăng ký tại đây</Link>
+      </p>
+
+    </div>
+  </div>
+);
 };
 
 export default TrangDangNhap;

@@ -6,12 +6,12 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // Import routes
-const authRoutes = require('./routes/auth_routes');
-const donViRoutes = require('./routes/don_vi_routes');
-const canBoHuongDanRoutes = require('./routes/can_bo_huong_dan_routes');
-const canBoQuanLyRoutes = require('./routes/can_bo_quan_ly_routes');
-const sinhVienRoutes = require('./routes/sinh_vien_routes');
-const adminRoutes = require('./routes/admin_routes');
+const authRoutes = require('./routes/XacThucRoutes');
+const donViRoutes = require('./routes/DonViRoutes');
+const canBoHuongDanRoutes = require('./routes/CanBoHuongDanRoutes');
+const canBoQuanLyRoutes = require('./routes/CanBoQuanLyRoutes');
+const sinhVienRoutes = require('./routes/SinhVienRoutes');
+const adminRoutes = require('./routes/QuanTriVienRoutes');
 
 const app = express();
 

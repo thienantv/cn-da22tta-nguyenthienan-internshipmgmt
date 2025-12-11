@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService, canBoQuanLyService, sinhVienService } from '../../services/api';
-import '../../styles/sinhvien/sv_thong_tin.css';
+import '../../styles/canboquanly/cbql_thong_tin.css';
 
-const SinhVienThongTin = () => {
+const CanBoThongTinCaNhan = () => {
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -85,16 +85,16 @@ const SinhVienThongTin = () => {
   };
 
   return (
-    <div className="sv__thong_tin">
+    <div className="thong_tin_container">
       <h1>Thông tin cá nhân</h1>
 
       {error && <div className="error-message">{error}</div>}
 
       {userData && (
-        <div className="sv__thong_tin--content">
-          <div className="sv__thong_tin--section">
+        <div className="thong_tin_content">
+          <div className="thong_tin_section">
             <h3>Thông tin tài khoản</h3>
-            <div className="sv__thong_tin--info_group">
+            <div className="info_group">
               <div className="info_row">
                 <span className="label">Vai trò:</span>
                 <span className="value">{getRoleLabel(user?.role)}</span>
@@ -238,4 +238,4 @@ const SinhVienThongTin = () => {
   );
 };
 
-export default SinhVienThongTin;
+export default CanBoThongTinCaNhan;

@@ -1,30 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { canBoHuongDanService } from '../../services/api';
-import '../../styles/sinhvien/sv_chi_tiet_can_bo.css';
+import '../../styles/canboquanly/cbql_chi_tiet_can_bo.css';
 
-const SinhVienChiTietCanBo = () => {
+const CanBoChiTietCanBo = () => {
   const { maCanBo } = useParams();
   const [canBo, setCanBo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-useEffect(() => {
-  const fetchCanBoDetail = async () => {
+  useEffect(() => {
+    const fetchCanBoDetail = async () => {
+      try {
+        const response = await canBoHuongDanService.getById(maCanBo);
+        setCanBo(response.data);
+      } catch (err) {
+        setError('Không thể tải thông tin cán bộ');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCanBoDetail();
+  }, [maCanBo]);
+
+  const handleDelete = async () => {
+    if (!window.confirm("Bạn chắc chắn muốn xoá cán bộ này?")) return;
     try {
-      const response = await canBoHuongDanService.getById(maCanBo);
-      setCanBo(response.data);
+      await canBoHuongDanService.delete(maCanBo);
+      alert("Xoá cán bộ thành công!");
+      navigate("/can-bo/danh-sach"); // quay về danh sách cán bộ
     } catch (err) {
-      setError('Không thể tải thông tin cán bộ');
-    } finally {
-      setLoading(false);
+      alert("Xoá thất bại!");
     }
   };
-
-  fetchCanBoDetail();
-}, [maCanBo]); // chỉ thêm maCanBo làm dependency
-
 
   if (loading) return <div className="loading">Đang tải...</div>;
   if (error) return <div className="error-message">{error}</div>;
@@ -38,12 +48,13 @@ useEffect(() => {
 
       <div className="chi_tiet_content">
         <div className="chi_tiet_body">
+          <h1>{canBo.ho_ten}</h1>
 
           <div className="chi_tiet_section">
             <h3>Thông tin cơ bản</h3>
             <div className="info_row">
-              <span className="label">Tên cán bộ:</span>
-              <span className="value">{canBo.ho_ten}</span>
+              <span className="label">Mã cán bộ:</span>
+              <span className="value">{canBo.ma_can_bo}</span>
             </div>
             <div className="info_row">
               <span className="label">Giới tính:</span>
@@ -103,9 +114,19 @@ useEffect(() => {
             </div>
           )}
         </div>
+
+        {/* Footer với nút Sửa và Xóa căn giữa */}
+        <div className="detail_footer">
+          <Link to={`/can-bo/sua-can-bo/${maCanBo}`} className="btn btn-warning">
+            ✏ Sửa
+          </Link>
+          <button onClick={handleDelete} className="btn btn-danger">
+            🗑 Xóa
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default SinhVienChiTietCanBo;
+export default CanBoChiTietCanBo;

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { canBoHuongDanService } from '../../services/api';
-import '../../styles/sinhvien/sv_danhsach_canbo.css';
+import '../../styles/sinhvien/sv_danh_sach_can_bo.css';
 
 const SinhVienDanhSachCanBo = () => {
   const [canBo, setCanBo] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 
   useEffect(() => {
     fetchCanBo();
@@ -18,14 +17,18 @@ const SinhVienDanhSachCanBo = () => {
     try {
       setLoading(true);
       let response;
-      if (query) {
+
+      // 🔥 Nếu có từ khóa → gọi API search
+      if (query.trim() !== '') {
         response = await canBoHuongDanService.search({ query });
       } else {
         response = await canBoHuongDanService.getAll();
       }
+
       setCanBo(response.data);
       setError('');
     } catch (err) {
+      console.error(err);
       setError('Không thể tải danh sách cán bộ');
     } finally {
       setLoading(false);
@@ -38,19 +41,17 @@ const SinhVienDanhSachCanBo = () => {
 
   const handleReset = () => {
     setSearchQuery('');
-    fetchCanBo();
+    fetchCanBo('');
   };
 
   if (loading) return <div className="loading">Đang tải...</div>;
 
-  const isCanBo = user && user.role === 'can_bo_quan_ly';
-
   return (
     <div className="danh_sach_container">
-
+      
       {error && <div className="error-message">{error}</div>}
 
-      {/* Bộ lọc tìm kiếm đơn */}
+      {/* Bộ lọc tìm kiếm */}
       <div className="filter_section">
         <div className="filter_grid">
           <div className="filter_item">
@@ -65,7 +66,7 @@ const SinhVienDanhSachCanBo = () => {
                   handleSearch();
                 }
               }}
-              placeholder="Tìm theo tên, email, chuyên môn, đơn vị..."
+              placeholder="Tìm theo họ tên, số điện thoại, email, chức vụ, chuyên môn, đơn vị..."
             />
           </div>
 
@@ -80,16 +81,7 @@ const SinhVienDanhSachCanBo = () => {
         </div>
       </div>
 
-      {/* Nút thêm */}
-      <div className="action_bar">
-        {isCanBo && (
-          <Link to="/them-can-bo-huong-dan" className="btn btn-primary">
-            + Thêm cán bộ
-          </Link>
-        )}
-      </div>
-
-      {/* Hiển thị danh sách */}
+      {/* Bảng danh sách */}
       {canBo.length === 0 ? (
         <div className="empty-message">Không có cán bộ nào</div>
       ) : (

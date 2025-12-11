@@ -1,0 +1,164 @@
+/* Container chính */
+.sua_don_vi_container {
+  max-width: 850px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.sua_don_vi_container h1 {
+  text-align: center;
+  color: #053485;
+  font-weight: 700;
+  margin-bottom: 1.8rem;
+}
+
+/* Thông báo lỗi */
+.error-message {
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  background: #fff1f0;
+  color: #ff4d4f;
+  border: 1px solid #ffa39e;
+}
+
+/* Form grid */
+.sua_don_vi_form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.4rem 1.6rem;
+}
+
+/* Half và full width fields */
+.sua_don_vi_form .half {
+  grid-column: span 1;
+}
+
+.sua_don_vi_form .full {
+  grid-column: span 2;
+}
+
+/* Nhóm input */
+.form_group {
+  margin-bottom: 1.2rem;
+}
+
+.form_group label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #333;
+  display: block;
+}
+
+.form_group input,
+.form_group textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.form_group textarea {
+  resize: vertical;
+}
+
+/* Input file */
+.sua_don_vi_form input[type="file"] {
+  padding: 0.4rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+}
+
+.sua_don_vi_form input[type="file"]::file-selector-button {
+  padding: 0.3rem;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: 1px solid #000000;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sua_don_vi_form input[type="file"]::file-selector-button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Xem trước hình ảnh */
+.sua_don_vi_form .image_preview {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.sua_don_vi_form .image_preview img {
+  width: 150px;
+  height: auto;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+/* Nút submit và hủy */
+.form_buttons {
+  grid-column: span 2;       /* Chiếm toàn bộ hàng form */
+  display: flex;
+  justify-content: center;    /* Căn giữa các nút */
+  gap: 1rem;                  /* Khoảng cách giữa các nút */
+  margin-top: 1.5rem;
+}
+
+.form_buttons button {
+  padding: 0.85rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+/* Nút cập nhật */
+.form_buttons .btn-success {
+  background-color: #053485;
+  color: #fff;
+  border: none;
+}
+
+.form_buttons .btn-success:hover {
+  background-color: #0952c0;
+}
+
+/* Nút hủy */
+.form_buttons .btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+}
+
+.form_buttons .btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Responsive design */
+@media (max-width: 700px) {
+  .sua_don_vi_form {
+    grid-template-columns: 1fr;
+  }
+
+  .half, .full {
+    grid-column: 1 / -1 !important;
+  }
+
+  .form_buttons {
+    flex-direction: column; /* Xếp dọc trên mobile */
+    align-items: center;    /* Căn giữa hàng */
+    gap: 0.5rem;
+  }
+
+  .form_buttons button {
+    width: 100%;  /* Nút chiếm hết chiều rộng */
+  }
+}

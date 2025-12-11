@@ -1,0 +1,152 @@
+/* qtv_trang_chu.css - Quản Trị Viên Dashboard Styles */
+
+/* Container chính */
+.qtv__trang_chu {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.qtv__trang_chu h1 {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+/* Phần chào mừng */
+.qtv__trang_chu--welcome {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  font-size: 1.125rem;
+  text-align: center;
+  color: var(--text-light);
+}
+
+/* Thống kê */
+.qtv__trang_chu--stats {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.qtv__trang_chu--stats h2 {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+.qtv__trang_chu--stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.qtv__trang_chu--stat-item {
+  background: linear-gradient(135deg, var(--primary-color), #3b82f6);
+  color: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.qtv__trang_chu--stat-item:hover {
+  transform: translateY(-5px);
+}
+
+.qtv__trang_chu--stat-item h3 {
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+}
+
+.qtv__trang_chu--stat-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.qtv__trang_chu--manage-link {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.qtv__trang_chu--manage-link:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Chức năng (Actions) */
+.qtv__trang_chu--actions {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.qtv__trang_chu--actions h2 {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+.qtv__trang_chu--action-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.qtv__trang_chu--action-buttons .btn {
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.qtv__trang_chu--info {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.qtv__trang_chu--info h2 {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+.qtv__trang_chu--info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.qtv__trang_chu--info li {
+  padding: 0.75rem 0;
+  padding-left: 2rem;
+  position: relative;
+  color: var(--text-light);
+}
+
+.qtv__trang_chu--info li:before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .qtv__trang_chu--stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .qtv__trang_chu--action-buttons {
+    grid-template-columns: 1fr;
+  }
+}

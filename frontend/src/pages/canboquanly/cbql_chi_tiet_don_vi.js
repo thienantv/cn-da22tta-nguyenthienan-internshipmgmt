@@ -1,52 +1,64 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { donViService } from '../../services/api';
-import '../../styles/sinhvien/sv_chi_tiet_don_vi.css';
+import '../../styles/canboquanly/cbql_chi_tiet_don_vi.css';
 
-const SinhVienChiTietDonVi = () => {
+const CanBoChiTietDonVi = () => {
   const { maDonVi } = useParams();
   const [donVi, setDonVi] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-useEffect(() => {
-  const fetchDonViDetail = async () => {
+  useEffect(() => {
+    const fetchDonViDetail = async () => {
+      try {
+        const response = await donViService.getById(maDonVi);
+        setDonVi(response.data);
+      } catch (err) {
+        setError('Không thể tải thông tin đơn vị');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDonViDetail();
+  }, [maDonVi]);
+
+  const handleDelete = async () => {
+    if (!window.confirm("Bạn chắc chắn muốn xoá đơn vị này?")) return;
+
     try {
-      const response = await donViService.getById(maDonVi);
-      setDonVi(response.data);
+      await donViService.delete(maDonVi);
+      alert("Xoá đơn vị thành công!");
+      navigate("/can-bo/don-vi");
     } catch (err) {
-      setError('Không thể tải thông tin đơn vị');
-    } finally {
-      setLoading(false);
+      alert("Xoá thất bại!");
     }
   };
-
-  fetchDonViDetail();
-}, [maDonVi]); // chỉ thêm maDonVi
 
   if (loading) return <div className="loading">Đang tải...</div>;
   if (error) return <div className="error-message">{error}</div>;
   if (!donVi) return <div className="error-message">Đơn vị không tồn tại</div>;
 
   return (
-    <div className="chi_tiet_container">
-      <button onClick={() => navigate(-1)} className="btn btn-secondary">
+    <div className="chi_tiet_don_vi_container">
+
+      {/* Nút quay lại */}
+      <button onClick={() => navigate(-1)} className="btn btn-secondary back_btn">
         ← Quay lại
       </button>
 
-      <div className="chi_tiet_content">
-        <div className="chi_tiet_header">
+      <div className="chi_tiet_don_vi_content">
+        <div className="chi_tiet_don_vi_header">
           <img
-            src={donVi.hinh_anh || 'https://via.placeholder.com/600x400?text=' + donVi.ten_don_vi}
+            src={donVi.hinh_anh || `https://via.placeholder.com/600x400?text=${donVi.ten_don_vi}`}
             alt={donVi.ten_don_vi}
-            className="chi_tiet_image"
+            className="chi_tiet_don_vi_image"
           />
         </div>
 
-        <div className="chi_tiet_body">
-
-          <div className="chi_tiet_section">
+        <div className="chi_tiet_don_vi_body">
+          <div className="chi_tiet_don_vi_section">
             <h3>Thông tin cơ bản</h3>
             <div className="info_row">
               <span className="label">Tên đơn vị:</span>
@@ -67,21 +79,21 @@ useEffect(() => {
           </div>
 
           {donVi.gioi_thieu && (
-            <div className="chi_tiet_section">
+            <div className="chi_tiet_don_vi_section">
               <h3>Giới thiệu về đơn vị</h3>
               <p>{donVi.gioi_thieu}</p>
             </div>
           )}
 
           {donVi.dieu_kien_thuc_tap && (
-            <div className="chi_tiet_section">
+            <div className="chi_tiet_don_vi_section">
               <h3>Điều kiện thực tập</h3>
               <p>{donVi.dieu_kien_thuc_tap}</p>
             </div>
           )}
 
-          {donVi.can_bo_huong_dan && donVi.can_bo_huong_dan.length > 0 && (
-            <div className="chi_tiet_section">
+          {donVi.can_bo_huong_dan?.length > 0 && (
+            <div className="chi_tiet_don_vi_section">
               <h3>Cán bộ hướng dẫn</h3>
               <div className="can_bo_list">
                 {donVi.can_bo_huong_dan.map((cb) => (
@@ -97,9 +109,20 @@ useEffect(() => {
             </div>
           )}
         </div>
+
+        {/* Nút Sửa & Xóa full width 2 cột */}
+        <div className="chi_tiet_don_vi_footer">
+          <Link to={`/can-bo/sua-don-vi/${maDonVi}`} className="btn btn-edit">
+            ✏ Sửa
+          </Link>
+          <button onClick={handleDelete} className="btn btn-delete">
+            🗑 Xóa
+          </button>
+        </div>
+
       </div>
     </div>
   );
 };
 
-export default SinhVienChiTietDonVi;
+export default CanBoChiTietDonVi;

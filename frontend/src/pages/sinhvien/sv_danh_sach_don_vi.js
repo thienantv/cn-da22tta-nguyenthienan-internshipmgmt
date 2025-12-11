@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { donViService } from '../../services/api';
-import '../../styles/sinhvien/sv_danhsach_donvi.css';
+import '../../styles/sinhvien/sv_danh_sach_don_vi.css';
 
 const SinhVienDanhSachDonVi = () => {
   const [donVi, setDonVi] = useState([]);
