@@ -41,63 +41,63 @@ const CanBoChiTietDonVi = () => {
   if (!donVi) return <div className="error-message">Đơn vị không tồn tại</div>;
 
   return (
-    <div className="chi_tiet_don_vi_container">
+    <div className="cbql__chi_tiet_don_vi">
 
       {/* Nút quay lại */}
       <button onClick={() => navigate(-1)} className="btn btn-secondary back_btn">
         ← Quay lại
       </button>
 
-      <div className="chi_tiet_don_vi_content">
-        <div className="chi_tiet_don_vi_header">
+      <div className="cbql__chi_tiet_don_vi--content">
+        <div className="cbql__chi_tiet_don_vi--header">
           <img
             src={donVi.hinh_anh || `https://via.placeholder.com/600x400?text=${donVi.ten_don_vi}`}
             alt={donVi.ten_don_vi}
-            className="chi_tiet_don_vi_image"
+            className="cbql__chi_tiet_don_vi--image"
           />
         </div>
 
-        <div className="chi_tiet_don_vi_body">
-          <div className="chi_tiet_don_vi_section">
+        <div className="cbql__chi_tiet_don_vi--body">
+          <div className="cbql__chi_tiet_don_vi--section">
             <h3>Thông tin cơ bản</h3>
-            <div className="info_row">
+            <div className="cbql__chi_tiet_don_vi--info_row">
               <span className="label">Tên đơn vị:</span>
               <span className="value">{donVi.ten_don_vi}</span>
             </div>
-            <div className="info_row">
+            <div className="cbql__chi_tiet_don_vi--info_row">
               <span className="label">Địa chỉ:</span>
               <span className="value">{donVi.dia_chi}</span>
             </div>
-            <div className="info_row">
+            <div className="cbql__chi_tiet_don_vi--info_row">
               <span className="label">Số điện thoại:</span>
               <span className="value">{donVi.so_dien_thoai}</span>
             </div>
-            <div className="info_row">
+            <div className="cbql__chi_tiet_don_vi--info_row">
               <span className="label">Email:</span>
               <span className="value">{donVi.email_don_vi}</span>
             </div>
           </div>
 
           {donVi.gioi_thieu && (
-            <div className="chi_tiet_don_vi_section">
+            <div className="cbql__chi_tiet_don_vi--section">
               <h3>Giới thiệu về đơn vị</h3>
               <p>{donVi.gioi_thieu}</p>
             </div>
           )}
 
           {donVi.dieu_kien_thuc_tap && (
-            <div className="chi_tiet_don_vi_section">
+            <div className="cbql__chi_tiet_don_vi--section">
               <h3>Điều kiện thực tập</h3>
               <p>{donVi.dieu_kien_thuc_tap}</p>
             </div>
           )}
 
           {donVi.can_bo_huong_dan?.length > 0 && (
-            <div className="chi_tiet_don_vi_section">
+            <div className="cbql__chi_tiet_don_vi--section">
               <h3>Cán bộ hướng dẫn</h3>
-              <div className="can_bo_list">
+              <div className="cbql__chi_tiet_don_vi--can_bo_list">
                 {donVi.can_bo_huong_dan.map((cb) => (
-                  <div key={cb.ma_can_bo} className="can_bo_item">
+                  <div key={cb.ma_can_bo} className="cbql__chi_tiet_don_vi--can_bo_item">
                     <h4>{cb.ho_ten}</h4>
                     <p><strong>Chức vụ:</strong> {cb.chuc_vu}</p>
                     <p><strong>Chuyên môn:</strong> {cb.chuyen_mon}</p>
@@ -111,7 +111,7 @@ const CanBoChiTietDonVi = () => {
         </div>
 
         {/* Nút Sửa & Xóa full width 2 cột */}
-        <div className="chi_tiet_don_vi_footer">
+        <div className="cbql__chi_tiet_don_vi--footer">
           <Link to={`/can-bo/sua-don-vi/${maDonVi}`} className="btn btn-edit">
             ✏ Sửa
           </Link>

@@ -1,0 +1,100 @@
+.cbql__sua_can_bo {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.cbql__sua_can_bo h1 {
+  margin-bottom: 1.5rem;
+  color: #053485;
+}
+
+.cbql__sua_can_bo--form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.cbql__sua_can_bo--form_group {
+  display: flex;
+  flex-direction: column;
+}
+
+.cbql__sua_can_bo--half {
+  flex: 1 1 calc(50% - 1rem);
+}
+
+.cbql__sua_can_bo--full {
+  flex: 1 1 100%;
+}
+
+.cbql__sua_can_bo--form_group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.cbql__sua_can_bo--form_group input,
+.cbql__sua_can_bo--form_group textarea {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.cbql__sua_can_bo--form_group textarea {
+  resize: vertical;
+}
+
+.cbql__sua_can_bo--image_preview {
+  margin-bottom: 0.5rem;
+}
+
+.cbql__sua_can_bo--form_buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex: 1 1 100%;
+}
+
+.cbql__sua_can_bo--form_buttons .btn {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .cbql__sua_can_bo--half {
+    flex: 1 1 100%;
+  }
+}

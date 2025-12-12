@@ -72,14 +72,14 @@ const CanBoSuaDonVi = () => {
   if (error) return <div className="error-message">{error}</div>; 
 
   return (
-    <div className="sua_don_vi_container">
+    <div className="cbql__sua_don_vi">
       <h1>Sửa Đơn Vị</h1>
       
       {error && <div className="error-message">{error}</div>}
 
-      <form onSubmit={handleSubmit} className="sua_don_vi_form">
+      <form onSubmit={handleSubmit} className="cbql__sua_don_vi--form">
         {/* Tên đơn vị */}
-        <div className="form_group half">
+        <div className="cbql__sua_don_vi--form_group cbql__sua_don_vi--half">
           <label>Tên đơn vị:</label>
           <input
             type="text"
@@ -90,7 +90,7 @@ const CanBoSuaDonVi = () => {
         </div>
 
         {/* Địa chỉ */}
-        <div className="form_group half">
+        <div className="cbql__sua_don_vi--form_group cbql__sua_don_vi--half">
           <label>Địa chỉ:</label>
           <input
             type="text"
@@ -101,7 +101,7 @@ const CanBoSuaDonVi = () => {
         </div>
 
         {/* Số điện thoại */}
-        <div className="form_group half">
+        <div className="cbql__sua_don_vi--form_group cbql__sua_don_vi--half">
           <label>Số điện thoại:</label>
           <input
             type="text"
@@ -112,7 +112,7 @@ const CanBoSuaDonVi = () => {
         </div>
 
         {/* Email */}
-        <div className="form_group half">
+        <div className="cbql__sua_don_vi--form_group cbql__sua_don_vi--half">
           <label>Email:</label>
           <input
             type="email"
@@ -123,7 +123,7 @@ const CanBoSuaDonVi = () => {
         </div>
 
         {/* Giới thiệu về đơn vị */}
-        <div className="form_group full">
+        <div className="cbql__sua_don_vi--form_group cbql__sua_don_vi--full">
           <label>Giới thiệu về đơn vị:</label>
           <textarea
             name="gioi_thieu"
@@ -134,7 +134,7 @@ const CanBoSuaDonVi = () => {
         </div>
 
         {/* Điều kiện thực tập */}
-        <div className="form_group full">
+        <div className="cbql__sua_don_vi--form_group cbql__sua_don_vi--full">
           <label>Điều kiện thực tập:</label>
           <textarea
             name="dieu_kien_thuc_tap"
@@ -145,9 +145,9 @@ const CanBoSuaDonVi = () => {
         </div>
 
         {/* Hình ảnh đơn vị */}
-        <div className="form_group full">
+        <div className="cbql__sua_don_vi--form_group cbql__sua_don_vi--full">
           <label>Hình ảnh:</label>
-          <div className="image_preview">
+          <div className="cbql__sua_don_vi--image_preview">
             {donVi.hinh_anh && !newImage ? (
               <img 
                 src={donVi.hinh_anh} 
@@ -170,7 +170,7 @@ const CanBoSuaDonVi = () => {
         </div>
 
         {/* Các nút submit và hủy */}
-        <div className="form_buttons">
+        <div className="cbql__sua_don_vi--form_buttons">
           <button 
             type="submit" 
             className="btn btn-success">

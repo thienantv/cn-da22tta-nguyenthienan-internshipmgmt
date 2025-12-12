@@ -1,4 +1,8 @@
-.home-container {
+/* =======================
+   TRANG CHỦ - HOME PAGE
+======================= */
+/* Container chính của trang */
+.home--container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,31 +10,34 @@
   padding: 2rem;
 }
 
-.home-content {
+/* Nội dung chính */
+.home--content {
   text-align: center;
   max-width: 600px;
 }
 
-.home-content h1 {
+.home--content h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
   color: var(--text-color);
 }
 
-.home-content > p {
+.home--content > p {
   font-size: 1.25rem;
   color: var(--text-light);
   margin-bottom: 2rem;
 }
 
-.home-buttons {
+/* Nhóm nút hành động */
+.home--buttons {
   display: flex;
   gap: 1rem;
   justify-content: center;
   margin-bottom: 2rem;
 }
 
-.btn-large {
+/* Nút lớn chung */
+.home--btn-large {
   padding: 1rem 2rem;
   font-size: 1.125rem;
   text-decoration: none;
@@ -38,29 +45,32 @@
   transition: all 0.3s ease;
 }
 
-.btn-primary {
+/* Nút chính */
+.home--btn-primary {
   background-color: var(--primary-color);
   color: white;
 }
 
-.btn-primary:hover {
+.home--btn-primary:hover {
   background-color: #1d4ed8;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
-.btn-secondary {
+/* Nút phụ */
+.home--btn-secondary {
   background-color: var(--secondary-color);
   color: white;
 }
 
-.btn-secondary:hover {
+.home--btn-secondary:hover {
   background-color: #475569;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
 }
 
-.home-features {
+/* Phần tính năng */
+.home--features {
   background: white;
   padding: 2rem;
   border-radius: 0.75rem;
@@ -68,24 +78,25 @@
   text-align: left;
 }
 
-.home-features h2 {
+.home--features h2 {
   margin-bottom: 1rem;
   color: var(--text-color);
 }
 
-.home-features ul {
+.home--features ul {
   list-style: none;
   padding: 0;
 }
 
-.home-features li {
+/* Mục tính năng */
+.home--features li {
   padding: 0.75rem 0;
   padding-left: 2rem;
   position: relative;
   color: var(--text-light);
 }
 
-.home-features li:before {
+.home--features li:before {
   content: '✓';
   position: absolute;
   left: 0;
@@ -94,21 +105,23 @@
   font-size: 1.25rem;
 }
 
+/* =======================
+   TƯƠNG THÍCH DI ĐỘNG
+======================= */
 @media (max-width: 768px) {
-  .home-content h1 {
+  .home--content h1 {
     font-size: 2rem;
   }
 
-  .home-content > p {
-    font-size: 1rem;
-  }
-
-  .home-buttons {
+  .home--buttons {
     flex-direction: column;
   }
 
-  .btn-large {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+  .home--btn-large {
+    width: 100%;
+  }
+
+  .home--features {
+    padding: 1.5rem;
   }
 }

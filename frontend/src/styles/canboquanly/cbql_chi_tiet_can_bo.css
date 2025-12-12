@@ -1,86 +1,130 @@
-/* ============================
-   FOOTER BUTTONS (SỬA / XÓA)
-============================ */
-.detail_footer {
-  display: flex;
-  justify-content: center; /* căn giữa */
-  gap: 0.7rem;
-  padding: 1rem 1.5rem;
-  background: #f9fafb;
-  border-top: 1px solid var(--border-color);
-}
-
-/* Responsive: mobile nút xuống hàng */
-@media (max-width: 768px) {
-  .detail_footer {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .detail_footer .btn {
-    width: 70%;
-    text-align: center;
-  }
-}
-
-/* ============================
-   TÙY CHỈNH CHUNG CHO CAN BO
-============================ */
-.chi_tiet_container {
+/* ==========================
+   CONTAINER CHI TIẾT CÁN BỘ
+========================== */
+.cbql__chi_tiet_can_bo {
   max-width: 900px;
   margin: 0 auto;
+  padding: 1rem;
 }
 
-.chi_tiet_container > button {
+.back_btn {
   margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  background-color: #6b7280;
+  color: #fff;
+  transition: 0.2s;
 }
 
-.chi_tiet_content {
+.back_btn:hover {
+  background-color: #4b5563;
+}
+
+/* ==========================
+   CONTENT
+========================== */
+.cbql__chi_tiet_can_bo--content {
   background: white;
   border-radius: 0.75rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   overflow: hidden;
+  padding: 1.5rem;
 }
 
-.chi_tiet_body {
-  padding: 1.5rem 2rem;
-}
-
-.chi_tiet_section {
+/* ==========================
+   SECTIONS
+========================== */
+.cbql__chi_tiet_can_bo--section {
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid #ddd;
 }
 
-.chi_tiet_section:last-child {
-  margin-bottom: 0;
-  padding-bottom: 0;
+.cbql__chi_tiet_can_bo--section:last-child {
   border-bottom: none;
 }
 
-.chi_tiet_section h3 {
-  margin-bottom: 0.8rem;
-  font-size: 1.2rem;
+.cbql__chi_tiet_can_bo--section h3 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  color: #053485;
 }
 
-/* Responsive */
+/* ==========================
+   INFO ROW
+========================== */
+.cbql__chi_tiet_can_bo--info_row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: flex-start;
+}
+
+.cbql__chi_tiet_can_bo--info_row .label {
+  min-width: 120px;
+  font-weight: 600;
+  color: #333;
+}
+
+.cbql__chi_tiet_can_bo--info_row .value {
+  flex: 1;
+  color: #555;
+  word-break: break-word;
+}
+
+/* ==========================
+   FOOTER BUTTONS 2 CỘT FULL WIDTH
+========================== */
+.cbql__chi_tiet_can_bo--footer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: #f9fafb;
+}
+
+.cbql__chi_tiet_can_bo--footer .btn-edit,
+.cbql__chi_tiet_can_bo--footer .btn-delete {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: #fff;
+  transition: 0.2s;
+}
+
+.btn-edit {
+  background-color: #ffc107;
+}
+
+.btn-edit:hover {
+  background-color: #e0a800;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
 @media (max-width: 768px) {
-  .chi_tiet_body {
-    padding: 1rem 1.5rem;
+  .cbql__chi_tiet_can_bo--info_row {
+    flex-direction: column;
   }
 
-  .chi_tiet_body h1 {
-    font-size: 1.5rem;
-  }
-
-  .info_row {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .chi_tiet_body h1 {
-    font-size: 1.25rem;
+  .cbql__chi_tiet_can_bo--footer {
+    grid-template-columns: 1fr; /* Mobile: 1 cột */
   }
 }

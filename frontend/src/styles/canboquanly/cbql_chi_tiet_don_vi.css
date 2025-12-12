@@ -1,4 +1,7 @@
-.chi_tiet_don_vi_container {
+/* ==========================
+   CONTAINER CHI TIẾT ĐƠN VỊ
+========================== */
+.cbql__chi_tiet_don_vi_container {
   max-width: 900px;
   margin: 0 auto;
   padding: 1rem;
@@ -6,98 +9,133 @@
 
 .back_btn {
   margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  background-color: #6b7280;
+  color: #fff;
+  transition: 0.2s;
 }
 
-.chi_tiet_don_vi_content {
+.back_btn:hover {
+  background-color: #4b5563;
+}
+
+/* ==========================
+   CONTENT
+========================== */
+.cbql__chi_tiet_don_vi--content {
+  max-width: 600px;       /* khớp ngang với ảnh */
+  margin: 0 auto;
   background: white;
   border-radius: 0.75rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   overflow: hidden;
 }
 
-.chi_tiet_don_vi_header img {
+.cbql__chi_tiet_don_vi--header {
   width: 100%;
-  height: 100%;
-  max-height: 400px;
-  object-fit: cover;
-  object-position: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.cbql__chi_tiet_don_vi--header img {
+  width: auto;
+  max-width: 100%;        /* không vượt quá container */
+  height: auto;
+  max-height: 400px;      /* giới hạn chiều cao */
+  border-radius: 0.75rem;
+  display: block;
   transition: transform 0.3s ease-in-out;
 }
 
-.chi_tiet_don_vi_header img:hover {
-  transform: scale(1.05);
+.cbql__chi_tiet_don_vi--header img:hover {
+  transform: scale(1.05); /* zoom nhẹ khi hover */
 }
 
-.chi_tiet_don_vi_body {
-  padding: 2rem;
+.cbql__chi_tiet_don_vi--body {
+  padding: 1.5rem;
 }
 
-.chi_tiet_don_vi_section {
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
+/* ==========================
+   SECTIONS
+========================== */
+.cbql__chi_tiet_don_vi--section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid #ddd;
 }
 
-.chi_tiet_don_vi_section:last-child {
+.cbql__chi_tiet_don_vi--section:last-child {
   border-bottom: none;
 }
 
-.chi_tiet_don_vi_section h3 {
+.cbql__chi_tiet_don_vi--section h3 {
   margin-bottom: 1rem;
   font-size: 1.25rem;
   color: #053485;
 }
 
-.info_row {
-  display: grid;
-  grid-template-columns: 150px 1fr;
+/* ==========================
+   INFO ROW
+========================== */
+.cbql__chi_tiet_don_vi--info_row {
+  display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
   align-items: flex-start;
 }
 
-.info_row .label {
+.cbql__chi_tiet_don_vi--info_row .label {
+  min-width: 120px;       /* label cố định */
   font-weight: 600;
   color: #333;
 }
 
-.info_row .value {
+.cbql__chi_tiet_don_vi--info_row .value {
+  flex: 1;                /* value chiếm phần còn lại */
   color: #555;
   word-break: break-word;
 }
 
-.can_bo_list {
+/* ==========================
+   DANH SÁCH CÁN BỘ
+========================== */
+.cbql__chi_tiet_don_vi--can_bo_list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
 }
 
-.can_bo_item {
+.cbql__chi_tiet_don_vi--can_bo_item {
   background: #f5f5f5;
   padding: 1.5rem;
   border-radius: 0.5rem;
   border-left: 4px solid #053485;
 }
 
-.can_bo_item h4 {
+.cbql__chi_tiet_don_vi--can_bo_item h4 {
   margin-bottom: 1rem;
   color: #053485;
 }
 
-.can_bo_item p {
+.cbql__chi_tiet_don_vi--can_bo_item p {
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
   color: #555;
 }
 
-.can_bo_item strong {
+.cbql__chi_tiet_don_vi--can_bo_item strong {
   color: #333;
 }
 
 /* ==========================
    FOOTER BUTTONS 2 CỘT FULL WIDTH
 ========================== */
-.chi_tiet_don_vi_footer {
+.cbql__chi_tiet_don_vi--footer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
@@ -105,17 +143,21 @@
   background: #f9fafb;
 }
 
-.chi_tiet_don_vi_footer .btn {
+.cbql__chi_tiet_don_vi--footer .btn {
   width: 100%;
   padding: 0.75rem;
   border-radius: 0.5rem;
   font-size: 0.95rem;
   text-align: center;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: #fff; /* chữ trắng */
+  transition: 0.2s;
 }
 
 .btn-edit {
-  background-color: #ffc107;
-  color: #fff;
+  background-color: #ffc107; /* vàng */
 }
 
 .btn-edit:hover {
@@ -123,33 +165,34 @@
 }
 
 .btn-delete {
-  background-color: #dc3545;
-  color: #fff;
+  background-color: #dc3545; /* đỏ */
 }
 
 .btn-delete:hover {
   background-color: #c82333;
 }
 
-/* Responsive */
+/* ==========================
+   RESPONSIVE
+========================== */
 @media (max-width: 768px) {
-  .chi_tiet_don_vi_body {
-    padding: 1.5rem;
+  .cbql__chi_tiet_don_vi--body {
+    padding: 1rem;
   }
 
-  .info_row {
+  .cbql__chi_tiet_don_vi--info_row {
+    flex-direction: column;
+  }
+
+  .cbql__chi_tiet_don_vi--can_bo_list {
     grid-template-columns: 1fr;
   }
 
-  .can_bo_list {
-    grid-template-columns: 1fr;
-  }
-
-  .chi_tiet_don_vi_header img {
+  .cbql__chi_tiet_don_vi--header img {
     max-height: 250px;
   }
 
-  .chi_tiet_don_vi_footer {
+  .cbql__chi_tiet_don_vi--footer {
     grid-template-columns: 1fr; /* Mobile: 1 cột */
   }
 }

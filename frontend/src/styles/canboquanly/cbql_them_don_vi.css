@@ -1,7 +1,7 @@
 /* ==========================
-   CONTAINER FORM
+   CONTAINER FORM - Thêm Đơn Vị
 ========================== */
-.form_container {
+.cbql__them_don_vi {
   max-width: 850px;
   margin: 2rem auto;
   padding: 2rem;
@@ -10,7 +10,7 @@
   box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
 
-.form_container h1 {
+.cbql__them_don_vi h1 {
   text-align: center;
   color: #053485;
   font-weight: 700;
@@ -18,9 +18,10 @@
 }
 
 /* ==========================
-   MESSAGES
+   MESSAGES - Thông báo
 ========================== */
-.error-message, .success-message {
+.cbql__them_don_vi .error-message, 
+.cbql__them_don_vi .success-message {
   padding: 0.8rem 1rem;
   border-radius: 6px;
   margin-bottom: 1rem;
@@ -28,37 +29,37 @@
   font-size: 0.95rem;
 }
 
-.error-message {
+.cbql__them_don_vi .error-message {
   background: #fff1f0;
   color: #ff4d4f;
   border: 1px solid #ffa39e;
 }
 
-.success-message {
+.cbql__them_don_vi .success-message {
   background: #f6ffed;
   color: #389e0d;
   border: 1px solid #b7eb8f;
 }
 
 /* ==========================
-   FORM GRID
+   FORM GRID - Lưới Biểu Mẫu
 ========================== */
-.form_grid {
+.cbql__them_don_vi--form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.4rem 1.6rem;
 }
 
-.form_grid label {
+.cbql__them_don_vi--form label {
   font-weight: 600;
   margin-bottom: 0.3rem;
   display: block;
   color: #333;
 }
 
-.form_grid input,
-.form_grid textarea,
-.form_grid select {
+.cbql__them_don_vi--form input,
+.cbql__them_don_vi--form textarea,
+.cbql__them_don_vi--form select {
   width: 100%;
   padding: 0.6rem;
   border: 1px solid #d9d9d9;
@@ -66,63 +67,63 @@
   font-size: 1rem;
 }
 
-/* SHORT FIELD = 1 CỘT */
-.half {
+/* SHORT FIELD = 1 CỘT - Trường Ngắn */
+.cbql__them_don_vi--half {
   grid-column: span 1;
 }
 
-/* FULL WIDTH FIELD */
-.full {
+/* FULL WIDTH FIELD - Trường Toàn Chiều */
+.cbql__them_don_vi--full {
   grid-column: span 2;
 }
 
-textarea.full {
+.cbql__them_don_vi--full textarea {
   min-height: 100px;
   resize: vertical;
 }
 
 /* ==========================
-   IMAGE UPLOAD GRID
+   IMAGE UPLOAD GRID - Lưới Tải Ảnh
 ========================== */
-.image_upload_grid {
+.cbql__them_don_vi--image_upload_grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
   align-items: start;
 }
 
-.image_input label {
+.cbql__them_don_vi--image_input label {
   font-weight: 600;
   margin-bottom: 0.3rem;
   display: block;
 }
 
-.image_input input {
+.cbql__them_don_vi--image_input input {
   width: 100%;
   padding: 0.6rem;
   border: 1px solid #d9d9d9;
   border-radius: 6px;
 }
 
-.image_preview img {
+.cbql__them_don_vi--image_preview img {
   max-width: 100%;
   height: auto;
   border-radius: 6px;
 }
 
 /* ==========================
-   FORM BUTTONS - 2 CỘT FULL WIDTH
+   FORM BUTTONS - Nút Hành Động (2 CỘT)
 ========================== */
-.form_actions {
+.cbql__them_don_vi--form_actions {
   grid-column: span 2;
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 cột */
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin-top: 1.5rem;
 }
 
-.form_actions button {
-  width: 100%; /* full width trong cột */
+.cbql__them_don_vi--form_actions button {
+  width: 100%;
   padding: 0.85rem 1.5rem;
   font-size: 1.05rem;
   border-radius: 6px;
@@ -135,45 +136,47 @@ textarea.full {
   justify-content: center;
 }
 
-.form_actions button[type="submit"] {
+.cbql__them_don_vi--form_actions button[type="submit"] {
   background-color: #053485;
   color: #fff;
 }
 
-.form_actions button[type="submit"]:hover {
+.cbql__them_don_vi--form_actions button[type="submit"]:hover {
   background-color: #0952c0;
 }
 
-.cancel_btn {
+.cbql__them_don_vi--cancel_btn {
   background-color: #6c757d;
   color: #ffffff;
 }
 
-.cancel_btn:hover {
+.cbql__them_don_vi--cancel_btn:hover {
   background-color: #5a6268;
 }
 
 /* ==========================
-   RESPONSIVE
+   RESPONSIVE - Tương Thích Di Động
 ========================== */
 @media (max-width: 700px) {
-  .form_grid {
+  .cbql__them_don_vi--form {
     grid-template-columns: 1fr;
   }
 
-  .half, .full, .image_upload_grid {
+  .cbql__them_don_vi--half, 
+  .cbql__them_don_vi--full, 
+  .cbql__them_don_vi--image_upload_grid {
     grid-column: 1 / -1 !important;
   }
 
-  .form_actions {
-    grid-template-columns: 1fr; /* mobile: 1 cột */
+  .cbql__them_don_vi--form_actions {
+    grid-template-columns: 1fr;
   }
 
-  .form_actions button {
+  .cbql__them_don_vi--form_actions button {
     width: 100%;
   }
 
-  .image_preview img {
+  .cbql__them_don_vi--image_preview img {
     max-width: 100%;
     height: auto;
   }

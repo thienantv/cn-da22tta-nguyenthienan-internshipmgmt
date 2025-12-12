@@ -1,97 +1,97 @@
-.thong_tin_container {
+.sv__thong_tin {
   max-width: 800px;
   margin: 0 auto;
 }
 
-.thong_tin_container h1 {
+.sv__thong_tin h1 {
   margin-bottom: 2rem;
   color: var(--text-color);
 }
 
-.thong_tin_content {
+.sv__thong_tin--content {
   background: white;
   border-radius: 0.75rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 2rem;
 }
 
-.thong_tin_section {
+.sv__thong_tin--section {
   margin-bottom: 2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid var(--border-color);
 }
 
-.thong_tin_section:last-child {
+.sv__thong_tin--section:last-child {
   margin-bottom: 0;
   padding-bottom: 0;
   border-bottom: none;
 }
 
-.thong_tin_section h3 {
+.sv__thong_tin--section h3 {
   margin-bottom: 1.5rem;
   color: var(--text-color);
   font-size: 1.25rem;
 }
 
-.info_group {
+.sv__thong_tin--info_group {
   display: grid;
   gap: 1.5rem;
 }
 
-.info_row {
+.sv__thong_tin--info_row {
   display: grid;
   grid-template-columns: 150px 1fr;
   gap: 1rem;
   align-items: center;
 }
 
-.info_row .label {
+.sv__thong_tin--info_row .label {
   font-weight: 600;
   color: var(--text-color);
 }
 
-.info_row .value {
+.sv__thong_tin--info_row .value {
   color: var(--text-light);
 }
 
-.form_group {
+.sv__thong_tin--form_group {
   display: grid;
   gap: 1rem;
 }
 
-.form_item {
+.sv__thong_tin--form_item {
   display: grid;
   gap: 0.5rem;
 }
 
-.form_item label {
+.sv__thong_tin--form_item label {
   font-weight: 500;
   color: var(--text-color);
 }
 
-.form_item input,
-.form_item select {
+.sv__thong_tin--form_item input,
+.sv__thong_tin--form_item select {
   padding: 0.75rem;
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   font-size: 1rem;
 }
 
-.form_item input:focus,
-.form_item select:focus {
+.sv__thong_tin--form_item input:focus,
+.sv__thong_tin--form_item select:focus {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-.button_group {
+.sv__thong_tin--button_group {
   display: flex;
   gap: 1rem;
   margin-top: 2rem;
   justify-content: center;
 }
 
-.button_group .btn {
+.sv__thong_tin--button_group .btn {
   padding: 0.75rem 2rem;
   flex: 1;
   max-width: 200px;
@@ -107,19 +107,19 @@
 }
 
 @media (max-width: 768px) {
-  .thong_tin_content {
+  .sv__thong_tin--content {
     padding: 1.5rem;
   }
 
-  .info_row {
+  .sv__thong_tin--info_row {
     grid-template-columns: 1fr;
   }
 
-  .button_group {
+  .sv__thong_tin--button_group {
     flex-direction: column;
   }
 
-  .button_group .btn {
+  .sv__thong_tin--button_group .btn {
     max-width: none;
   }
 }

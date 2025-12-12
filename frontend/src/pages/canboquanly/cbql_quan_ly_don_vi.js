@@ -60,12 +60,12 @@ const CanBoQuanLyDonVi = () => {
   const isCanBo = user && user.role === 'can_bo_quan_ly';
 
   return (
-    <div className="danh_sach_container">
+    <div className="cbql__quan_ly_don_vi">
       {error && <div className="error-message">{error}</div>}
 
       {/* Bộ lọc */}
-      <div className="filter_section">
-        <div className="filter_row">
+      <div className="cbql__quan_ly_don_vi--filter_section">
+        <div className="cbql__quan_ly_don_vi--filter_row">
           <label>Tìm kiếm:</label>
 
           <input

@@ -19,6 +19,7 @@ import CanBoChiTietDonVi from './pages/canboquanly/cbql_chi_tiet_don_vi';
 import CanBoQuanLyCanBoHuongDan from './pages/canboquanly/cbql_quan_ly_can_bo';
 import CanBoQuanLyDonVi from './pages/canboquanly/cbql_quan_ly_don_vi';
 import CanBoThemCanBoHuongDan from './pages/canboquanly/cbql_them_can_bo';
+import CanBoSuaCanBoHuongDan from './pages/canboquanly/cbql_sua_can_bo';
 import CanBoThemDonVi from './pages/canboquanly/cbql_them_don_vi';
 import CanBoSuaDonVi from './pages/canboquanly/cbql_sua_don_vi';
 import CanBoThongTinCaNhan from './pages/canboquanly/cbql_thong_tin';
@@ -133,6 +134,14 @@ const AppWrapper = () => {
                     element={
                       <ProtectedRoute requiredRole="can_bo_quan_ly">
                         <CanBoSuaDonVi />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/can-bo/sua-can-bo/:ma_can_bo"
+                    element={
+                      <ProtectedRoute requiredRole="can_bo_quan_ly">
+                        <CanBoSuaCanBoHuongDan />
                       </ProtectedRoute>
                     }
                   />

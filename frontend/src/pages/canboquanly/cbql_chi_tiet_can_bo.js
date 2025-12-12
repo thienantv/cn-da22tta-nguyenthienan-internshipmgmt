@@ -21,7 +21,6 @@ const CanBoChiTietCanBo = () => {
         setLoading(false);
       }
     };
-
     fetchCanBoDetail();
   }, [maCanBo]);
 
@@ -30,7 +29,7 @@ const CanBoChiTietCanBo = () => {
     try {
       await canBoHuongDanService.delete(maCanBo);
       alert("Xoá cán bộ thành công!");
-      navigate("/can-bo/danh-sach"); // quay về danh sách cán bộ
+      navigate("/can-bo/danh-sach");
     } catch (err) {
       alert("Xoá thất bại!");
     }
@@ -41,86 +40,90 @@ const CanBoChiTietCanBo = () => {
   if (!canBo) return <div className="error-message">Cán bộ không tồn tại</div>;
 
   return (
-    <div className="chi_tiet_container">
-      <button onClick={() => navigate(-1)} className="btn btn-secondary">
+    <div className="cbql__chi_tiet_can_bo">
+      <button onClick={() => navigate(-1)} className="back_btn">
         ← Quay lại
       </button>
 
-      <div className="chi_tiet_content">
-        <div className="chi_tiet_body">
-          <h1>{canBo.ho_ten}</h1>
+      <div className="cbql__chi_tiet_can_bo--content">
 
-          <div className="chi_tiet_section">
-            <h3>Thông tin cơ bản</h3>
-            <div className="info_row">
-              <span className="label">Mã cán bộ:</span>
-              <span className="value">{canBo.ma_can_bo}</span>
-            </div>
-            <div className="info_row">
-              <span className="label">Giới tính:</span>
-              <span className="value">{canBo.gioi_tinh}</span>
-            </div>
-            <div className="info_row">
-              <span className="label">Số điện thoại:</span>
-              <span className="value">{canBo.so_dien_thoai}</span>
-            </div>
-            <div className="info_row">
-              <span className="label">Email:</span>
-              <span className="value">{canBo.email_can_bo}</span>
-            </div>
+        {/* Thông tin cơ bản */}
+        <div className="cbql__chi_tiet_can_bo--section">
+          <h3>Thông tin cơ bản</h3>
+          <div className="cbql__chi_tiet_can_bo--info_row">
+            <span className="label">Mã cán bộ:</span>
+            <span className="value">{canBo.ma_can_bo}</span>
           </div>
-
-          <div className="chi_tiet_section">
-            <h3>Thông tin công việc</h3>
-            <div className="info_row">
-              <span className="label">Chức vụ:</span>
-              <span className="value">{canBo.chuc_vu}</span>
-            </div>
-            <div className="info_row">
-              <span className="label">Chuyên môn:</span>
-              <span className="value">{canBo.chuyen_mon}</span>
-            </div>
-            <div className="info_row">
-              <span className="label">Số tài khoản ngân hàng:</span>
-              <span className="value">{canBo.so_tk_ngan_hang || 'N/A'}</span>
-            </div>
+          <div className="cbql__chi_tiet_can_bo--info_row">
+            <span className="label">Tên cán bộ:</span>
+            <span className="value">{canBo.ho_ten}</span>
           </div>
-
-          {canBo.ten_don_vi && (
-            <div className="chi_tiet_section">
-              <h3>Đơn vị công tác</h3>
-              <div className="info_row">
-                <span className="label">Tên đơn vị:</span>
-                <span className="value">{canBo.ten_don_vi}</span>
-              </div>
-              {canBo.dia_chi && (
-                <div className="info_row">
-                  <span className="label">Địa chỉ:</span>
-                  <span className="value">{canBo.dia_chi}</span>
-                </div>
-              )}
-              {canBo.so_dien_thoai_don_vi && (
-                <div className="info_row">
-                  <span className="label">Số điện thoại đơn vị:</span>
-                  <span className="value">{canBo.so_dien_thoai_don_vi}</span>
-                </div>
-              )}
-              {canBo.email_don_vi && (
-                <div className="info_row">
-                  <span className="label">Email đơn vị:</span>
-                  <span className="value">{canBo.email_don_vi}</span>
-                </div>
-              )}
-            </div>
-          )}
+          <div className="cbql__chi_tiet_can_bo--info_row">
+            <span className="label">Giới tính:</span>
+            <span className="value">{canBo.gioi_tinh}</span>
+          </div>
+          <div className="cbql__chi_tiet_can_bo--info_row">
+            <span className="label">Số điện thoại:</span>
+            <span className="value">{canBo.so_dien_thoai}</span>
+          </div>
+          <div className="cbql__chi_tiet_can_bo--info_row">
+            <span className="label">Email:</span>
+            <span className="value">{canBo.email_can_bo}</span>
+          </div>
         </div>
 
-        {/* Footer với nút Sửa và Xóa căn giữa */}
-        <div className="detail_footer">
-          <Link to={`/can-bo/sua-can-bo/${maCanBo}`} className="btn btn-warning">
+        {/* Thông tin công việc */}
+        <div className="cbql__chi_tiet_can_bo--section">
+          <h3>Thông tin công việc</h3>
+          <div className="cbql__chi_tiet_can_bo--info_row">
+            <span className="label">Chức vụ:</span>
+            <span className="value">{canBo.chuc_vu}</span>
+          </div>
+          <div className="cbql__chi_tiet_can_bo--info_row">
+            <span className="label">Chuyên môn:</span>
+            <span className="value">{canBo.chuyen_mon}</span>
+          </div>
+          <div className="cbql__chi_tiet_can_bo--info_row">
+            <span className="label">Số tài khoản ngân hàng:</span>
+            <span className="value">{canBo.so_tk_ngan_hang || 'N/A'}</span>
+          </div>
+        </div>
+
+        {/* Đơn vị công tác */}
+        {canBo.ten_don_vi && (
+          <div className="cbql__chi_tiet_can_bo--section">
+            <h3>Đơn vị công tác</h3>
+            <div className="cbql__chi_tiet_can_bo--info_row">
+              <span className="label">Tên đơn vị:</span>
+              <span className="value">{canBo.ten_don_vi}</span>
+            </div>
+            {canBo.dia_chi && (
+              <div className="cbql__chi_tiet_can_bo--info_row">
+                <span className="label">Địa chỉ:</span>
+                <span className="value">{canBo.dia_chi}</span>
+              </div>
+            )}
+            {canBo.so_dien_thoai_don_vi && (
+              <div className="cbql__chi_tiet_can_bo--info_row">
+                <span className="label">Số điện thoại:</span>
+                <span className="value">{canBo.so_dien_thoai_don_vi}</span>
+              </div>
+            )}
+            {canBo.email_don_vi && (
+              <div className="cbql__chi_tiet_can_bo--info_row">
+                <span className="label">Email:</span>
+                <span className="value">{canBo.email_don_vi}</span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Footer */}
+        <div className="cbql__chi_tiet_can_bo--footer">
+          <Link to={`/can-bo/sua-can-bo/${maCanBo}`} className="btn-edit">
             ✏ Sửa
           </Link>
-          <button onClick={handleDelete} className="btn btn-danger">
+          <button onClick={handleDelete} className="btn-delete">
             🗑 Xóa
           </button>
         </div>

@@ -31,71 +31,71 @@ useEffect(() => {
   if (!canBo) return <div className="error-message">Cán bộ không tồn tại</div>;
 
   return (
-    <div className="chi_tiet_container">
+    <div className="sv__chi_tiet_can_bo">
       <button onClick={() => navigate(-1)} className="btn btn-secondary">
         ← Quay lại
       </button>
 
-      <div className="chi_tiet_content">
-        <div className="chi_tiet_body">
+      <div className="sv__chi_tiet_can_bo--content">
+        <div className="sv__chi_tiet_can_bo--body">
 
-          <div className="chi_tiet_section">
+          <div className="sv__chi_tiet_can_bo--section">
             <h3>Thông tin cơ bản</h3>
-            <div className="info_row">
+            <div className="sv__chi_tiet_can_bo--info_row">
               <span className="label">Tên cán bộ:</span>
               <span className="value">{canBo.ho_ten}</span>
             </div>
-            <div className="info_row">
+            <div className="sv__chi_tiet_can_bo--info_row">
               <span className="label">Giới tính:</span>
               <span className="value">{canBo.gioi_tinh}</span>
             </div>
-            <div className="info_row">
+            <div className="sv__chi_tiet_can_bo--info_row">
               <span className="label">Số điện thoại:</span>
               <span className="value">{canBo.so_dien_thoai}</span>
             </div>
-            <div className="info_row">
+            <div className="sv__chi_tiet_can_bo--info_row">
               <span className="label">Email:</span>
               <span className="value">{canBo.email_can_bo}</span>
             </div>
           </div>
 
-          <div className="chi_tiet_section">
+          <div className="sv__chi_tiet_can_bo--section">
             <h3>Thông tin công việc</h3>
-            <div className="info_row">
+            <div className="sv__chi_tiet_can_bo--info_row">
               <span className="label">Chức vụ:</span>
               <span className="value">{canBo.chuc_vu}</span>
             </div>
-            <div className="info_row">
+            <div className="sv__chi_tiet_can_bo--info_row">
               <span className="label">Chuyên môn:</span>
               <span className="value">{canBo.chuyen_mon}</span>
             </div>
-            <div className="info_row">
+            <div className="sv__chi_tiet_can_bo--info_row">
               <span className="label">Số tài khoản ngân hàng:</span>
               <span className="value">{canBo.so_tk_ngan_hang || 'N/A'}</span>
             </div>
           </div>
 
           {canBo.ten_don_vi && (
-            <div className="chi_tiet_section">
+            <div className="sv__chi_tiet_can_bo--section">
               <h3>Đơn vị công tác</h3>
-              <div className="info_row">
+              <div className="sv__chi_tiet_can_bo--info_row">
                 <span className="label">Tên đơn vị:</span>
                 <span className="value">{canBo.ten_don_vi}</span>
               </div>
               {canBo.dia_chi && (
-                <div className="info_row">
+                <div className="sv__chi_tiet_can_bo--info_row">
                   <span className="label">Địa chỉ:</span>
                   <span className="value">{canBo.dia_chi}</span>
                 </div>
               )}
               {canBo.so_dien_thoai_don_vi && (
-                <div className="info_row">
+                <div className="sv__chi_tiet_can_bo--info_row">
                   <span className="label">Số điện thoại đơn vị:</span>
                   <span className="value">{canBo.so_dien_thoai_don_vi}</span>
                 </div>
               )}
               {canBo.email_don_vi && (
-                <div className="info_row">
+                <div className="sv__chi_tiet_can_bo--info_row">
                   <span className="label">Email đơn vị:</span>
                   <span className="value">{canBo.email_don_vi}</span>
                 </div>

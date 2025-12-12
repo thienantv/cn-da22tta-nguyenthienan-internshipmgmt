@@ -1,0 +1,119 @@
+/* =======================
+   SỬA CÁN BỘ QUẢN LÝ
+======================= */
+
+.qtv__sua_can_bo {
+  width: 100%;
+}
+
+.qtv__sua_can_bo--form_container {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.qtv__sua_can_bo--form_container h3 {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+/* Lưới form - 2 cột */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.qtv__sua_can_bo--form_group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.qtv__sua_can_bo--form_group label {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.qtv__sua_can_bo--form_group input,
+.qtv__sua_can_bo--form_group select {
+  padding: 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.qtv__sua_can_bo--form_group input:focus,
+.qtv__sua_can_bo--form_group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.qtv__sua_can_bo--form_group input:disabled {
+  background-color: #f1f5f9;
+  cursor: not-allowed;
+}
+
+/* Thông báo lỗi */
+.qtv__sua_can_bo--error_message {
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--danger-color);
+}
+
+/* Nút hành động */
+.qtv__sua_can_bo--form_buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.qtv__sua_can_bo--form_buttons button {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.qtv__sua_can_bo--form_buttons .btn-success {
+  background-color: #053485;
+  color: white;
+}
+
+.qtv__sua_can_bo--form_buttons .btn-success:hover {
+  background-color: #3b82f6;
+}
+
+.qtv__sua_can_bo--form_buttons .btn-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.qtv__sua_can_bo--form_buttons .btn-secondary:hover {
+  background-color: #475569;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .qtv__sua_can_bo--form_buttons {
+    flex-direction: column;
+  }
+
+  .qtv__sua_can_bo--form_buttons button {
+    width: 100%;
+  }
+}

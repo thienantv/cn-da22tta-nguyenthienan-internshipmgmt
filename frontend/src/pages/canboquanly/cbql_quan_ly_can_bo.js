@@ -21,13 +21,11 @@ const CanBoQuanLyCanBoHuongDan = () => {
     try {
       setLoading(true);
       let response;
-
       if (query) {
         response = await canBoHuongDanService.search({ query });
       } else {
         response = await canBoHuongDanService.getAll();
       }
-
       setCanBo(response.data);
       setError('');
     } catch (err) {
@@ -37,10 +35,7 @@ const CanBoQuanLyCanBoHuongDan = () => {
     }
   };
 
-  const handleSearch = () => {
-    fetchCanBo(searchQuery);
-  };
-
+  const handleSearch = () => fetchCanBo(searchQuery);
   const handleReset = () => {
     setSearchQuery('');
     fetchCanBo();
@@ -63,15 +58,12 @@ const CanBoQuanLyCanBoHuongDan = () => {
 
   return (
     <div className="cbql__quan_ly_can_bo">
-
       {error && <div className="error-message">{error}</div>}
 
       {/* ===== Filter ===== */}
       <div className="cbql__quan_ly_can_bo--filter_section">
         <div className="cbql__quan_ly_can_bo--filter_row">
-
           <label>Tìm kiếm:</label>
-
           <input
             type="text"
             value={searchQuery}
@@ -84,11 +76,9 @@ const CanBoQuanLyCanBoHuongDan = () => {
             }}
             placeholder="Nhập họ tên, email, chuyên môn hoặc mã đơn vị"
           />
-
           <button className="btn btn-primary" onClick={handleSearch}>
             Tìm kiếm
           </button>
-
           <button className="btn btn-secondary" onClick={handleReset}>
             Đặt lại
           </button>
@@ -120,13 +110,9 @@ const CanBoQuanLyCanBoHuongDan = () => {
                 <th>Giới tính</th>
                 <th>Số điện thoại</th>
                 <th>Email</th>
-                <th>Chức vụ</th>
-                <th>Chuyên môn</th>
-                <th>Đơn vị</th>
                 <th>Thao tác</th>
               </tr>
             </thead>
-
             <tbody>
               {canBo.map((cb) => (
                 <tr key={cb.ma_can_bo}>
@@ -135,22 +121,25 @@ const CanBoQuanLyCanBoHuongDan = () => {
                   <td>{cb.gioi_tinh}</td>
                   <td>{cb.so_dien_thoai}</td>
                   <td>{cb.email_can_bo}</td>
-                  <td>{cb.chuc_vu}</td>
-                  <td>{cb.chuyen_mon}</td>
-                  <td>{cb.ten_don_vi}</td>
-
                   <td className="cbql__quan_ly_can_bo--action_cell">
                     <Link
                       to={`/can-bo/chi-tiet-can-bo/${cb.ma_can_bo}`}
-                      className="cbql__quan_ly_can_bo--link_btn"
+                      className="cbql__quan_ly_can_bo--action_btn detail"
                     >
                       Chi tiết
                     </Link>
-
+                    {isCanBo && (
+                      <Link
+                        to={`/can-bo/sua-can-bo/${cb.ma_can_bo}`}
+                        className="cbql__quan_ly_can_bo--action_btn edit"
+                      >
+                        Sửa
+                      </Link>
+                    )}
                     {isCanBo && (
                       <button
                         onClick={() => handleDelete(cb.ma_can_bo)}
-                        className="cbql__quan_ly_can_bo--link_btn danger"
+                        className="cbql__quan_ly_can_bo--action_btn delete"
                       >
                         Xóa
                       </button>
@@ -159,7 +148,6 @@ const CanBoQuanLyCanBoHuongDan = () => {
                 </tr>
               ))}
             </tbody>
-
           </table>
         </div>
       )}

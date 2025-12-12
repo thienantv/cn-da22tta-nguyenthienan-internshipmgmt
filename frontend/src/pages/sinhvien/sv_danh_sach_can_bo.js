@@ -47,14 +47,14 @@ const SinhVienDanhSachCanBo = () => {
   if (loading) return <div className="loading">Đang tải...</div>;
 
   return (
-    <div className="danh_sach_container">
+    <div className="sv__danh_sach_can_bo">
       
       {error && <div className="error-message">{error}</div>}
 
       {/* Bộ lọc tìm kiếm */}
-      <div className="filter_section">
-        <div className="filter_grid">
-          <div className="filter_item">
+      <div className="sv__danh_sach_can_bo--filter_section">
+        <div className="sv__danh_sach_can_bo--filter_grid">
+          <div className="sv__danh_sach_can_bo--filter_item">
             <label>Tìm kiếm:</label>
             <input
               type="text"
@@ -70,7 +70,7 @@ const SinhVienDanhSachCanBo = () => {
             />
           </div>
 
-          <div className="filter_buttons">
+          <div className="sv__danh_sach_can_bo--filter_buttons">
             <button className="btn btn-primary" onClick={handleSearch}>
               Tìm kiếm
             </button>
@@ -111,8 +111,8 @@ const SinhVienDanhSachCanBo = () => {
                   <td>{cb.chuc_vu}</td>
                   <td>{cb.chuyen_mon}</td>
                   <td>{cb.ten_don_vi}</td>
-                  <td className="action_cell">
-                    <Link to={`/sinh-vien/chi-tiet-can-bo/${cb.ma_can_bo}`} className="btn-link">
+                  <td className="sv__danh_sach_can_bo--action_cell">
+                    <Link to={`/sinh-vien/chi-tiet-can-bo/${cb.ma_can_bo}`} className="sv__danh_sach_can_bo--btn_link">
                       Chi tiết
                     </Link>
                   </td>

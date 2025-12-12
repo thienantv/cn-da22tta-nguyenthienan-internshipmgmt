@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { sinhVienService } from '../../services/api';
+import AdminThemSinhVien from './qtv_them_sinh_vien';
+import AdminSuaSinhVien from './qtv_sua_sinh_vien';
 import '../../styles/admin/qtv_quan_ly_sinh_vien.css';
 
 const AdminQuanLySinhVien = () => {
@@ -7,15 +9,8 @@ const AdminQuanLySinhVien = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
-  const [editingId, setEditingId] = useState(null);
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    ho_ten: '',
-    gioi_tinh: 'Khác',
-    so_dien_thoai: '',
-    email_sinh_vien: '',
-  });
+  const [formType, setFormType] = useState(null); // 'them' hoặc 'sua'
+  const [editingSinhVien, setEditingSinhVien] = useState(null);
 
   useEffect(() => {
     fetchSinhVien();
@@ -33,44 +28,14 @@ const AdminQuanLySinhVien = () => {
     }
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (editingId) {
-        await sinhVienService.update(editingId, formData);
-      } else {
-        await sinhVienService.create(formData);
-      }
-      fetchSinhVien();
-      setFormData({
-        username: '',
-        password: '',
-        ho_ten: '',
-        gioi_tinh: 'Khác',
-        so_dien_thoai: '',
-        email_sinh_vien: '',
-      });
-      setShowForm(false);
-      setEditingId(null);
-    } catch (err) {
-      setError(err.response?.data?.message || 'Lỗi khi lưu dữ liệu');
-    }
+  const handleAddClick = () => {
+    setFormType('them');
+    setShowForm(true);
   };
 
   const handleEdit = (sv) => {
-    setFormData({
-      username: sv.username,
-      ho_ten: sv.ho_ten,
-      gioi_tinh: sv.gioi_tinh,
-      so_dien_thoai: sv.so_dien_thoai,
-      email_sinh_vien: sv.email_sinh_vien,
-    });
-    setEditingId(sv.id);
+    setFormType('sua');
+    setEditingSinhVien(sv);
     setShowForm(true);
   };
 
@@ -85,17 +50,17 @@ const AdminQuanLySinhVien = () => {
     }
   };
 
-  const handleCancel = () => {
+  const handleFormSuccess = () => {
     setShowForm(false);
-    setEditingId(null);
-    setFormData({
-      username: '',
-      password: '',
-      ho_ten: '',
-      gioi_tinh: 'Khác',
-      so_dien_thoai: '',
-      email_sinh_vien: '',
-    });
+    setFormType(null);
+    setEditingSinhVien(null);
+    fetchSinhVien();
+  };
+
+  const handleFormCancel = () => {
+    setShowForm(false);
+    setFormType(null);
+    setEditingSinhVien(null);
   };
 
   if (loading) return <div className="loading">Đang tải...</div>;
@@ -107,89 +72,24 @@ const AdminQuanLySinhVien = () => {
       {error && <div className="error-message">{error}</div>}
 
       {!showForm && (
-        <button onClick={() => setShowForm(true)} className="btn btn-primary">
+        <button onClick={handleAddClick} className="btn btn-primary">
           + Thêm sinh viên
         </button>
       )}
 
-      {showForm && (
-        <div className="qtv__quan_ly_sinh_vien--form_container">
-          <h3>{editingId ? 'Sửa sinh viên' : 'Thêm sinh viên'}</h3>
-          <form onSubmit={handleSubmit}>
-            <div className="qtv__quan_ly_sinh_vien--form_group">
-              <label>Username:</label>
-              <input
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleInputChange}
-                disabled={editingId !== null}
-                required
-              />
-            </div>
+      {showForm && formType === 'them' && (
+        <AdminThemSinhVien 
+          onSuccess={handleFormSuccess}
+          onCancel={handleFormCancel}
+        />
+      )}
 
-            {!editingId && (
-              <div className="qtv__quan_ly_sinh_vien--form_group">
-                <label>Password:</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-            )}
-
-            <div className="qtv__quan_ly_sinh_vien--form_group">
-              <label>Họ tên:</label>
-              <input
-                type="text"
-                name="ho_ten"
-                value={formData.ho_ten}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="qtv__quan_ly_sinh_vien--form_group">
-              <label>Giới tính:</label>
-              <select name="gioi_tinh" value={formData.gioi_tinh} onChange={handleInputChange}>
-                <option value="Nam">Nam</option>
-                <option value="Nữ">Nữ</option>
-                <option value="Khác">Khác</option>
-              </select>
-            </div>
-
-            <div className="qtv__quan_ly_sinh_vien--form_group">
-              <label>Số điện thoại:</label>
-              <input
-                type="tel"
-                name="so_dien_thoai"
-                value={formData.so_dien_thoai}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="qtv__quan_ly_sinh_vien--form_group">
-              <label>Email:</label>
-              <input
-                type="email"
-                name="email_sinh_vien"
-                value={formData.email_sinh_vien}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="qtv__quan_ly_sinh_vien--form_buttons">
-              <button type="submit" className="btn btn-success">
-                {editingId ? 'Cập nhật' : 'Thêm'}
-              </button>
-              <button type="button" onClick={handleCancel} className="btn btn-secondary">
-                Hủy
-              </button>
-            </div>
-          </form>
-        </div>
+      {showForm && formType === 'sua' && editingSinhVien && (
+        <AdminSuaSinhVien 
+          sinhVien={editingSinhVien}
+          onSuccess={handleFormSuccess}
+          onCancel={handleFormCancel}
+        />
       )}
 
       <div className="qtv__quan_ly_sinh_vien--table_wrapper">

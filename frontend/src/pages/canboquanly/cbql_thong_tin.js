@@ -85,21 +85,21 @@ const CanBoThongTinCaNhan = () => {
   };
 
   return (
-    <div className="thong_tin_container">
+    <div className="cbql__thong_tin">
       <h1>Thông tin cá nhân</h1>
 
       {error && <div className="error-message">{error}</div>}
 
       {userData && (
-        <div className="thong_tin_content">
-          <div className="thong_tin_section">
+        <div className="cbql__thong_tin--content">
+          <div className="cbql__thong_tin--section">
             <h3>Thông tin tài khoản</h3>
-            <div className="info_group">
-              <div className="info_row">
+            <div className="cbql__thong_tin--info_group">
+              <div className="cbql__thong_tin--info_row">
                 <span className="label">Vai trò:</span>
                 <span className="value">{getRoleLabel(user?.role)}</span>
               </div>
-              <div className="info_row">
+              <div className="cbql__thong_tin--info_row">
                 <span className="label">Username:</span>
                 <span className="value">{userData.username}</span>
               </div>
@@ -107,11 +107,11 @@ const CanBoThongTinCaNhan = () => {
           </div>
 
           {userData.ho_ten !== undefined && (
-            <div className="thong_tin_section">
+            <div className="cbql__thong_tin--section">
               <h3>Thông tin cá nhân</h3>
               {isEditing ? (
-                <div className="form_group">
-                  <div className="form_item">
+                <div className="cbql__thong_tin--form_group">
+                  <div className="cbql__thong_tin--form_item">
                     <label>Họ tên:</label>
                     <input
                       type="text"
@@ -121,7 +121,7 @@ const CanBoThongTinCaNhan = () => {
                     />
                   </div>
                   {userData.gioi_tinh !== undefined && (
-                    <div className="form_item">
+                    <div className="cbql__thong_tin--form_item">
                       <label>Giới tính:</label>
                       <select
                         name="gioi_tinh"
@@ -134,7 +134,7 @@ const CanBoThongTinCaNhan = () => {
                       </select>
                     </div>
                   )}
-                  <div className="form_item">
+                  <div className="cbql__thong_tin--form_item">
                     <label>Số điện thoại:</label>
                     <input
                       type="tel"
@@ -144,7 +144,7 @@ const CanBoThongTinCaNhan = () => {
                     />
                   </div>
                   {userData.email_sinh_vien !== undefined && (
-                    <div className="form_item">
+                    <div className="cbql__thong_tin--form_item">
                       <label>Email:</label>
                       <input
                         type="email"
@@ -156,23 +156,23 @@ const CanBoThongTinCaNhan = () => {
                   )}
                 </div>
               ) : (
-                <div className="info_group">
-                  <div className="info_row">
+                <div className="cbql__thong_tin--info_group">
+                  <div className="cbql__thong_tin--info_row">
                     <span className="label">Họ tên:</span>
                     <span className="value">{userData.ho_ten}</span>
                   </div>
                   {userData.gioi_tinh && (
-                    <div className="info_row">
+                    <div className="cbql__thong_tin--info_row">
                       <span className="label">Giới tính:</span>
                       <span className="value">{userData.gioi_tinh}</span>
                     </div>
                   )}
-                  <div className="info_row">
+                  <div className="cbql__thong_tin--info_row">
                     <span className="label">Số điện thoại:</span>
                     <span className="value">{userData.so_dien_thoai || 'Chưa cập nhật'}</span>
                   </div>
                   {userData.email_sinh_vien && (
-                    <div className="info_row">
+                    <div className="cbql__thong_tin--info_row">
                       <span className="label">Email:</span>
                       <span className="value">{userData.email_sinh_vien || 'Chưa cập nhật'}</span>
                     </div>
@@ -183,10 +183,10 @@ const CanBoThongTinCaNhan = () => {
           )}
 
           {isEditing && (
-            <div className="thong_tin_section">
+            <div className="cbql__thong_tin--section">
               <h3>Đổi mật khẩu</h3>
-              <div className="form_group">
-                <div className="form_item">
+              <div className="cbql__thong_tin--form_group">
+                <div className="cbql__thong_tin--form_item">
                   <label>Mật khẩu mới (để trống nếu không đổi):</label>
                   <input
                     type="password"
@@ -195,7 +195,7 @@ const CanBoThongTinCaNhan = () => {
                     placeholder="Nhập mật khẩu mới"
                   />
                 </div>
-                <div className="form_item">
+                <div className="cbql__thong_tin--form_item">
                   <label>Xác nhận mật khẩu:</label>
                   <input
                     type="password"
@@ -208,7 +208,7 @@ const CanBoThongTinCaNhan = () => {
             </div>
           )}
 
-          <div className="button_group">
+          <div className="cbql__thong_tin--button_group">
             {!isEditing ? (
               <button onClick={() => setIsEditing(true)} className="btn btn-primary">
                 Chỉnh sửa

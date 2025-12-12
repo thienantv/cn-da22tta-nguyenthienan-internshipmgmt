@@ -45,14 +45,14 @@ const SinhVienDanhSachDonVi = () => {
   if (loading) return <div className="loading">Đang tải...</div>;
 
   return (
-    <div className="danh_sach_container">
+    <div className="sv__danh_sach_don_vi">
 
       {error && <div className="error-message">{error}</div>}
 
       {/* Bộ lọc */}
-      <div className="filter_section">
-        <div className="filter_grid">
-          <div className="filter_item">
+      <div className="sv__danh_sach_don_vi--filter_section">
+        <div className="sv__danh_sach_don_vi--filter_grid">
+          <div className="sv__danh_sach_don_vi--filter_item">
             <label>Tìm kiếm:</label>
             <input
               type="text"
@@ -68,7 +68,7 @@ const SinhVienDanhSachDonVi = () => {
             />
           </div>
 
-          <div className="filter_buttons">
+          <div className="sv__danh_sach_don_vi--filter_buttons">
             <button className="btn btn-primary" onClick={handleSearch}>
               Tìm kiếm
             </button>
@@ -83,10 +83,10 @@ const SinhVienDanhSachDonVi = () => {
       {donVi.length === 0 ? (
         <div className="empty-message">Không có đơn vị nào</div>
       ) : (
-        <div className="don_vi_cards">
+        <div className="sv__danh_sach_don_vi--don_vi_cards">
           {donVi.map((dv) => (
-            <div key={dv.ma_don_vi} className="don_vi_card">
-              <div className="card_image">
+            <div key={dv.ma_don_vi} className="sv__danh_sach_don_vi--don_vi_card">
+              <div className="sv__danh_sach_don_vi--card_image">
                 <img
                   src={
                     dv.hinh_anh
@@ -98,10 +98,10 @@ const SinhVienDanhSachDonVi = () => {
                   alt={dv.ten_don_vi}
                 />
               </div>
-              <div className="card_content">
+              <div className="sv__danh_sach_don_vi--card_content">
                 <h3>{dv.ten_don_vi}</h3>
-                <p className="card_address">{dv.dia_chi}</p>
-                <p className="card_description">{dv.gioi_thieu?.substring(0, 100)}...</p>
+                <p className="sv__danh_sach_don_vi--card_address">{dv.dia_chi}</p>
+                <p className="sv__danh_sach_don_vi--card_description">{dv.gioi_thieu?.substring(0, 100)}...</p>
                 <Link to={`/sinh-vien/chi-tiet-don-vi/${dv.ma_don_vi}`} className="btn btn-primary btn-small">
                   Xem chi tiết
                 </Link>

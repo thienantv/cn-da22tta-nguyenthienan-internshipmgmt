@@ -1,7 +1,7 @@
 /* =======================
-   CONTAINER CHÍNH
+   CONTAINER
 ======================= */
-.form_container {
+.cbql__them_can_bo {
   max-width: 850px;
   margin: 40px auto;
   background: #ffffff;
@@ -11,8 +11,7 @@
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
-/* Tiêu đề */
-.form_container h1 {
+.cbql__them_can_bo h1 {
   text-align: center;
   font-size: 26px;
   color: #053485;
@@ -21,10 +20,10 @@
 }
 
 /* =======================
-   THÔNG BÁO LỖI/THÀNH CÔNG
+   THÔNG BÁO LỖI / THÀNH CÔNG
 ======================= */
-.error-message,
-.success-message {
+.cbql__them_can_bo--error-message,
+.cbql__them_can_bo--success-message {
   padding: 12px 16px;
   border-radius: 6px;
   font-size: 15px;
@@ -32,94 +31,65 @@
   text-align: center;
 }
 
-.error-message {
+.cbql__them_can_bo--error-message {
   background: #ffe1e1;
   color: #b30000;
   border-left: 5px solid #ff4d4d;
 }
 
-.success-message {
+.cbql__them_can_bo--success-message {
   background: #e0ffe7;
   color: #0a7a32;
   border-left: 5px solid #22c55e;
 }
 
 /* =======================
-   LƯỚI FORM
+   FORM GRID — HAI CỘT
 ======================= */
-.form_grid {
+.cbql__them_can_bo--form_grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 18px 25px;
 }
 
-/* Label */
-.form_grid label {
+.cbql__them_can_bo--form_grid label {
   font-weight: 600;
   font-size: 15px;
-  color: #444;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
   display: block;
 }
 
-/* Input, select, textarea */
-.form_grid input,
-.form_grid select,
-.form_grid textarea {
+.cbql__them_can_bo--form_grid input,
+.cbql__them_can_bo--form_grid select {
   width: 100%;
   padding: 10px 12px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  font-size: 15px;
   background: #fafafa;
+  font-size: 15px;
   transition: 0.2s;
 }
 
-.form_grid input:focus,
-.form_grid select:focus,
-.form_grid textarea:focus {
+.cbql__them_can_bo--form_grid input:focus,
+.cbql__them_can_bo--form_grid select:focus {
   border-color: #3b82f6;
   background: #fff;
   outline: none;
   box-shadow: 0 0 4px rgba(59, 130, 246, 0.4);
 }
 
-/* Textarea */
-.form_grid textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
 /* =======================
-   ĐƠN VỊ (TÌM KIẾM + SELECT)
+   ĐƠN VỊ – DROPDOWN
 ======================= */
-.donvi_grid {
+.cbql__them_can_bo--donvi_grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
   position: relative;
-  grid-column: span 2; /* chiếm toàn bộ form */
 }
 
-/* Input tìm kiếm */
-.input_search_donvi {
-  padding: 10px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-  background: #fafafa;
-  transition: 0.2s;
-}
-
-.input_search_donvi:focus {
-  border-color: #3b82f6;
-  outline: none;
-  box-shadow: 0 0 4px rgba(59, 130, 246, 0.4);
-  background: #fff;
-}
-
-/* Select đơn vị */
-.select_donvi {
+.cbql__them_can_bo--input_search_donvi,
+.cbql__them_can_bo--select_donvi {
   padding: 10px 12px;
   border-radius: 6px;
   border: 1px solid #ccc;
@@ -127,97 +97,89 @@
   background: white;
 }
 
-/* Dropdown list khi tìm */
-.donvi_dropdown {
+.cbql__them_can_bo--donvi_dropdown {
   position: absolute;
-  top: 45px;
+  top: 48px;
   left: 0;
   right: 0;
   background: white;
   border: 1px solid #ddd;
   border-radius: 6px;
-  max-height: 200px;
+  max-height: 220px;
   overflow-y: auto;
-  z-index: 1000;
+  z-index: 999;
   box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
 
-.donvi_item {
+.cbql__them_can_bo--donvi_item {
   padding: 10px 12px;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
-.donvi_item:hover {
-  background: #f0f7ff;
+.cbql__them_can_bo--donvi_item:hover {
+  background: #eef5ff;
 }
 
-.donvi_noresult {
+.cbql__them_can_bo--donvi_noresult {
   padding: 10px 12px;
   color: #666;
   font-style: italic;
 }
 
 /* =======================
-   NÚT ACTIONS
+   BUTTONS
 ======================= */
-.form_actions {
-  grid-column: span 2;
+.cbql__them_can_bo--form_actions {
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-top: 1.5rem;
 }
 
-.form_actions button {
+.cbql__them_can_bo--form_actions button {
   padding: 12px 20px;
   font-size: 16px;
   border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
   border: none;
-  transition: 0.25s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-.form_actions button[type="submit"] {
+.cbql__them_can_bo--form_actions button[type="submit"] {
   background-color: #053485;
-  color: #fff;
+  color: white;
 }
 
-.form_actions button[type="submit"]:hover {
-  background-color: #0952c0;
+.cbql__them_can_bo--form_actions button[type="submit"]:hover {
+  background-color: #094cba;
 }
 
-.cancel_btn {
-  background-color: #9ca3af;
-  color: #fff;
+.cbql__them_can_bo--cancel_btn {
+  background: #888;
+  color: white;
 }
 
-.cancel_btn:hover {
-  background-color: #6b7280;
+.cbql__them_can_bo--cancel_btn:hover {
+  background: #666;
 }
 
 /* =======================
    RESPONSIVE
 ======================= */
 @media (max-width: 700px) {
-  .form_grid {
+  .cbql__them_can_bo--form_grid {
     grid-template-columns: 1fr;
   }
 
-  .donvi_grid {
+  .cbql__them_can_bo--donvi_grid {
     grid-template-columns: 1fr;
   }
 
-  .form_actions {
+  .cbql__them_can_bo--form_actions {
     flex-direction: column;
-    gap: 0.8rem;
   }
 
-  .form_actions button {
+  .cbql__them_can_bo--form_actions button {
     width: 100%;
   }
 }

@@ -1,0 +1,119 @@
+/* ADD STUDENT FORM STYLES */
+.qtv__them_sinh_vien {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* FORM CONTAINER */
+.qtv__them_sinh_vien--form_container {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.qtv__them_sinh_vien--form_container h3 {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+/* FORM 3 ROWS – 2 COLUMNS */
+.qtv__them_sinh_vien--form_row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.qtv__them_sinh_vien--form_group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.qtv__them_sinh_vien--form_group label {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.qtv__them_sinh_vien--form_group input,
+.qtv__them_sinh_vien--form_group select {
+  padding: 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.qtv__them_sinh_vien--form_group input:focus,
+.qtv__them_sinh_vien--form_group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.qtv__them_sinh_vien--form_group input:disabled {
+  background-color: #f1f5f9;
+  cursor: not-allowed;
+}
+
+/* FORM BUTTONS */
+.qtv__them_sinh_vien--form_buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.qtv__them_sinh_vien--form_buttons button {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Success */
+.qtv__them_sinh_vien--form_buttons .btn-success {
+  background-color: #053485;
+  color: white;
+}
+
+.qtv__them_sinh_vien--form_buttons .btn-success:hover {
+  background-color: #3b82f6;
+}
+
+/* Cancel */
+.qtv__them_sinh_vien--form_buttons .btn-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.qtv__them_sinh_vien--form_buttons .btn-secondary:hover {
+  background-color: #475569;
+}
+
+/* ERROR MESSAGE */
+.qtv__them_sinh_vien--error_message {
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--danger-color);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .qtv__them_sinh_vien--form_row {
+    grid-template-columns: 1fr;
+  }
+
+  .qtv__them_sinh_vien--form_buttons {
+    flex-direction: column;
+  }
+
+  .qtv__them_sinh_vien--form_buttons button {
+    width: 100%;
+  }
+}
