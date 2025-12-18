@@ -62,7 +62,7 @@ const CanBoSuaDonVi = () => {
         hinh_anh: newImage || donVi.hinh_anh,  // Nếu có hình ảnh mới thì dùng nó, nếu không dùng hình ảnh cũ
       };
       await donViService.update(ma_don_vi, updatedDonVi); 
-      navigate('/quan-ly-don-vi'); 
+      navigate(`/can-bo/chi-tiet-don-vi/${ma_don_vi}`); 
     } catch (err) {
       setError('Cập nhật thông tin đơn vị thất bại'); 
     }

@@ -29,7 +29,7 @@ const CanBoChiTietCanBo = () => {
     try {
       await canBoHuongDanService.delete(maCanBo);
       alert("Xoá cán bộ thành công!");
-      navigate("/can-bo/danh-sach");
+      navigate("/quan-ly-can-bo-huong-dan");
     } catch (err) {
       alert("Xoá thất bại!");
     }

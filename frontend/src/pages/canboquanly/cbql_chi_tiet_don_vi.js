@@ -30,7 +30,7 @@ const CanBoChiTietDonVi = () => {
     try {
       await donViService.delete(maDonVi);
       alert("Xoá đơn vị thành công!");
-      navigate("/can-bo/don-vi");
+      navigate("/quan-ly-don-vi");
     } catch (err) {
       alert("Xoá thất bại!");
     }

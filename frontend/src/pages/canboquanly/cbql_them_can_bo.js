@@ -53,7 +53,7 @@ const CanBoThem = () => {
       const res = await canBoHuongDanService.create(canBo);
       setSuccess(`Thêm cán bộ thành công: ${res.data.ma_can_bo}`);
       
-      setTimeout(() => navigate('/danh-sach-can-bo-huong-dan'), 1200);
+      setTimeout(() => navigate('/quan-ly-can-bo-huong-dan'), 1200);
     } catch (err) {
       setError(err.response?.data?.message || "Thêm cán bộ thất bại");
     } finally {
