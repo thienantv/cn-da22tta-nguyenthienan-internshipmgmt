@@ -102,15 +102,24 @@
   flex-direction: column;
 }
 
+/* ==========================
+   CHỈNH ẢNH CARD VỪA KHUNG
+========================== */
 .cbql__quan_ly_don_vi--card_image {
-  height: 180px;
+  height: 140px;              /* chiều cao khung */
+  background: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
 .cbql__quan_ly_don_vi--card_image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 90%;
+  max-height: 90%;
+  width: auto;
+  height: auto;
+  object-fit: contain;        /* KHÔNG cắt ảnh */
 }
 
 .cbql__quan_ly_don_vi--card_content {
@@ -279,5 +288,10 @@
 
   .cbql__quan_ly_don_vi--action_cell {
     flex-direction: column;
+  }
+
+  /* Mobile card image nhỏ hơn */
+  .cbql__quan_ly_don_vi--card_image {
+    height: 110px;
   }
 }

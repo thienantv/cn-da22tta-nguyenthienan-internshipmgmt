@@ -27,7 +27,7 @@
    CONTENT
 ========================== */
 .cbql__chi_tiet_don_vi--content {
-  max-width: 600px;       /* khớp ngang với ảnh */
+  max-width: 600px;       
   margin: 0 auto;
   background: white;
   border-radius: 0.75rem;
@@ -35,25 +35,32 @@
   overflow: hidden;
 }
 
+/* ==========================
+   HEADER - ẢNH CHI TIẾT
+========================== */
 .cbql__chi_tiet_don_vi--header {
   width: 100%;
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
+  background: #f9fafb;          
+  overflow: hidden;
+  border-radius: 0.75rem;
 }
 
 .cbql__chi_tiet_don_vi--header img {
+  max-width: 90%;
+  max-height: 400px;           
   width: auto;
-  max-width: 100%;        /* không vượt quá container */
   height: auto;
-  max-height: 400px;      /* giới hạn chiều cao */
-  border-radius: 0.75rem;
+  object-fit: contain;         
   display: block;
+  border-radius: 0.75rem;
   transition: transform 0.3s ease-in-out;
 }
 
 .cbql__chi_tiet_don_vi--header img:hover {
-  transform: scale(1.05); /* zoom nhẹ khi hover */
+  transform: scale(1.05);      
 }
 
 .cbql__chi_tiet_don_vi--body {
@@ -90,13 +97,13 @@
 }
 
 .cbql__chi_tiet_don_vi--info_row .label {
-  min-width: 120px;       /* label cố định */
+  min-width: 120px;       
   font-weight: 600;
   color: #333;
 }
 
 .cbql__chi_tiet_don_vi--info_row .value {
-  flex: 1;                /* value chiếm phần còn lại */
+  flex: 1;                
   color: #555;
   word-break: break-word;
 }
@@ -152,12 +159,12 @@
   border: none;
   cursor: pointer;
   font-weight: 600;
-  color: #fff; /* chữ trắng */
+  color: #fff; 
   transition: 0.2s;
 }
 
 .btn-edit {
-  background-color: #ffc107; /* vàng */
+  background-color: #ffc107; 
 }
 
 .btn-edit:hover {
@@ -165,7 +172,7 @@
 }
 
 .btn-delete {
-  background-color: #dc3545; /* đỏ */
+  background-color: #dc3545; 
 }
 
 .btn-delete:hover {
@@ -193,6 +200,6 @@
   }
 
   .cbql__chi_tiet_don_vi--footer {
-    grid-template-columns: 1fr; /* Mobile: 1 cột */
+    grid-template-columns: 1fr; 
   }
 }

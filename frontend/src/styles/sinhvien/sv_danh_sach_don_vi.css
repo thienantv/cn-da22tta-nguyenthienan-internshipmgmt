@@ -37,54 +37,6 @@
 }
 
 /* ==========================
-   ACTION BAR
-========================== */
-.sv__action_bar {
-  display: flex;
-  justify-content: space-between; /* vẫn giữ toggle bên phải */
-  align-items: center;
-  margin-bottom: 1.5rem;
-  gap: 1rem; /* tạo khoảng cách giữa nút thêm và toggle */
-}
-
-.sv__them_donvi_btn {
-  flex: 1; /* chiếm hết không gian còn lại */
-  padding: 0.75rem 2rem !important;
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-align: center; /* căn chữ về bên trái */
-  max-width: calc(100% - 140px); /* giữ vừa sát toggle, 140px là width toggle + margin dự phòng */
-  min-width: 0;
-}
-
-/* ==========================
-   VIEW TOGGLE
-========================== */
-.sv__view_toggle {
-  display: inline-flex;
-  background: #f3f4f6;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  border: 1px solid #d1d5db;
-}
-
-.sv__view_btn {
-  padding: 0.8rem 1.1rem;
-  border: none;
-  background: none;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: 0.2s;
-  color: #374151;
-  font-size: 0.875rem;
-}
-
-.sv__view_btn.active {
-  background: #3b82f6;
-  color: white;
-}
-
-/* ==========================
    CARD VIEW
 ========================== */
 .sv__don_vi_cards {
@@ -100,145 +52,86 @@
   box-shadow: 0 3px 12px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.sv__don_vi_card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* ==========================
+   IMAGE (TỰ CO NHỎ – KHÔNG CẮT)
+========================== */
 .sv__card_image {
-  height: 180px;
+  height: 140px;                /* chiều cao khung card */
+  background: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
 .sv__card_image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 90%;
+  max-height: 90%;
+  width: auto;
+  height: auto;
+  object-fit: contain;          /* HIỂN THỊ TRỌN ẢNH */
 }
 
+/* ==========================
+   CARD CONTENT
+========================== */
 .sv__card_content {
-  padding: 1.3rem;
+  padding: 1.2rem;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .sv__card_content h3 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.45rem;
   color: #111827;
+  font-size: 1.05rem;
 }
 
 .sv__card_address {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: #4b5563;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
 }
 
 .sv__card_description {
   font-size: 0.85rem;
   color: #6b7280;
   margin-bottom: 1rem;
+  line-height: 1.4;
 }
 
 /* ==========================
-   CARD & TABLE BUTTONS
+   CARD BUTTONS
 ========================== */
 .sv__card_buttons {
   display: flex;
   justify-content: center;
-  gap: 0.75rem;
+  margin-top: auto;
 }
 
-/* Nút Chi tiết - Xanh */
-.sv__card_buttons .sv__btn_modern,
-.sv__don_vi_table .sv__btn_link {
+.sv__btn_modern {
   background-color: #3b82f6;
   color: white;
   border: none;
-  padding: 0.45rem 0.9rem;
-  border-radius: 0.35rem;
+  padding: 0.45rem 1rem;
+  border-radius: 0.4rem;
   cursor: pointer;
-  text-align: center;
   text-decoration: none;
   font-size: 0.875rem;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease;
 }
 
-.sv__card_buttons .sv__btn_modern:hover,
-.sv__don_vi_table .sv__btn_link:hover {
+.sv__btn_modern:hover {
   background-color: #2563eb;
-}
-
-/* Nút Sửa - Vàng */
-.btn-modern.warning,
-.sv__don_vi_table .sv__btn_link.btn-warning {
-  background-color: #f59e0b;
-  color: white;
-  border: none;
-  padding: 0.45rem 0.9rem;
-  border-radius: 0.35rem;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  font-size: 0.875rem;
-  transition: background-color 0.2s;
-}
-
-.btn-modern.warning:hover,
-.sv__don_vi_table .sv__btn_link.btn-warning:hover {
-  background-color: #d97706;
-}
-
-/* Nút Xóa - Đỏ */
-.btn-modern.danger,
-.sv__don_vi_table .sv__btn_link.btn-danger {
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  padding: 0.45rem 0.9rem;
-  border-radius: 0.35rem;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  font-size: 0.875rem;
-  transition: background-color 0.2s;
-}
-
-.btn-modern.danger:hover,
-.sv__don_vi_table .sv__btn_link.btn-danger:hover {
-  background-color: #b91c1c;
-}
-
-/* ==========================
-   TABLE VIEW
-========================== */
-.sv__don_vi_table_wrapper {
-  background: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-  overflow-x: auto;
-}
-
-.sv__don_vi_table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.sv__don_vi_table th,
-.sv__don_vi_table td {
-  padding: 0.9rem 1rem;
-  text-align: left;
-  font-size: 0.9rem;
-}
-
-.sv__don_vi_table th {
-  background: #f9fafb;
-}
-
-.sv__don_vi_table tbody tr:hover {
-  background: #f3f4f6;
-}
-
-.sv__action_cell {
-  display: flex;
-  gap: 0.6rem;
-  white-space: nowrap;
 }
 
 /* ==========================
@@ -251,6 +144,26 @@
 }
 
 /* ==========================
+   LOADING
+========================== */
+.sv__loading {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1rem;
+}
+
+/* ==========================
+   ERROR
+========================== */
+.sv__error-message {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* ==========================
    RESPONSIVE
 ========================== */
 @media (max-width: 768px) {
@@ -259,25 +172,11 @@
     align-items: stretch;
   }
 
-  .sv__action_bar {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .sv__them_donvi_btn {
-    width: 100%;
-  }
-
-  .sv__view_toggle {
-    width: 100%;
-    justify-content: center;
-  }
-
   .sv__don_vi_cards {
     grid-template-columns: 1fr;
   }
 
-  .sv__action_cell {
-    flex-direction: column;
+  .sv__card_image {
+    height: 110px;
   }
 }
