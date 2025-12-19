@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { donViService } from '../../services/api';
 import '../../styles/sinhvien/sv_danh_sach_don_vi.css';
 
-const SinhVienDanhSachDonVi = () => {
+const SinhVienQuanLyDonVi = () => {
   const [donVi, setDonVi] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -42,51 +42,48 @@ const SinhVienDanhSachDonVi = () => {
     fetchDonVi();
   };
 
-  if (loading) return <div className="loading">Đang tải...</div>;
+  if (loading) return <div className="sv__loading">Đang tải...</div>;
 
   return (
     <div className="sv__danh_sach_don_vi">
-
-      {error && <div className="error-message">{error}</div>}
+      {error && <div className="sv__error-message">{error}</div>}
 
       {/* Bộ lọc */}
-      <div className="sv__danh_sach_don_vi--filter_section">
-        <div className="sv__danh_sach_don_vi--filter_grid">
-          <div className="sv__danh_sach_don_vi--filter_item">
-            <label>Tìm kiếm:</label>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault();
-                  handleSearch();
-                }
-              }}
-              placeholder="Tìm theo tên đơn vị, địa chỉ, điện thoại, email"
-            />
-          </div>
+      <div className="sv__filter_section">
+        <div className="sv__filter_row">
+          <label>Tìm kiếm:</label>
 
-          <div className="sv__danh_sach_don_vi--filter_buttons">
-            <button className="btn btn-primary" onClick={handleSearch}>
-              Tìm kiếm
-            </button>
-            <button className="btn btn-secondary" onClick={handleReset}>
-              Đặt lại
-            </button>
-          </div>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleSearch();
+              }
+            }}
+            placeholder="Tìm theo tên đơn vị, địa chỉ, điện thoại, email"
+          />
+
+          <button className="btn btn-primary" onClick={handleSearch}>
+            Tìm kiếm
+          </button>
+
+          <button className="btn btn-secondary" onClick={handleReset}>
+            Đặt lại
+          </button>
         </div>
       </div>
 
-      {/* Hiển thị danh sách card */}
+      {/* CHỈ HIỂN THỊ CARD VIEW */}
       {donVi.length === 0 ? (
-        <div className="empty-message">Không có đơn vị nào</div>
+        <div className="sv__empty-message">Không có đơn vị nào</div>
       ) : (
-        <div className="sv__danh_sach_don_vi--don_vi_cards">
+        <div className="sv__don_vi_cards">
           {donVi.map((dv) => (
-            <div key={dv.ma_don_vi} className="sv__danh_sach_don_vi--don_vi_card">
-              <div className="sv__danh_sach_don_vi--card_image">
+            <div key={dv.ma_don_vi} className="sv__don_vi_card">
+              <div className="sv__card_image">
                 <img
                   src={
                     dv.hinh_anh
@@ -98,13 +95,17 @@ const SinhVienDanhSachDonVi = () => {
                   alt={dv.ten_don_vi}
                 />
               </div>
-              <div className="sv__danh_sach_don_vi--card_content">
+
+              <div className="sv__card_content">
                 <h3>{dv.ten_don_vi}</h3>
-                <p className="sv__danh_sach_don_vi--card_address">{dv.dia_chi}</p>
-                <p className="sv__danh_sach_don_vi--card_description">{dv.gioi_thieu?.substring(0, 100)}...</p>
-                <Link to={`/sinh-vien/chi-tiet-don-vi/${dv.ma_don_vi}`} className="btn btn-primary btn-small">
-                  Xem chi tiết
-                </Link>
+                <p className="sv__card_address">{dv.dia_chi}</p>
+                <p className="sv__card_description">{dv.gioi_thieu?.substring(0, 100)}...</p>
+
+                <div className="sv__card_buttons" style={{ justifyContent: 'center' }}>
+                  <Link to={`/sinh-vien/chi-tiet-don-vi/${dv.ma_don_vi}`} className="sv__btn_modern">
+                    Chi tiết
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
@@ -114,4 +115,4 @@ const SinhVienDanhSachDonVi = () => {
   );
 };
 
-export default SinhVienDanhSachDonVi;
+export default SinhVienQuanLyDonVi;

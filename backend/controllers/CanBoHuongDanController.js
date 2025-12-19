@@ -11,7 +11,6 @@ const getCanBoHuongDan = async (req, res) => {
        ORDER BY cb.created_at DESC`
     );
     connection.release();
-
     return res.status(200).json(canBo);
   } catch (error) {
     console.error('Lỗi lấy danh sách cán bộ hướng dẫn:', error);
@@ -24,21 +23,15 @@ const getCanBoHuongDanById = async (req, res) => {
   try {
     const { maCanBo } = req.params;
     const connection = await pool.getConnection();
-
     const [canBo] = await connection.execute(
-      `SELECT cb.*, dv.ten_don_vi, dv.dia_chi, dv.so_dien_thoai, dv.email_don_vi
+      `SELECT cb.*, dv.ten_don_vi, dv.dia_chi, dv.so_dien_thoai as so_dien_thoai_don_vi, dv.email_don_vi
        FROM can_bo_huong_dan cb
        LEFT JOIN don_vi dv ON cb.ma_don_vi = dv.ma_don_vi
        WHERE cb.ma_can_bo = ?`,
       [maCanBo]
     );
-
     connection.release();
-
-    if (canBo.length === 0) {
-      return res.status(404).json({ message: 'Cán bộ hướng dẫn không tồn tại' });
-    }
-
+    if (canBo.length === 0) return res.status(404).json({ message: 'Cán bộ hướng dẫn không tồn tại' });
     return res.status(200).json(canBo[0]);
   } catch (error) {
     console.error('Lỗi lấy chi tiết cán bộ hướng dẫn:', error);
@@ -46,93 +39,94 @@ const getCanBoHuongDanById = async (req, res) => {
   }
 };
 
-// Tạo cán bộ hướng dẫn (chỉ cán bộ quản lý)
+// Tạo cán bộ hướng dẫn (có avatar)
 const createCanBoHuongDan = async (req, res) => {
   try {
-    const { ho_ten, gioi_tinh, so_dien_thoai, email_can_bo, so_tk_ngan_hang, chuc_vu, chuyen_mon, ma_don_vi } = req.body;
+    const { ho_ten, gioi_tinh, so_dien_thoai, email_can_bo, so_tk_ngan_hang, chuc_vu, chuyen_mon, ma_don_vi, avatar } = req.body;
 
-    // Kiểm tra dữ liệu đầu vào bắt buộc
-    if (!ho_ten) {
-      return res.status(400).json({ message: 'Họ tên là bắt buộc' });
-    }
+    if (!ho_ten) return res.status(400).json({ message: 'Họ tên là bắt buộc' });
 
-    // Kết nối đến cơ sở dữ liệu
     const connection = await pool.getConnection();
-
-    // Lấy mã cán bộ cao nhất hiện tại (theo định dạng CBxxx)
     const [result] = await connection.execute(
       `SELECT ma_can_bo FROM can_bo_huong_dan ORDER BY ma_can_bo DESC LIMIT 1`
     );
 
-    let maCanBoMoi = 'CB001'; // Mặc định là mã cán bộ đầu tiên
-
+    let maCanBoMoi = 'CB001';
     if (result.length > 0) {
-      const lastMaCanBo = result[0].ma_can_bo;  // Lấy mã cán bộ cao nhất
-      const currentNumber = parseInt(lastMaCanBo.slice(2));  // Lấy phần số từ mã (ví dụ từ CB001 lấy 001)
-      const newNumber = currentNumber + 1;  // Tăng lên 1
-
-      // Tạo mã cán bộ mới với định dạng 'CBxxx'
-      maCanBoMoi = 'CB' + newNumber.toString().padStart(3, '0');
+      const lastMaCanBo = result[0].ma_can_bo;
+      const currentNumber = parseInt(lastMaCanBo.slice(2));
+      maCanBoMoi = 'CB' + (currentNumber + 1).toString().padStart(3, '0');
     }
 
-    // Chèn cán bộ vào cơ sở dữ liệu với mã cán bộ mới
     await connection.execute(
-      `INSERT INTO can_bo_huong_dan (ma_can_bo, ho_ten, gioi_tinh, so_dien_thoai, email_can_bo, so_tk_ngan_hang, chuc_vu, chuyen_mon, ma_don_vi)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [maCanBoMoi, ho_ten, gioi_tinh || 'Khác', so_dien_thoai || '', email_can_bo || '', so_tk_ngan_hang || '', chuc_vu || '', chuyen_mon || '', ma_don_vi || null]
+      `INSERT INTO can_bo_huong_dan 
+       (ma_can_bo, ho_ten, gioi_tinh, so_dien_thoai, email_can_bo, so_tk_ngan_hang, chuc_vu, chuyen_mon, ma_don_vi, avatar)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [maCanBoMoi, ho_ten, gioi_tinh || 'Khác', so_dien_thoai || '', email_can_bo || '', so_tk_ngan_hang || '', chuc_vu || '', chuyen_mon || '', ma_don_vi || null, avatar || '']
     );
 
-    // Giải phóng kết nối
     connection.release();
-
-    // Trả về thông báo thành công
     return res.status(201).json({ message: 'Tạo cán bộ hướng dẫn thành công', ma_can_bo: maCanBoMoi });
   } catch (error) {
     console.error('Lỗi tạo cán bộ hướng dẫn:', error);
-    if (error.code === 'ER_DUP_ENTRY') {
-      return res.status(400).json({ message: 'Mã cán bộ hoặc email đã tồn tại' });
-    }
+    if (error.code === 'ER_DUP_ENTRY') return res.status(400).json({ message: 'Mã cán bộ hoặc email đã tồn tại' });
     return res.status(500).json({ message: 'Lỗi máy chủ', error: error.message });
   }
 };
 
-// Cập nhật cán bộ hướng dẫn (chỉ cán bộ quản lý)
+// Cập nhật cán bộ hướng dẫn (có avatar)
 const updateCanBoHuongDan = async (req, res) => {
+  let connection;
   try {
     const { maCanBo } = req.params;
-    const { ho_ten, gioi_tinh, so_dien_thoai, email_can_bo, so_tk_ngan_hang, chuc_vu, chuyen_mon, ma_don_vi } = req.body;
+    const { ho_ten, gioi_tinh, so_dien_thoai, email_can_bo, so_tk_ngan_hang, chuc_vu, chuyen_mon, ma_don_vi, avatar } = req.body;
 
-    const connection = await pool.getConnection();
+    console.log('Updating canbo:', { maCanBo, ho_ten, email_can_bo, avatarLength: avatar ? avatar.length : 0 });
 
-    await connection.execute(
-      `UPDATE can_bo_huong_dan 
-       SET ho_ten = ?, gioi_tinh = ?, so_dien_thoai = ?, email_can_bo = ?, so_tk_ngan_hang = ?, chuc_vu = ?, chuyen_mon = ?, ma_don_vi = ?
-       WHERE ma_can_bo = ?`,
-      [ho_ten, gioi_tinh || 'Khác', so_dien_thoai || '', email_can_bo || '', so_tk_ngan_hang || '', chuc_vu || '', chuyen_mon || '', ma_don_vi || null, maCanBo]
+    connection = await pool.getConnection();
+
+    // Lấy thông tin cán bộ cũ để giữ avatar nếu không có avatar mới
+    const [oldCanBo] = await connection.execute(
+      `SELECT avatar FROM can_bo_huong_dan WHERE ma_can_bo = ?`,
+      [maCanBo]
     );
 
-    connection.release();
+    const finalAvatar = (avatar && avatar !== '') ? avatar : (oldCanBo.length > 0 ? oldCanBo[0].avatar : null);
 
-    return res.status(200).json({ message: 'Cập nhật cán bộ hướng dẫn thành công' });
+    const updateFields = [ho_ten, gioi_tinh || 'Khác', so_dien_thoai || '', email_can_bo || '', so_tk_ngan_hang || '', chuc_vu || '', chuyen_mon || '', ma_don_vi || null, finalAvatar];
+    const sql = `UPDATE can_bo_huong_dan SET ho_ten=?, gioi_tinh=?, so_dien_thoai=?, email_can_bo=?, so_tk_ngan_hang=?, chuc_vu=?, chuyen_mon=?, ma_don_vi=?, avatar=? WHERE ma_can_bo=?`;
+    updateFields.push(maCanBo);
+
+    console.log('Executing update with fields count:', updateFields.length);
+    await connection.execute(sql, updateFields);
+    
+    // Lấy dữ liệu mới để return
+    const [updatedCanBo] = await connection.execute(
+      `SELECT cb.*, dv.ten_don_vi, dv.dia_chi, dv.so_dien_thoai as so_dien_thoai_don_vi, dv.email_don_vi
+       FROM can_bo_huong_dan cb
+       LEFT JOIN don_vi dv ON cb.ma_don_vi = dv.ma_don_vi
+       WHERE cb.ma_can_bo = ?`,
+      [maCanBo]
+    );
+    
+    connection.release();
+    console.log('✓ Update successful');
+    return res.status(200).json({ message: 'Cập nhật cán bộ hướng dẫn thành công', data: updatedCanBo[0] });
   } catch (error) {
+    if (connection) connection.release();
     console.error('Lỗi cập nhật cán bộ hướng dẫn:', error);
+    if (error.code === 'ER_DUP_ENTRY') return res.status(400).json({ message: 'Email đã tồn tại' });
     return res.status(500).json({ message: 'Lỗi máy chủ', error: error.message });
   }
 };
 
-// Xóa cán bộ hướng dẫn (chỉ cán bộ quản lý)
+// Xóa cán bộ hướng dẫn
 const deleteCanBoHuongDan = async (req, res) => {
   try {
     const { maCanBo } = req.params;
     const connection = await pool.getConnection();
-
-    await connection.execute(
-      'DELETE FROM can_bo_huong_dan WHERE ma_can_bo = ?',
-      [maCanBo]
-    );
-
+    await connection.execute('DELETE FROM can_bo_huong_dan WHERE ma_can_bo=?', [maCanBo]);
     connection.release();
-
     return res.status(200).json({ message: 'Xóa cán bộ hướng dẫn thành công' });
   } catch (error) {
     console.error('Lỗi xóa cán bộ hướng dẫn:', error);
@@ -140,46 +134,27 @@ const deleteCanBoHuongDan = async (req, res) => {
   }
 };
 
-// Tìm kiếm cán bộ hướng dẫn theo 1 từ khóa
+// Tìm kiếm cán bộ hướng dẫn
 const searchCanBoHuongDan = async (req, res) => {
   try {
     const { query } = req.query;
-
     const connection = await pool.getConnection();
 
-    let sql = `
-      SELECT cb.*, dv.ten_don_vi 
-      FROM can_bo_huong_dan cb
-      LEFT JOIN don_vi dv ON cb.ma_don_vi = dv.ma_don_vi
-      WHERE 1=1
-    `;
-    
+    let sql = `SELECT cb.*, dv.ten_don_vi, dv.dia_chi, dv.so_dien_thoai as so_dien_thoai_don_vi, dv.email_don_vi 
+               FROM can_bo_huong_dan cb
+               LEFT JOIN don_vi dv ON cb.ma_don_vi = dv.ma_don_vi
+               WHERE 1=1`;
     const params = [];
 
     if (query && query.trim() !== "") {
-      sql += `
-        AND (
-          cb.ho_ten LIKE ?
-          OR cb.so_dien_thoai LIKE ?
-          OR cb.email_can_bo LIKE ?
-          OR cb.chuc_vu LIKE ?
-          OR cb.chuyen_mon LIKE ?
-          OR dv.ten_don_vi LIKE ?
-        )
-      `;
-      
+      sql += ` AND (cb.ho_ten LIKE ? OR cb.so_dien_thoai LIKE ? OR cb.email_can_bo LIKE ? OR cb.chuc_vu LIKE ? OR cb.chuyen_mon LIKE ? OR dv.ten_don_vi LIKE ?)`;
       const searchValue = `%${query}%`;
-      params.push(
-        searchValue, searchValue, searchValue,
-        searchValue, searchValue, searchValue
-      );
+      params.push(searchValue, searchValue, searchValue, searchValue, searchValue, searchValue);
     }
 
     sql += ` ORDER BY cb.created_at DESC`;
-
     const [canBo] = await connection.execute(sql, params);
     connection.release();
-
     return res.status(200).json(canBo);
   } catch (error) {
     console.error('Lỗi tìm kiếm cán bộ hướng dẫn:', error);

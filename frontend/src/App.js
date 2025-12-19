@@ -114,10 +114,10 @@ const AppWrapper = () => {
                     }
                   />
                   <Route
-                    path="/quan-ly-can-bo-huong-dan"
+                    path="/can-bo/chi-tiet-don-vi/:ma_don_vi"
                     element={
                       <ProtectedRoute requiredRole="can_bo_quan_ly">
-                        <CanBoQuanLyCanBoHuongDan />
+                        <CanBoChiTietDonVi />
                       </ProtectedRoute>
                     }
                   />
@@ -138,10 +138,10 @@ const AppWrapper = () => {
                     }
                   />
                   <Route
-                    path="/can-bo/sua-can-bo/:ma_can_bo"
+                    path="/quan-ly-can-bo-huong-dan"
                     element={
                       <ProtectedRoute requiredRole="can_bo_quan_ly">
-                        <CanBoSuaCanBoHuongDan />
+                        <CanBoQuanLyCanBoHuongDan />
                       </ProtectedRoute>
                     }
                   />
@@ -154,18 +154,18 @@ const AppWrapper = () => {
                     }
                   />
                   <Route
-                    path="/can-bo/chi-tiet-can-bo/:maCanBo"
+                    path="/can-bo/sua-can-bo/:ma_can_bo"
                     element={
                       <ProtectedRoute requiredRole="can_bo_quan_ly">
-                        <CanBoChiTietCanBo />
+                        <CanBoSuaCanBoHuongDan />
                       </ProtectedRoute>
                     }
                   />
                   <Route
-                    path="/can-bo/chi-tiet-don-vi/:maDonVi"
+                    path="/can-bo/chi-tiet-can-bo/:ma_can_bo"
                     element={
                       <ProtectedRoute requiredRole="can_bo_quan_ly">
-                        <CanBoChiTietDonVi />
+                        <CanBoChiTietCanBo />
                       </ProtectedRoute>
                     }
                   />
@@ -204,7 +204,7 @@ const AppWrapper = () => {
                     }
                   />
                   <Route
-                    path="/sinh-vien/chi-tiet-don-vi/:maDonVi"
+                    path="/sinh-vien/chi-tiet-don-vi/:ma_don_vi"
                     element={
                       <ProtectedRoute requiredRole="sinh_vien">
                         <SinhVienChiTietDonVi />
@@ -212,7 +212,7 @@ const AppWrapper = () => {
                     }
                   />
                   <Route
-                    path="/sinh-vien/chi-tiet-can-bo/:maCanBo"
+                    path="/sinh-vien/chi-tiet-can-bo/:ma_can_bo"
                     element={
                       <ProtectedRoute requiredRole="sinh_vien">
                         <SinhVienChiTietCanBo />

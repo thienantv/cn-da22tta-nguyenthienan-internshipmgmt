@@ -1,255 +1,138 @@
-/* danh_sach_can_bo.css - Danh Sách Cán Bộ Sinh Viên */
-
-.sv__danh_sach_can_bo {
-  max-width: 1200px;
+/* ===============================
+   CONTAINER
+=============================== */
+.sv__quan_ly_can_bo {
+  max-width: 1300px;
   margin: 0 auto;
+  padding: 1rem;
 }
 
-.sv__danh_sach_can_bo h1 {
-  margin-bottom: 1.5rem;
-  color: var(--text-color);
-}
-
-.sv__danh_sach_can_bo--filter_section {
+/* ===============================
+   FILTER SECTION
+=============================== */
+.sv__filter_section {
   background: white;
-  padding: 2rem;
+  padding: 1.75rem;
   border-radius: 0.75rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
 }
 
-.sv__danh_sach_can_bo--filter_section h3 {
-  margin-bottom: 1.5rem;
-  color: var(--text-color);
-}
-
-.sv__danh_sach_can_bo--filter_grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.sv__danh_sach_can_bo--filter_item label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-}
-
-.sv__danh_sach_can_bo--filter_item input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid var(--border-color);
-  border-radius: 0.5rem;
-  font-size: 1rem;
-}
-
-.sv__danh_sach_can_bo--filter_item input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-.sv__danh_sach_can_bo--filter_buttons {
+.sv__filter_row {
   display: flex;
-  gap: 1rem;
-}
-
-.sv__danh_sach_can_bo--filter_buttons .btn {
-  flex: 1;
-}
-
-/* Thanh công cụ hành động */
-.sv__danh_sach_can_bo--action_bar {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
   gap: 1rem;
 }
 
-/* Công tắc chế độ xem */
-.sv__danh_sach_can_bo--view_toggle {
-  display: flex;
-  gap: 0.5rem;
-}
-
-/* Nút chuyển đổi chế độ xem */
-.sv__danh_sach_can_bo--view_btn {
-  padding: 0.75rem 1rem;
-  border: 2px solid var(--border-color);
-  background-color: white;
-  color: var(--text-color);
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.sv__danh_sach_can_bo--view_btn.active {
-  border-color: var(--primary-color);
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.sv__danh_sach_can_bo--view_btn:hover {
-  border-color: var(--primary-color);
-}
-
-/* Card View - Xem Thẻ Cán Bộ */
-.sv__danh_sach_can_bo--can_bo_cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.sv__danh_sach_can_bo--can_bo_card {
-  background: white;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.sv__danh_sach_can_bo--can_bo_card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  transform: translateY(-5px);
-}
-
-.sv__danh_sach_can_bo--card_content {
-  padding: 1.5rem;
-}
-
-.sv__danh_sach_can_bo--card_content h3 {
-  margin-bottom: 0.75rem;
-  color: var(--text-color);
-}
-
-.sv__danh_sach_can_bo--card_chuc_vu {
-  font-weight: 500;
-  color: var(--text-color);
-  margin-bottom: 0.5rem;
-}
-
-.sv__danh_sach_can_bo--card_chuyen_mon {
-  font-size: 0.875rem;
-  color: var(--text-light);
-  margin-bottom: 1rem;
-}
-
-.sv__danh_sach_can_bo--card_info {
-  color: var(--text-light);
-  margin-bottom: 1rem;
-  line-height: 1.5;
-  min-height: 3rem;
-}
-
-.sv__danh_sach_can_bo .btn-small {
-  width: 100%;
-}
-
-/* Table View - Xem Bảng Cán Bộ */
-.sv__danh_sach_can_bo--can_bo_table_wrapper {
-  background: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  overflow-x: auto;
-}
-
-.sv__danh_sach_can_bo--can_bo_table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.sv__danh_sach_can_bo--can_bo_table thead {
-  background-color: var(--light-bg);
-  border-bottom: 2px solid var(--border-color);
-}
-
-.sv__danh_sach_can_bo--can_bo_table th {
-  padding: 1rem;
-  text-align: left;
-  font-weight: 600;
-  color: var(--text-color);
-}
-
-.sv__danh_sach_can_bo--can_bo_table td {
-  padding: 1rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.sv__danh_sach_can_bo--can_bo_table tbody tr:hover {
-  background-color: #f9fafb;
-}
-
-.sv__danh_sach_can_bo--action_cell {
+.sv__filter_row label {
   white-space: nowrap;
-  display: flex;
-  gap: 0.5rem;
+  font-weight: 500;
 }
 
-.sv__danh_sach_can_bo .btn-link {
-  background: none;
-  color: var(--primary-color);
-  border: none;
-  padding: 0.5rem;
-  cursor: pointer;
-  text-decoration: underline;
+.sv__filter_row input {
+  flex: 1;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
   font-size: 0.875rem;
 }
 
-.sv__danh_sach_can_bo .btn-link:hover {
-  color: #1d4ed8;
+/* ===============================
+   CARD GRID
+=============================== */
+.sv__card_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
 }
 
-.sv__danh_sach_can_bo .btn-link.btn-danger {
-  color: var(--danger-color);
+/* ===============================
+   CARD ITEM
+=============================== */
+.sv__card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.sv__danh_sach_can_bo .btn-link.btn-danger:hover {
-  color: #b91c1c;
+.sv__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
 }
 
-.sv__danh_sach_can_bo .btn-link.btn-warning {
-  color: var(--warning-color);
+/* ===============================
+   AVATAR
+=============================== */
+.sv__card_avatar {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: #e5f0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.sv__danh_sach_can_bo .btn-link.btn-warning:hover {
-  color: #d97706;
+.sv__card_avatar img {
+  width: 48px;
+  height: 48px;
 }
 
-/* Responsive - Tương Thích Di Động */
+/* ===============================
+   TEXT
+=============================== */
+.sv__card_name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #1f2937;
+}
+
+.sv__card p {
+  font-size: 0.875rem;
+  margin: 0.3rem 0;
+  color: #374151;
+}
+
+/* ===============================
+   BUTTON
+=============================== */
+.sv__card_btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1.25rem;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.sv__card_btn:hover {
+  background-color: #2563eb;
+}
+
+/* ===============================
+   EMPTY MESSAGE
+=============================== */
+.sv__empty-message {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+/* ===============================
+   RESPONSIVE
+=============================== */
 @media (max-width: 768px) {
-  .sv__danh_sach_can_bo--filter_grid {
-    grid-template-columns: 1fr;
-  }
-
-  .sv__danh_sach_can_bo--filter_buttons {
+  .sv__filter_row {
     flex-direction: column;
-  }
-
-  .sv__danh_sach_can_bo--filter_buttons .btn {
-    width: 100%;
-  }
-
-  .sv__danh_sach_can_bo--can_bo_cards {
-    grid-template-columns: 1fr;
-  }
-
-  .action_bar {
-    flex-direction: column;
-  }
-
-  .action_bar .btn {
-    width: 100%;
-  }
-
-  .sv__danh_sach_can_bo--can_bo_table {
-    font-size: 0.875rem;
-  }
-
-  .sv__danh_sach_can_bo--can_bo_table th,
-  .sv__danh_sach_can_bo--can_bo_table td {
-    padding: 0.75rem 0.5rem;
+    align-items: stretch;
   }
 }

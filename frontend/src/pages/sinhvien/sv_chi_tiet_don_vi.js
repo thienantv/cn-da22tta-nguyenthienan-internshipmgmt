@@ -4,7 +4,7 @@ import { donViService } from '../../services/api';
 import '../../styles/sinhvien/sv_chi_tiet_don_vi.css';
 
 const SinhVienChiTietDonVi = () => {
-  const { maDonVi } = useParams();
+  const { ma_don_vi } = useParams();
   const [donVi, setDonVi] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -13,9 +13,16 @@ const SinhVienChiTietDonVi = () => {
 useEffect(() => {
   const fetchDonViDetail = async () => {
     try {
-      const response = await donViService.getById(maDonVi);
+      if (!ma_don_vi) {
+        setError('Không có mã đơn vị');
+        setLoading(false);
+        return;
+      }
+      console.log('Fetching don vi detail with ID:', ma_don_vi);
+      const response = await donViService.getById(ma_don_vi);
       setDonVi(response.data);
     } catch (err) {
+      console.error('Error fetching don vi detail:', err);
       setError('Không thể tải thông tin đơn vị');
     } finally {
       setLoading(false);
@@ -23,7 +30,7 @@ useEffect(() => {
   };
 
   fetchDonViDetail();
-}, [maDonVi]); // chỉ thêm maDonVi
+}, [ma_don_vi]); // chỉ thêm ma_don_vi
 
   if (loading) return <div className="loading">Đang tải...</div>;
   if (error) return <div className="error-message">{error}</div>;

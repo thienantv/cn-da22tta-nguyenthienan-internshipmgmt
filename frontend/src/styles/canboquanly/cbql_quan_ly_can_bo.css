@@ -38,33 +38,59 @@
 }
 
 /* ===============================
-   ACTION BAR
+   ACTION BAR (THÊM + TOGGLE)
 =============================== */
 .cbql__quan_ly_can_bo--action_bar {
   display: flex;
-  justify-content: center; /* căn giữa nếu muốn */
+  justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
-/* Nút Thêm cán bộ full chiều ngang */
+/* Nút Thêm cán bộ */
 .cbql__quan_ly_can_bo--add_btn {
-  width: 100%;         /* full chiều ngang container */
-  max-width: 100%;     /* đảm bảo không bị giới hạn */
-  padding: 0.75rem 0;  /* padding top-bottom, bỏ padding ngang để full */
+  flex: 1;
+  padding: 0.75rem 2rem;
   font-size: 0.95rem;
   font-weight: 600;
   text-align: center;
-  border-radius: 0.5rem;
+  max-width: calc(100% - 140px); /* chừa chỗ cho toggle */
   background-color: #053485;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  color: white;
+  border-radius: 0.5rem;
+  text-decoration: none;
 }
 
 .cbql__quan_ly_can_bo--add_btn:hover {
   background-color: #2563eb;
+}
+
+/* ===============================
+   VIEW TOGGLE
+=============================== */
+.cbql__quan_ly_can_bo--view_toggle {
+  display: inline-flex;
+  background: #f3f4f6;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid #d1d5db;
+}
+
+.cbql__quan_ly_can_bo--view_btn {
+  padding: 0.8rem 1.1rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.2s;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.cbql__quan_ly_can_bo--view_btn.active {
+  background: #3b82f6;
+  color: white;
 }
 
 /* ===============================
@@ -98,7 +124,7 @@
 }
 
 /* ===============================
-   ACTION BUTTONS (Đồng bộ với quản lý đơn vị)
+   ACTION BUTTONS (TABLE)
 =============================== */
 .cbql__quan_ly_can_bo--action_cell {
   display: flex;
@@ -107,19 +133,16 @@
 }
 
 .cbql__quan_ly_can_bo--action_btn {
-  background-color: #3b82f6;
   color: white;
   border: none;
   padding: 0.45rem 0.9rem;
   border-radius: 0.35rem;
   cursor: pointer;
-  text-align: center;
-  text-decoration: none;
   font-size: 0.875rem;
+  text-decoration: none;
   transition: background-color 0.2s;
 }
 
-/* Nút Chi tiết - Xanh dương */
 .cbql__quan_ly_can_bo--action_btn.detail {
   background-color: #3b82f6;
 }
@@ -128,23 +151,97 @@
   background-color: #2563eb;
 }
 
-/* Nút Sửa - Vàng */
 .cbql__quan_ly_can_bo--action_btn.edit {
   background-color: #f59e0b;
-  color: #fff;
 }
 
 .cbql__quan_ly_can_bo--action_btn.edit:hover {
   background-color: #d97706;
 }
 
-/* Nút Xóa - Đỏ */
 .cbql__quan_ly_can_bo--action_btn.delete {
   background-color: #ef4444;
 }
 
 .cbql__quan_ly_can_bo--action_btn.delete:hover {
   background-color: #b91c1c;
+}
+
+/* ===============================
+   CARD VIEW
+=============================== */
+.cbql__card_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.cbql__card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.cbql__card_avatar {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: #e5f0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cbql__card_avatar img {
+  width: 48px;
+  height: 48px;
+}
+
+.cbql__card_name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.cbql__card p {
+  font-size: 0.875rem;
+  margin: 0.25rem 0;
+  color: #374151;
+}
+
+/* ===============================
+   CARD ACTIONS
+=============================== */
+.cbql__card_actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.cbql__card_btn {
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.4rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: white;
+}
+
+.cbql__card_btn.detail {
+  background: #3b82f6;
+}
+
+.cbql__card_btn.edit {
+  background: #f59e0b;
+}
+
+.cbql__card_btn.delete {
+  background: #ef4444;
 }
 
 /* ===============================
@@ -166,12 +263,22 @@
     align-items: stretch;
   }
 
+  .cbql__quan_ly_can_bo--action_bar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
   .cbql__quan_ly_can_bo--add_btn {
     width: 100%;
+    max-width: 100%;
+  }
+
+  .cbql__quan_ly_can_bo--view_toggle {
+    width: 100%;
+    justify-content: center;
   }
 
   .cbql__quan_ly_can_bo--action_cell {
     flex-direction: column;
-    gap: 0.5rem;
   }
 }

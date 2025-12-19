@@ -35,15 +35,19 @@
 }
 
 .sv__trang_chu--action_buttons {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
   gap: 1rem;
+  justify-content: center; /* căn giữa */
+  flex-wrap: wrap; /* xuống dòng nếu màn hình nhỏ */
 }
 
 .sv__trang_chu--action_buttons .btn {
+  flex: 1 1 200px; /* chiếm đều khoảng trống, tối thiểu 200px */
   padding: 1rem;
   text-align: center;
   text-decoration: none;
+  min-width: 200px; /* đảm bảo không quá nhỏ */
+  max-width: 300px; /* giới hạn tối đa */
 }
 
 .sv__trang_chu--info_section {

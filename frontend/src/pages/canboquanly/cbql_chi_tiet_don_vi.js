@@ -4,7 +4,7 @@ import { donViService } from '../../services/api';
 import '../../styles/canboquanly/cbql_chi_tiet_don_vi.css';
 
 const CanBoChiTietDonVi = () => {
-  const { maDonVi } = useParams();
+  const { ma_don_vi } = useParams();
   const [donVi, setDonVi] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -13,22 +13,29 @@ const CanBoChiTietDonVi = () => {
   useEffect(() => {
     const fetchDonViDetail = async () => {
       try {
-        const response = await donViService.getById(maDonVi);
+        if (!ma_don_vi) {
+          setError('Không có mã đơn vị');
+          setLoading(false);
+          return;
+        }
+        console.log('Fetching don vi detail with ID:', ma_don_vi);
+        const response = await donViService.getById(ma_don_vi);
         setDonVi(response.data);
       } catch (err) {
+        console.error('Error fetching don vi detail:', err);
         setError('Không thể tải thông tin đơn vị');
       } finally {
         setLoading(false);
       }
     };
     fetchDonViDetail();
-  }, [maDonVi]);
+  }, [ma_don_vi]);
 
   const handleDelete = async () => {
     if (!window.confirm("Bạn chắc chắn muốn xoá đơn vị này?")) return;
 
     try {
-      await donViService.delete(maDonVi);
+      await donViService.delete(ma_don_vi);
       alert("Xoá đơn vị thành công!");
       navigate("/quan-ly-don-vi");
     } catch (err) {
@@ -112,7 +119,7 @@ const CanBoChiTietDonVi = () => {
 
         {/* Nút Sửa & Xóa full width 2 cột */}
         <div className="cbql__chi_tiet_don_vi--footer">
-          <Link to={`/can-bo/sua-don-vi/${maDonVi}`} className="btn btn-edit">
+          <Link to={`/can-bo/sua-don-vi/${ma_don_vi}`} className="btn btn-edit">
             ✏ Sửa
           </Link>
           <button onClick={handleDelete} className="btn btn-delete">

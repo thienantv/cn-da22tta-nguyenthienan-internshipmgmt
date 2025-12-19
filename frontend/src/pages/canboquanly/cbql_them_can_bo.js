@@ -8,11 +8,12 @@ const CanBoThem = () => {
     ho_ten: '',
     gioi_tinh: 'Khác',
     so_dien_thoai: '',
-    email: '',
+    email_can_bo: '',
     so_tk_ngan_hang: '',
     chuc_vu: '',
     chuyen_mon: '',
     ma_don_vi: '',
+    avatar: '' // ✅ AVATAR
   });
 
   const [donViList, setDonViList] = useState([]);
@@ -25,24 +26,38 @@ const CanBoThem = () => {
 
   const navigate = useNavigate();
 
-  // Lấy danh sách đơn vị
+  /* ===== LẤY DANH SÁCH ĐƠN VỊ ===== */
   useEffect(() => {
     const fetchDonVi = async () => {
       try {
         const res = await donViService.getAll();
         setDonViList(res.data);
       } catch (err) {
-        console.error("Lỗi lấy danh sách đơn vị:", err);
+        console.error('Lỗi lấy đơn vị:', err);
       }
     };
     fetchDonVi();
   }, []);
 
+  /* ===== HANDLE CHANGE ===== */
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCanBo({ ...canBo, [name]: value });
   };
 
+  /* ===== HANDLE AVATAR ===== */
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setCanBo({ ...canBo, avatar: reader.result });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  /* ===== SUBMIT ===== */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -52,10 +67,9 @@ const CanBoThem = () => {
       setLoading(true);
       const res = await canBoHuongDanService.create(canBo);
       setSuccess(`Thêm cán bộ thành công: ${res.data.ma_can_bo}`);
-      
       setTimeout(() => navigate('/quan-ly-can-bo-huong-dan'), 1200);
     } catch (err) {
-      setError(err.response?.data?.message || "Thêm cán bộ thất bại");
+      setError(err.response?.data?.message || 'Thêm cán bộ thất bại');
     } finally {
       setLoading(false);
     }
@@ -69,17 +83,29 @@ const CanBoThem = () => {
       {success && <div className="cbql__them_can_bo--success-message">{success}</div>}
 
       <form onSubmit={handleSubmit} className="cbql__them_can_bo--form">
-
-        {/* FORM GRID 2 CỘT */}
         <div className="cbql__them_can_bo--form_grid">
 
+          {/* ===== AVATAR ===== */}
+          <div style={{ gridColumn: 'span 2', textAlign: 'center' }}>
+            <label>Ảnh đại diện</label>
+
+            <div className="cbql__them_can_bo--avatar_wrapper">
+              <img
+                src={canBo.avatar || '/images/teacher-icon.png'}
+                alt="Avatar"
+                className="cbql__them_can_bo--avatar_preview"
+              />
+              <input type="file" accept="image/*" onChange={handleAvatarChange} />
+            </div>
+          </div>
+
           <div>
-            <label>Họ và tên:</label>
+            <label>Họ và tên</label>
             <input type="text" name="ho_ten" value={canBo.ho_ten} onChange={handleChange} required />
           </div>
 
           <div>
-            <label>Giới tính:</label>
+            <label>Giới tính</label>
             <select name="gioi_tinh" value={canBo.gioi_tinh} onChange={handleChange}>
               <option value="Nam">Nam</option>
               <option value="Nữ">Nữ</option>
@@ -88,65 +114,62 @@ const CanBoThem = () => {
           </div>
 
           <div>
-            <label>Số điện thoại:</label>
+            <label>Số điện thoại</label>
             <input type="text" name="so_dien_thoai" value={canBo.so_dien_thoai} onChange={handleChange} />
           </div>
 
           <div>
-            <label>Email:</label>
-            <input type="email" name="email" value={canBo.email} onChange={handleChange} />
+            <label>Email</label>
+            <input type="email" name="email_can_bo" value={canBo.email_can_bo} onChange={handleChange} />
           </div>
 
           <div>
-            <label>Số tài khoản ngân hàng:</label>
+            <label>Số tài khoản ngân hàng</label>
             <input type="text" name="so_tk_ngan_hang" value={canBo.so_tk_ngan_hang} onChange={handleChange} />
           </div>
 
           <div>
-            <label>Chức vụ:</label>
+            <label>Chức vụ</label>
             <input type="text" name="chuc_vu" value={canBo.chuc_vu} onChange={handleChange} />
           </div>
 
           <div>
-            <label>Chuyên môn:</label>
+            <label>Chuyên môn</label>
             <input type="text" name="chuyen_mon" value={canBo.chuyen_mon} onChange={handleChange} />
           </div>
 
-          {/* Dropdown đơn vị hoạt động */}
+          {/* ===== ĐƠN VỊ ===== */}
           <div style={{ gridColumn: 'span 2' }}>
-            <label>Đơn vị hoạt động:</label>
+            <label>Đơn vị hoạt động</label>
 
             <div className="cbql__them_can_bo--donvi_grid">
               <input
                 type="text"
                 placeholder="Tìm đơn vị..."
                 value={searchDonVi}
-                onChange={(e) => { setSearchDonVi(e.target.value); setShowList(true); }}
+                onChange={(e) => {
+                  setSearchDonVi(e.target.value);
+                  setShowList(true);
+                }}
                 onFocus={() => setShowList(true)}
-                className="cbql__them_can_bo--input_search_donvi"
               />
 
-              <select
-                name="ma_don_vi"
-                value={canBo.ma_don_vi}
-                onChange={handleChange}
-                className="cbql__them_can_bo--select_donvi"
-              >
+              <select name="ma_don_vi" value={canBo.ma_don_vi} onChange={handleChange}>
                 <option value="">-- Chọn đơn vị --</option>
-                {donViList.map(dv => (
+                {donViList.map((dv) => (
                   <option key={dv.ma_don_vi} value={dv.ma_don_vi}>
                     {dv.ten_don_vi}
                   </option>
                 ))}
               </select>
 
-              {showList && searchDonVi.trim() !== '' && (
+              {showList && searchDonVi && (
                 <div className="cbql__them_can_bo--donvi_dropdown">
                   {donViList
-                    .filter(dv =>
+                    .filter((dv) =>
                       dv.ten_don_vi.toLowerCase().includes(searchDonVi.toLowerCase())
                     )
-                    .map(dv => (
+                    .map((dv) => (
                       <div
                         key={dv.ma_don_vi}
                         className="cbql__them_can_bo--donvi_item"
@@ -159,31 +182,19 @@ const CanBoThem = () => {
                         {dv.ten_don_vi}
                       </div>
                     ))}
-
-                  {donViList.filter(dv =>
-                    dv.ten_don_vi.toLowerCase().includes(searchDonVi.toLowerCase())
-                  ).length === 0 && (
-                    <div className="cbql__them_can_bo--donvi_noresult">
-                      Không tìm thấy đơn vị
-                    </div>
-                  )}
                 </div>
               )}
             </div>
           </div>
         </div>
 
-        {/* Nút hành động */}
+        {/* ===== ACTIONS ===== */}
         <div className="cbql__them_can_bo--form_actions">
-          <button type="submit">
-            {loading ? "Đang xử lý..." : "Thêm cán bộ"}
-          </button>
-
+          <button type="submit">{loading ? 'Đang xử lý...' : 'Thêm cán bộ'}</button>
           <button type="button" className="cbql__them_can_bo--cancel_btn" onClick={() => navigate(-1)}>
             Huỷ
           </button>
         </div>
-
       </form>
     </div>
   );

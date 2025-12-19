@@ -23,15 +23,22 @@ const CanBoSuaDonVi = () => {
   const [newImage, setNewImage] = useState(null);  // State lưu trữ hình ảnh mới chọn
 
   useEffect(() => {
-    fetchDonVi(ma_don_vi);
+    if (ma_don_vi) {
+      fetchDonVi(ma_don_vi);
+    } else {
+      setLoading(false);
+      setError('Không có mã đơn vị');
+    }
   }, [ma_don_vi]);
 
   const fetchDonVi = async (ma_don_vi) => {
     try {
+      console.log('Fetching don vi with ID:', ma_don_vi);
       const response = await donViService.getById(ma_don_vi); 
       setDonVi(response.data); 
       setError(''); 
     } catch (err) {
+      console.error('Error fetching don vi:', err);
       setError('Không thể tải thông tin đơn vị'); 
     } finally {
       setLoading(false); 

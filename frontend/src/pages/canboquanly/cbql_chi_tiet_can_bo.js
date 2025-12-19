@@ -4,7 +4,7 @@ import { canBoHuongDanService } from '../../services/api';
 import '../../styles/canboquanly/cbql_chi_tiet_can_bo.css';
 
 const CanBoChiTietCanBo = () => {
-  const { maCanBo } = useParams();
+  const { ma_can_bo } = useParams();
   const [canBo, setCanBo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -13,21 +13,28 @@ const CanBoChiTietCanBo = () => {
   useEffect(() => {
     const fetchCanBoDetail = async () => {
       try {
-        const response = await canBoHuongDanService.getById(maCanBo);
+        if (!ma_can_bo) {
+          setError('Không có mã cán bộ');
+          setLoading(false);
+          return;
+        }
+        console.log('Fetching can bo detail with ID:', ma_can_bo);
+        const response = await canBoHuongDanService.getById(ma_can_bo);
         setCanBo(response.data);
       } catch (err) {
+        console.error('Error fetching can bo detail:', err);
         setError('Không thể tải thông tin cán bộ');
       } finally {
         setLoading(false);
       }
     };
     fetchCanBoDetail();
-  }, [maCanBo]);
+  }, [ma_can_bo]);
 
   const handleDelete = async () => {
     if (!window.confirm("Bạn chắc chắn muốn xoá cán bộ này?")) return;
     try {
-      await canBoHuongDanService.delete(maCanBo);
+      await canBoHuongDanService.delete(ma_can_bo);
       alert("Xoá cán bộ thành công!");
       navigate("/quan-ly-can-bo-huong-dan");
     } catch (err) {
@@ -46,6 +53,15 @@ const CanBoChiTietCanBo = () => {
       </button>
 
       <div className="cbql__chi_tiet_can_bo--content">
+
+        {/* Avatar */}
+        <div className="cbql__chi_tiet_can_bo--avatar_section" style={{ textAlign: 'center', marginBottom: '30px' }}>
+          <img
+            src={canBo.avatar || '/images/teacher-icon.png'}
+            alt="Avatar"
+            style={{ width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover', border: '3px solid #ddd' }}
+          />
+        </div>
 
         {/* Thông tin cơ bản */}
         <div className="cbql__chi_tiet_can_bo--section">
@@ -120,7 +136,8 @@ const CanBoChiTietCanBo = () => {
 
         {/* Footer */}
         <div className="cbql__chi_tiet_can_bo--footer">
-          <Link to={`/can-bo/sua-can-bo/${maCanBo}`} className="btn-edit">
+          {/* eslint-disable-next-line no-undef */}
+          <Link to={`/can-bo/sua-can-bo/${ma_can_bo}`} className="btn-edit">
             ✏ Sửa
           </Link>
           <button onClick={handleDelete} className="btn-delete">

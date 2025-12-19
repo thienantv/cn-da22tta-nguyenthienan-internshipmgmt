@@ -1,220 +1,224 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; 
-import { canBoHuongDanService } from '../../services/api'; 
+import { useParams, useNavigate } from 'react-router-dom';
+import { canBoHuongDanService, donViService } from '../../services/api';
 import '../../styles/canboquanly/cbql_sua_can_bo.css';
 
-const CanBoSuaCanBoHuongDan = () => {
-  const { maCanBo } = useParams();
-  const navigate = useNavigate(); 
-  
+const CanBoSua = () => {
+  const { ma_can_bo } = useParams();
+  const navigate = useNavigate();
+
   const [canBo, setCanBo] = useState({
     ho_ten: '',
-    ma_can_bo: '',
-    gioi_tinh: '',
+    gioi_tinh: 'Khác',
     so_dien_thoai: '',
     email_can_bo: '',
+    so_tk_ngan_hang: '',
     chuc_vu: '',
     chuyen_mon: '',
-    so_tk_ngan_hang: '',
-    ten_don_vi: '',
-    dia_chi: '',
-    so_dien_thoai_don_vi: '',
-    email_don_vi: '',
-    hinh_anh: '',
+    ma_don_vi: '',
+    avatar: ''
   });
+
+  const [donViList, setDonViList] = useState([]);
+  const [searchDonVi, setSearchDonVi] = useState('');
+  const [showList, setShowList] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [newImage, setNewImage] = useState(null);  // Lưu trữ hình ảnh mới
+  const [success, setSuccess] = useState('');
+  const [newAvatar, setNewAvatar] = useState(null);
 
+  // Fetch đơn vị
   useEffect(() => {
-    fetchCanBo(maCanBo);
-  }, [maCanBo]);
+    const fetchDonVi = async () => {
+      try {
+        const res = await donViService.getAll();
+        setDonViList(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchDonVi();
+  }, []);
 
-  const fetchCanBo = async (id) => {
-    try {
-      const response = await canBoHuongDanService.getById(id);
-      setCanBo(response.data);
-      setError('');
-    } catch (err) {
-      setError('Không thể tải thông tin cán bộ');
-    } finally {
-      setLoading(false);
-    }
-  };
+  // Fetch cán bộ
+  useEffect(() => {
+    const fetchCanBo = async () => {
+      try {
+        const res = await canBoHuongDanService.getById(ma_can_bo);
+        setCanBo(res.data);
+      } catch (err) {
+        setError('Không thể tải thông tin cán bộ');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCanBo();
+  }, [ma_can_bo]);
 
-  const handleInputChange = (e) => {
+  // Handle input
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setCanBo({ ...canBo, [name]: value });
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0]; 
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setNewImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setNewAvatar(reader.result);
+    };
+    reader.readAsDataURL(file);
   };
 
+  // Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setSuccess('');
+
     try {
       const updatedCanBo = {
         ...canBo,
-        hinh_anh: newImage || canBo.hinh_anh,
+        avatar: newAvatar || canBo.avatar
       };
-      await canBoHuongDanService.update(maCanBo, updatedCanBo);
-      navigate('/can-bo/danh-sach');
+
+      // Gọi API update
+      const res = await canBoHuongDanService.update(ma_can_bo, updatedCanBo);
+
+      setSuccess('Cập nhật cán bộ thành công');
+
+      // Redirect về danh sách và truyền state updatedCanBo
+      setTimeout(() => {
+        navigate('/quan-ly-can-bo-huong-dan', { state: { updatedCanBo: res.data.data } });
+      }, 1200);
     } catch (err) {
-      setError('Cập nhật thông tin cán bộ thất bại');
+      setError(err.response?.data?.message || 'Cập nhật thất bại');
     }
   };
 
   if (loading) return <div>Đang tải...</div>;
-  if (error) return <div className="error-message">{error}</div>;
 
   return (
-    <div className="cbql__sua_can_bo">
-      <h1>Sửa Cán Bộ</h1>
+    <div className="cbql__them_can_bo">
+      <h1>Sửa cán bộ hướng dẫn</h1>
 
-      <form onSubmit={handleSubmit} className="cbql__sua_can_bo--form">
-        {/* Thông tin cơ bản */}
-        <div className="cbql__sua_can_bo--form_group cbql__sua_can_bo--half">
-          <label>Họ tên:</label>
-          <input 
-            type="text" 
-            name="ho_ten" 
-            value={canBo.ho_ten} 
-            onChange={handleInputChange} 
-          />
-        </div>
+      {error && <div className="cbql__them_can_bo--error-message">{error}</div>}
+      {success && <div className="cbql__them_can_bo--success-message">{success}</div>}
 
-        <div className="cbql__sua_can_bo--form_group cbql__sua_can_bo--half">
-          <label>Giới tính:</label>
-          <input 
-            type="text" 
-            name="gioi_tinh" 
-            value={canBo.gioi_tinh} 
-            onChange={handleInputChange} 
-          />
-        </div>
+      <form onSubmit={handleSubmit} className="cbql__them_can_bo--form">
+        <div className="cbql__them_can_bo--form_grid">
 
-        <div className="cbql__sua_can_bo--form_group cbql__sua_can_bo--half">
-          <label>Số điện thoại:</label>
-          <input 
-            type="text" 
-            name="so_dien_thoai" 
-            value={canBo.so_dien_thoai} 
-            onChange={handleInputChange} 
-          />
-        </div>
-
-        <div className="cbql__sua_can_bo--form_group cbql__sua_can_bo--half">
-          <label>Email:</label>
-          <input 
-            type="email" 
-            name="email_can_bo" 
-            value={canBo.email_can_bo} 
-            onChange={handleInputChange} 
-          />
-        </div>
-
-        {/* Thông tin công việc */}
-        <div className="cbql__sua_can_bo--form_group cbql__sua_can_bo--half">
-          <label>Chức vụ:</label>
-          <input 
-            type="text" 
-            name="chuc_vu" 
-            value={canBo.chuc_vu} 
-            onChange={handleInputChange} 
-          />
-        </div>
-
-        <div className="cbql__sua_can_bo--form_group cbql__sua_can_bo--half">
-          <label>Chuyên môn:</label>
-          <input 
-            type="text" 
-            name="chuyen_mon" 
-            value={canBo.chuyen_mon} 
-            onChange={handleInputChange} 
-          />
-        </div>
-
-        <div className="cbql__sua_can_bo--form_group cbql__sua_can_bo--half">
-          <label>Số tài khoản ngân hàng:</label>
-          <input 
-            type="text" 
-            name="so_tk_ngan_hang" 
-            value={canBo.so_tk_ngan_hang} 
-            onChange={handleInputChange} 
-          />
-        </div>
-
-        {/* Đơn vị công tác */}
-        <div className="cbql__sua_can_bo--form_group cbql__sua_can_bo--half">
-          <label>Tên đơn vị:</label>
-          <input 
-            type="text" 
-            name="ten_don_vi" 
-            value={canBo.ten_don_vi} 
-            onChange={handleInputChange} 
-          />
-        </div>
-
-        <div className="cbql__sua_can_bo--form_group cbql__sua_can_bo--half">
-          <label>Địa chỉ đơn vị:</label>
-          <input 
-            type="text" 
-            name="dia_chi" 
-            value={canBo.dia_chi} 
-            onChange={handleInputChange} 
-          />
-        </div>
-
-        <div className="cbql__sua_can_bo--form_group cbql__sua_can_bo--half">
-          <label>Điện thoại đơn vị:</label>
-          <input 
-            type="text" 
-            name="so_dien_thoai_don_vi" 
-            value={canBo.so_dien_thoai_don_vi} 
-            onChange={handleInputChange} 
-          />
-        </div>
-
-        <div className="cbql__sua_can_bo--form_group cbql__sua_can_bo--half">
-          <label>Email đơn vị:</label>
-          <input 
-            type="email" 
-            name="email_don_vi" 
-            value={canBo.email_don_vi} 
-            onChange={handleInputChange} 
-          />
-        </div>
-
-        {/* Hình ảnh */}
-        <div className="cbql__sua_can_bo--form_group cbql__sua_can_bo--full">
-          <label>Hình ảnh:</label>
-          <div className="cbql__sua_can_bo--image_preview">
-            {canBo.hinh_anh && !newImage ? (
-              <img src={canBo.hinh_anh} alt="Cán bộ" style={{ width: '200px', height: 'auto' }} />
-            ) : (
-              <img src={newImage} alt="Mới" style={{ width: '200px', height: 'auto' }} />
-            )}
+          {/* Avatar */}
+          <div style={{ gridColumn: 'span 2', textAlign: 'center' }}>
+            <label>Ảnh đại diện</label>
+            <div className="cbql__them_can_bo--avatar_wrapper">
+              <img
+                src={newAvatar || canBo.avatar || '/images/teacher-icon.png'}
+                alt="Avatar"
+                className="cbql__them_can_bo--avatar_preview"
+              />
+              <input type="file" accept="image/*" onChange={handleAvatarChange} />
+            </div>
           </div>
-          <input type="file" accept="image/*" onChange={handleImageChange} />
+
+          <div>
+            <label>Họ và tên</label>
+            <input type="text" name="ho_ten" value={canBo.ho_ten} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label>Giới tính</label>
+            <select name="gioi_tinh" value={canBo.gioi_tinh} onChange={handleChange}>
+              <option value="Nam">Nam</option>
+              <option value="Nữ">Nữ</option>
+              <option value="Khác">Khác</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Số điện thoại</label>
+            <input type="text" name="so_dien_thoai" value={canBo.so_dien_thoai} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label>Email</label>
+            <input type="email" name="email_can_bo" value={canBo.email_can_bo} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label>Số tài khoản ngân hàng</label>
+            <input type="text" name="so_tk_ngan_hang" value={canBo.so_tk_ngan_hang} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label>Chức vụ</label>
+            <input type="text" name="chuc_vu" value={canBo.chuc_vu} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label>Chuyên môn</label>
+            <input type="text" name="chuyen_mon" value={canBo.chuyen_mon} onChange={handleChange} />
+          </div>
+
+          {/* Đơn vị */}
+          <div style={{ gridColumn: 'span 2' }}>
+            <label>Đơn vị hoạt động</label>
+            <div className="cbql__them_can_bo--donvi_grid">
+              <input
+                type="text"
+                placeholder="Tìm đơn vị..."
+                value={searchDonVi}
+                onChange={(e) => {
+                  setSearchDonVi(e.target.value);
+                  setShowList(true);
+                }}
+              />
+              <select name="ma_don_vi" value={canBo.ma_don_vi} onChange={handleChange}>
+                <option value="">-- Chọn đơn vị --</option>
+                {donViList.map((dv) => (
+                  <option key={dv.ma_don_vi} value={dv.ma_don_vi}>
+                    {dv.ten_don_vi}
+                  </option>
+                ))}
+              </select>
+
+              {showList && searchDonVi && (
+                <div className="cbql__them_can_bo--donvi_dropdown">
+                  {donViList
+                    .filter((dv) =>
+                      dv.ten_don_vi.toLowerCase().includes(searchDonVi.toLowerCase())
+                    )
+                    .map((dv) => (
+                      <div
+                        key={dv.ma_don_vi}
+                        className="cbql__them_can_bo--donvi_item"
+                        onClick={() => {
+                          setCanBo({ ...canBo, ma_don_vi: dv.ma_don_vi });
+                          setSearchDonVi(dv.ten_don_vi);
+                          setShowList(false);
+                        }}
+                      >
+                        {dv.ten_don_vi}
+                      </div>
+                    ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
-        {/* Buttons */}
-        <div className="cbql__sua_can_bo--form_buttons">
+        <div className="cbql__them_can_bo--form_actions">
           <button type="submit" className="btn btn-success">Cập nhật</button>
-          <button type="button" className="btn btn-secondary" onClick={() => navigate('/can-bo/danh-sach')}>Hủy</button>
+          <button type="button" className="btn btn-secondary" onClick={() => navigate(-1)}>
+            Hủy
+          </button>
         </div>
       </form>
     </div>
   );
 };
 
-export default CanBoSuaCanBoHuongDan;
+export default CanBoSua;

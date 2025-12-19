@@ -168,7 +168,7 @@ const CanBoQuanLyDonVi = () => {
                 <th>Mã</th>
                 <th>Tên đơn vị</th>
                 <th>Địa chỉ</th>
-                <th>Điện thoại</th>
+                {/* <th>Điện thoại</th> */}
                 <th>Email</th>
                 <th>Thao tác</th>
               </tr>
@@ -180,7 +180,7 @@ const CanBoQuanLyDonVi = () => {
                   <td>{dv.ma_don_vi}</td>
                   <td>{dv.ten_don_vi}</td>
                   <td>{dv.dia_chi}</td>
-                  <td>{dv.so_dien_thoai}</td>
+                  {/* <td>{dv.so_dien_thoai}</td> */}
                   <td>{dv.email_don_vi}</td>
 
                   <td className="cbql__quan_ly_don_vi--action_cell">

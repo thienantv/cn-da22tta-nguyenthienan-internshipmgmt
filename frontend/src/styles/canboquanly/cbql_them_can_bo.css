@@ -20,7 +20,7 @@
 }
 
 /* =======================
-   THÔNG BÁO LỖI / THÀNH CÔNG
+   THÔNG BÁO
 ======================= */
 .cbql__them_can_bo--error-message,
 .cbql__them_can_bo--success-message {
@@ -44,7 +44,7 @@
 }
 
 /* =======================
-   FORM GRID — HAI CỘT
+   FORM GRID
 ======================= */
 .cbql__them_can_bo--form_grid {
   display: grid;
@@ -76,6 +76,31 @@
   background: #fff;
   outline: none;
   box-shadow: 0 0 4px rgba(59, 130, 246, 0.4);
+}
+
+/* =======================
+   AVATAR
+======================= */
+.cbql__them_can_bo--avatar_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 10px;
+}
+
+.cbql__them_can_bo--avatar_preview {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e5e7eb;
+  background: #f3f4f6;
+}
+
+.cbql__them_can_bo--avatar_wrapper input[type="file"] {
+  font-size: 14px;
+  cursor: pointer;
 }
 
 /* =======================
@@ -130,14 +155,14 @@
    BUTTONS
 ======================= */
 .cbql__them_can_bo--form_actions {
-  margin-top: 20px;
+  margin-top: 25px;
   display: flex;
   justify-content: center;
   gap: 1rem;
 }
 
 .cbql__them_can_bo--form_actions button {
-  padding: 12px 20px;
+  padding: 12px 24px;
   font-size: 16px;
   border-radius: 6px;
   border: none;

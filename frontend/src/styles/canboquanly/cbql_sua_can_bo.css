@@ -1,22 +1,56 @@
+/* =======================
+   CONTAINER
+======================= */
 .cbql__sua_can_bo {
   max-width: 900px;
-  margin: 0 auto;
+  margin: 40px auto;
   padding: 1rem;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.1);
 }
 
 .cbql__sua_can_bo h1 {
-  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 26px;
   color: #053485;
+  margin-bottom: 25px;
+  font-weight: bold;
 }
 
+/* =======================
+   THÔNG BÁO LỖI / THÀNH CÔNG
+======================= */
+.cbql__sua_can_bo--error-message,
+.cbql__sua_can_bo--success-message {
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.cbql__sua_can_bo--error-message {
+  background: #ffe1e1;
+  color: #b30000;
+  border-left: 5px solid #ff4d4d;
+}
+
+.cbql__sua_can_bo--success-message {
+  background: #e0ffe7;
+  color: #0a7a32;
+  border-left: 5px solid #22c55e;
+}
+
+/* =======================
+   FORM GRID — HAI CỘT
+======================= */
 .cbql__sua_can_bo--form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  background: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 25px;
   padding: 1.5rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .cbql__sua_can_bo--form_group {
@@ -24,46 +58,117 @@
   flex-direction: column;
 }
 
-.cbql__sua_can_bo--half {
-  flex: 1 1 calc(50% - 1rem);
-}
-
-.cbql__sua_can_bo--full {
-  flex: 1 1 100%;
-}
-
 .cbql__sua_can_bo--form_group label {
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 5px;
   color: #333;
 }
 
 .cbql__sua_can_bo--form_group input,
+.cbql__sua_can_bo--form_group select,
 .cbql__sua_can_bo--form_group textarea {
-  padding: 0.5rem;
-  border-radius: 0.5rem;
+  padding: 10px 12px;
+  border-radius: 6px;
   border: 1px solid #ccc;
+  font-size: 15px;
+  background: #fafafa;
+  transition: 0.2s;
 }
 
-.cbql__sua_can_bo--form_group textarea {
-  resize: vertical;
+.cbql__sua_can_bo--form_group input:focus,
+.cbql__sua_can_bo--form_group select:focus,
+.cbql__sua_can_bo--form_group textarea:focus {
+  border-color: #3b82f6;
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(59, 130, 246, 0.4);
+}
+
+.cbql__sua_can_bo--full {
+  grid-column: span 2;
+}
+
+/* =======================
+   AVATAR
+======================= */
+.cbql__sua_can_bo--avatar_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  grid-column: span 2;
 }
 
 .cbql__sua_can_bo--image_preview {
-  margin-bottom: 0.5rem;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e5e7eb;
 }
 
+/* =======================
+   ĐƠN VỊ — DROPDOWN
+======================= */
+.cbql__sua_can_bo--donvi_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  position: relative;
+}
+
+.cbql__sua_can_bo--input_search_donvi,
+.cbql__sua_can_bo--select_donvi {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  background: white;
+}
+
+.cbql__sua_can_bo--donvi_dropdown {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 999;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.cbql__sua_can_bo--donvi_item {
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.cbql__sua_can_bo--donvi_item:hover {
+  background: #eef5ff;
+}
+
+.cbql__sua_can_bo--donvi_noresult {
+  padding: 10px 12px;
+  color: #666;
+  font-style: italic;
+}
+
+/* =======================
+   BUTTONS
+======================= */
 .cbql__sua_can_bo--form_buttons {
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
-  flex: 1 1 100%;
+  grid-column: span 2;
 }
 
 .cbql__sua_can_bo--form_buttons .btn {
   flex: 1;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
+  padding: 12px 20px;
+  border-radius: 6px;
   font-weight: 600;
   border: none;
   cursor: pointer;
@@ -88,13 +193,23 @@
   background-color: #5a6268;
 }
 
-.error-message {
-  color: red;
-  margin-bottom: 1rem;
-}
-
+/* =======================
+   RESPONSIVE
+======================= */
 @media (max-width: 768px) {
-  .cbql__sua_can_bo--half {
-    flex: 1 1 100%;
+  .cbql__sua_can_bo--form {
+    grid-template-columns: 1fr;
+  }
+
+  .cbql__sua_can_bo--donvi_grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cbql__sua_can_bo--form_buttons {
+    flex-direction: column;
+  }
+
+  .cbql__sua_can_bo--form_buttons .btn {
+    width: 100%;
   }
 }

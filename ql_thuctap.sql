@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS don_vi (
   email_don_vi VARCHAR(100),
   gioi_thieu TEXT,
   dieu_kien_thuc_tap TEXT,
+  hinh_anh VARCHAR(255) DEFAULT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -26,6 +27,7 @@ DROP TABLE IF EXISTS don_vi;
 -- ========================================
 CREATE TABLE IF NOT EXISTS can_bo_huong_dan (
   ma_can_bo VARCHAR(10) PRIMARY KEY,
+  avatar LONGTEXT DEFAULT NULL,
   ho_ten VARCHAR(255) NOT NULL,
   gioi_tinh ENUM('Nam', 'Nữ', 'Khác'),
   so_dien_thoai VARCHAR(50),
@@ -33,7 +35,7 @@ CREATE TABLE IF NOT EXISTS can_bo_huong_dan (
   so_tk_ngan_hang VARCHAR(50),
   chuc_vu VARCHAR(100),
   chuyen_mon VARCHAR(255),
-  ma_don_vi VARCHAR(10) UNIQUE,
+  ma_don_vi VARCHAR(10),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (ma_don_vi) REFERENCES don_vi(ma_don_vi) ON DELETE SET NULL
