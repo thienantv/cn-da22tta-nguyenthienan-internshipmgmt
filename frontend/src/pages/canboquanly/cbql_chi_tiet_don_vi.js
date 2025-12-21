@@ -51,9 +51,11 @@ const CanBoChiTietDonVi = () => {
     <div className="cbql__chi_tiet_don_vi">
 
       {/* Nút quay lại */}
-      <button onClick={() => navigate(-1)} className="btn btn-secondary back_btn">
-        ← Quay lại
-      </button>
+      <div className="cbql__chi_tiet_don_vi--top">
+        <button onClick={() => navigate(-1)} className="back_btn">
+          ← Quay lại
+        </button>
+      </div>
 
       <div className="cbql__chi_tiet_don_vi--content">
         <div className="cbql__chi_tiet_don_vi--header">

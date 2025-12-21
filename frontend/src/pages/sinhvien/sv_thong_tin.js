@@ -86,7 +86,6 @@ const SinhVienThongTin = () => {
 
   return (
     <div className="sv__thong_tin">
-      <h1>Thông tin cá nhân</h1>
 
       {error && <div className="error-message">{error}</div>}
 

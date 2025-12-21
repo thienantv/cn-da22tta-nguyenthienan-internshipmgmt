@@ -86,7 +86,6 @@ const CanBoThongTinCaNhan = () => {
 
   return (
     <div className="cbql__thong_tin">
-      <h1>Thông tin cá nhân</h1>
 
       {error && <div className="error-message">{error}</div>}
 

@@ -16,13 +16,9 @@ const SinhVienQuanLyDonVi = () => {
   const fetchDonVi = async (query = '') => {
     try {
       setLoading(true);
-      let response;
-
-      if (query) {
-        response = await donViService.search({ query });
-      } else {
-        response = await donViService.getAll();
-      }
+      const response = query
+        ? await donViService.search({ query })
+        : await donViService.getAll();
 
       setDonVi(response.data);
       setError('');
@@ -33,9 +29,7 @@ const SinhVienQuanLyDonVi = () => {
     }
   };
 
-  const handleSearch = () => {
-    fetchDonVi(searchQuery);
-  };
+  const handleSearch = () => fetchDonVi(searchQuery);
 
   const handleReset = () => {
     setSearchQuery('');
@@ -48,7 +42,7 @@ const SinhVienQuanLyDonVi = () => {
     <div className="sv__danh_sach_don_vi">
       {error && <div className="sv__error-message">{error}</div>}
 
-      {/* Bộ lọc */}
+      {/* FILTER */}
       <div className="sv__filter_section">
         <div className="sv__filter_row">
           <label>Tìm kiếm:</label>
@@ -57,13 +51,8 @@ const SinhVienQuanLyDonVi = () => {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-                handleSearch();
-              }
-            }}
-            placeholder="Tìm theo tên đơn vị, địa chỉ, điện thoại, email"
+            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+            placeholder="Tìm theo tên đơn vị, địa chỉ, email..."
           />
 
           <button className="btn btn-primary" onClick={handleSearch}>
@@ -76,37 +65,40 @@ const SinhVienQuanLyDonVi = () => {
         </div>
       </div>
 
-      {/* CHỈ HIỂN THỊ CARD VIEW */}
+      {/* CARD LIST */}
       {donVi.length === 0 ? (
         <div className="sv__empty-message">Không có đơn vị nào</div>
       ) : (
         <div className="sv__don_vi_cards">
           {donVi.map((dv) => (
             <div key={dv.ma_don_vi} className="sv__don_vi_card">
+              
+              {/* IMAGE */}
               <div className="sv__card_image">
                 <img
-                  src={
-                    dv.hinh_anh
-                      ? dv.hinh_anh.startsWith('data:')
-                        ? dv.hinh_anh
-                        : dv.hinh_anh
-                      : 'https://via.placeholder.com/300x200?text=No+Image'
-                  }
+                  src={dv.hinh_anh || 'https://via.placeholder.com/400x300?text=No+Image'}
                   alt={dv.ten_don_vi}
                 />
               </div>
 
+              {/* CONTENT */}
               <div className="sv__card_content">
                 <h3>{dv.ten_don_vi}</h3>
                 <p className="sv__card_address">{dv.dia_chi}</p>
-                <p className="sv__card_description">{dv.gioi_thieu?.substring(0, 100)}...</p>
+                <p className="sv__card_description">
+                  {dv.gioi_thieu?.substring(0, 100) || 'Chưa có mô tả'}...
+                </p>
 
-                <div className="sv__card_buttons" style={{ justifyContent: 'center' }}>
-                  <Link to={`/sinh-vien/chi-tiet-don-vi/${dv.ma_don_vi}`} className="sv__btn_modern">
+                <div className="sv__card_buttons">
+                  <Link
+                    to={`/sinh-vien/chi-tiet-don-vi/${dv.ma_don_vi}`}
+                    className="sv__btn_modern"
+                  >
                     Chi tiết
                   </Link>
                 </div>
               </div>
+
             </div>
           ))}
         </div>

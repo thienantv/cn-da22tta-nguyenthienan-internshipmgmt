@@ -10,28 +10,25 @@ const SinhVienChiTietCanBo = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-useEffect(() => {
-  const fetchCanBoDetail = async () => {
-    try {
-      if (!ma_can_bo) {
-        setError('Không có mã cán bộ');
+  useEffect(() => {
+    const fetchCanBoDetail = async () => {
+      try {
+        if (!ma_can_bo) {
+          setError('Không có mã cán bộ');
+          setLoading(false);
+          return;
+        }
+        const response = await canBoHuongDanService.getById(ma_can_bo);
+        setCanBo(response.data);
+      } catch (err) {
+        setError('Không thể tải thông tin cán bộ');
+      } finally {
         setLoading(false);
-        return;
       }
-      console.log('Fetching can bo detail with ID:', ma_can_bo);
-      const response = await canBoHuongDanService.getById(ma_can_bo);
-      setCanBo(response.data);
-    } catch (err) {
-      console.error('Error fetching can bo detail:', err);
-      setError('Không thể tải thông tin cán bộ');
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  fetchCanBoDetail();
-}, [ma_can_bo]); // chỉ thêm ma_can_bo làm dependency
-
+    fetchCanBoDetail();
+  }, [ma_can_bo]);
 
   if (loading) return <div className="loading">Đang tải...</div>;
   if (error) return <div className="error-message">{error}</div>;
@@ -39,22 +36,29 @@ useEffect(() => {
 
   return (
     <div className="sv__chi_tiet_can_bo">
-      <button onClick={() => navigate(-1)} className="btn btn-secondary">
-        ← Quay lại
-      </button>
+
+      {/* Nút quay lại */}
+      <div className="sv__chi_tiet_can_bo--top">
+        <button onClick={() => navigate(-1)} className="back_btn">
+          ← Quay lại
+        </button>
+      </div>
 
       <div className="sv__chi_tiet_can_bo--content">
         <div className="sv__chi_tiet_can_bo--body">
 
           {/* Avatar */}
-          <div className="sv__chi_tiet_can_bo--avatar_section" style={{ textAlign: 'center', marginBottom: '30px' }}>
-            <img
-              src={canBo.avatar || '/images/teacher-icon.png'}
-              alt="Avatar"
-              style={{ width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover', border: '3px solid #ddd' }}
-            />
+          <div className="sv__chi_tiet_can_bo--avatar_section">
+            <div className="sv__chi_tiet_can_bo--avatar_wrapper">
+              <img
+                src={canBo.avatar || '/images/teacher-icon.png'}
+                alt="Avatar"
+                className="sv__chi_tiet_can_bo--avatar"
+              />
+            </div>
           </div>
 
+          {/* Thông tin cơ bản */}
           <div className="sv__chi_tiet_can_bo--section">
             <h3>Thông tin cơ bản</h3>
             <div className="sv__chi_tiet_can_bo--info_row">
@@ -75,6 +79,7 @@ useEffect(() => {
             </div>
           </div>
 
+          {/* Thông tin công việc */}
           <div className="sv__chi_tiet_can_bo--section">
             <h3>Thông tin công việc</h3>
             <div className="sv__chi_tiet_can_bo--info_row">
@@ -86,11 +91,12 @@ useEffect(() => {
               <span className="value">{canBo.chuyen_mon}</span>
             </div>
             <div className="sv__chi_tiet_can_bo--info_row">
-              <span className="label">Số tài khoản ngân hàng:</span>
+              <span className="label">Số tài khoản:</span>
               <span className="value">{canBo.so_tk_ngan_hang || 'N/A'}</span>
             </div>
           </div>
 
+          {/* Đơn vị công tác */}
           {canBo.ten_don_vi && (
             <div className="sv__chi_tiet_can_bo--section">
               <h3>Đơn vị công tác</h3>
@@ -104,20 +110,9 @@ useEffect(() => {
                   <span className="value">{canBo.dia_chi}</span>
                 </div>
               )}
-              {canBo.so_dien_thoai_don_vi && (
-                <div className="sv__chi_tiet_can_bo--info_row">
-                  <span className="label">Số điện thoại đơn vị:</span>
-                  <span className="value">{canBo.so_dien_thoai_don_vi}</span>
-                </div>
-              )}
-              {canBo.email_don_vi && (
-                <div className="sv__chi_tiet_can_bo--info_row">
-                  <span className="label">Email đơn vị:</span>
-                  <span className="value">{canBo.email_don_vi}</span>
-                </div>
-              )}
             </div>
           )}
+
         </div>
       </div>
     </div>
