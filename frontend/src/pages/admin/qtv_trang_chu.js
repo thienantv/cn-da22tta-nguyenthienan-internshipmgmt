@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { adminService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/admin/qtv_trang_chu.css';
 
 const AdminTrangChu = () => {
+  const { showError } = useToast();
   const [thongKe, setThongKe] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchThongKe = async () => {
@@ -14,7 +15,7 @@ const AdminTrangChu = () => {
         const response = await adminService.getThongKe();
         setThongKe(response.data);
       } catch (err) {
-        setError('Không thể lấy thống kê');
+        showError('Không thể lấy thống kê');
       } finally {
         setLoading(false);
       }
@@ -27,8 +28,6 @@ const AdminTrangChu = () => {
 
   return (
     <div className="qtv__trang_chu">
-
-      {error && <div className="error-message">{error}</div>}
 
       <div className="qtv__trang_chu--stats">
         <h2>Thống kê tài khoản</h2>

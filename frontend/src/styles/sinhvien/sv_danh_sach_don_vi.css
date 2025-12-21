@@ -44,9 +44,11 @@
    CARD
 ========================== */
 .sv__don_vi_card {
+  display: flex;
+  flex-direction: column;
   background: white;
   border-radius: 0.75rem;
-  overflow: hidden; /* CẮT VIỀN ẢNH */
+  overflow: hidden;
   box-shadow: 0 3px 12px rgba(0,0,0,0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -57,24 +59,29 @@
 }
 
 /* ==========================
-   IMAGE (KHÔNG LỘ VIỀN)
+   IMAGE (KHÔNG ZOOM MẤT ẢNH)
 ========================== */
 .sv__card_image {
-  height: 150px;
-  background: #f3f4f6;
+  height: 140px;
+  background: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
 .sv__card_image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* PHỦ KÍN KHUNG */
+  max-width: 90%;
+  max-height: 90%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   display: block;
   transition: transform 0.3s ease;
 }
 
 .sv__don_vi_card:hover img {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 /* ==========================
@@ -84,7 +91,7 @@
   padding: 1.2rem;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1; /* Content chiếm hết không gian còn lại */
 }
 
 .sv__card_content h3 {
@@ -107,7 +114,7 @@
    BUTTON
 ========================== */
 .sv__card_buttons {
-  margin-top: auto;
+  margin-top: auto; /* Đẩy nút xuống cuối card */
   display: flex;
   justify-content: center;
 }

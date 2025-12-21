@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { sinhVienService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/admin/qtv_them_sinh_vien.css';
 
 const AdminThemSinhVien = ({ onSuccess = () => alert('Thêm sinh viên thành công!'), onCancel = () => alert('Đã hủy') }) => {
-  const [error, setError] = useState('');
+  const { showError } = useToast();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -33,10 +34,9 @@ const AdminThemSinhVien = ({ onSuccess = () => alert('Thêm sinh viên thành c�
         email_sinh_vien: '',
       });
 
-      setError('');
       onSuccess();
     } catch (err) {
-      setError(err.response?.data?.message || 'Lỗi khi lưu dữ liệu');
+      showError(err.response?.data?.message || 'Lỗi khi lưu dữ liệu');
     }
   };
 
@@ -49,7 +49,6 @@ const AdminThemSinhVien = ({ onSuccess = () => alert('Thêm sinh viên thành c�
       so_dien_thoai: '',
       email_sinh_vien: '',
     });
-    setError('');
     onCancel();
   };
 
@@ -57,8 +56,6 @@ const AdminThemSinhVien = ({ onSuccess = () => alert('Thêm sinh viên thành c�
     <div className="qtv__them_sinh_vien">
       <div className="qtv__them_sinh_vien--form_container">
         <h3>Thêm sinh viên</h3>
-
-        {error && <div className="qtv__them_sinh_vien--error_message">{error}</div>}
 
         <form onSubmit={handleSubmit}>
 

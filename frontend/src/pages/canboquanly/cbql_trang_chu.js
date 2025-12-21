@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { donViService, canBoHuongDanService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/canboquanly/cbql_trang_chu.css';
 
 const CanBoTrangChu = () => {
+  const { showError } = useToast();
   const [thongKe, setThongKe] = useState({ donVi: 0, canBoHuongDan: 0 });
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchThongKe = async () => {
@@ -22,7 +23,7 @@ const CanBoTrangChu = () => {
         });
       } catch (err) {
         console.error(err);
-        setError('Không thể lấy thống kê');
+        showError('Không thể lấy thống kê');
       } finally {
         setLoading(false);
       }
@@ -35,7 +36,6 @@ const CanBoTrangChu = () => {
 
   return (
     <div className="cbql__trang_chu">
-      {error && <div className="error-message">{error}</div>}
 
       <div className="cbql__trang_chu--thong_ke_container">
         <h2>Thống kê số lượng</h2>

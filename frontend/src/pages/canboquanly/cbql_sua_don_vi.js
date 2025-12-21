@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; 
 import { donViService } from '../../services/api'; 
+import { useToast } from '../../contexts/useToast';
 import '../../styles/canboquanly/cbql_sua_don_vi.css';
 
 const CanBoSuaDonVi = () => {
+  const { showError, showSuccess } = useToast();
   const { ma_don_vi } = useParams();
   const navigate = useNavigate(); 
   
@@ -18,32 +20,26 @@ const CanBoSuaDonVi = () => {
     can_bo_huong_dan: [],
   });
 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
   const [newImage, setNewImage] = useState(null);  // State lưu trữ hình ảnh mới chọn
 
   useEffect(() => {
+    const fetchDonVi = async (ma_don_vi) => {
+      try {
+        console.log('Fetching don vi with ID:', ma_don_vi);
+        const response = await donViService.getById(ma_don_vi); 
+        setDonVi(response.data); 
+      } catch (err) {
+        console.error('Error fetching don vi:', err);
+        showError('Không thể tải thông tin đơn vị'); 
+      }
+    };
+
     if (ma_don_vi) {
       fetchDonVi(ma_don_vi);
     } else {
-      setLoading(false);
-      setError('Không có mã đơn vị');
+      showError('Không có mã đơn vị');
     }
-  }, [ma_don_vi]);
-
-  const fetchDonVi = async (ma_don_vi) => {
-    try {
-      console.log('Fetching don vi with ID:', ma_don_vi);
-      const response = await donViService.getById(ma_don_vi); 
-      setDonVi(response.data); 
-      setError(''); 
-    } catch (err) {
-      console.error('Error fetching don vi:', err);
-      setError('Không thể tải thông tin đơn vị'); 
-    } finally {
-      setLoading(false); 
-    }
-  };
+  }, [ma_don_vi, showError]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -69,20 +65,17 @@ const CanBoSuaDonVi = () => {
         hinh_anh: newImage || donVi.hinh_anh,  // Nếu có hình ảnh mới thì dùng nó, nếu không dùng hình ảnh cũ
       };
       await donViService.update(ma_don_vi, updatedDonVi); 
-      navigate(`/can-bo/chi-tiet-don-vi/${ma_don_vi}`); 
+      showSuccess('Cập nhật đơn vị thành công');
+      setTimeout(() => navigate(`/can-bo/chi-tiet-don-vi/${ma_don_vi}`), 1000);
     } catch (err) {
-      setError('Cập nhật thông tin đơn vị thất bại'); 
+      showError('Cập nhật thông tin đơn vị thất bại'); 
     }
   };
 
-  if (loading) return <div>Đang tải...</div>; 
-  if (error) return <div className="error-message">{error}</div>; 
 
   return (
     <div className="cbql__sua_don_vi">
       <h1>Sửa Đơn Vị</h1>
-      
-      {error && <div className="error-message">{error}</div>}
 
       <form onSubmit={handleSubmit} className="cbql__sua_don_vi--form">
         {/* Tên đơn vị */}

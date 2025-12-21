@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { donViService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/sinhvien/sv_danh_sach_don_vi.css';
 
 const SinhVienQuanLyDonVi = () => {
+  const { showError } = useToast();
   const [donVi, setDonVi] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(() => {
-    fetchDonVi();
-  }, []);
-
-  const fetchDonVi = async (query = '') => {
+  const fetchDonVi = useCallback(async (query = '') => {
     try {
       setLoading(true);
       const response = query
@@ -21,13 +18,16 @@ const SinhVienQuanLyDonVi = () => {
         : await donViService.getAll();
 
       setDonVi(response.data);
-      setError('');
     } catch (err) {
-      setError('Không thể tải danh sách đơn vị');
+      showError('Không thể tải danh sách đơn vị');
     } finally {
       setLoading(false);
     }
-  };
+  }, [showError]);
+
+  useEffect(() => {
+    fetchDonVi();
+  }, [fetchDonVi]);
 
   const handleSearch = () => fetchDonVi(searchQuery);
 
@@ -40,7 +40,6 @@ const SinhVienQuanLyDonVi = () => {
 
   return (
     <div className="sv__danh_sach_don_vi">
-      {error && <div className="sv__error-message">{error}</div>}
 
       {/* FILTER */}
       <div className="sv__filter_section">
@@ -72,7 +71,7 @@ const SinhVienQuanLyDonVi = () => {
         <div className="sv__don_vi_cards">
           {donVi.map((dv) => (
             <div key={dv.ma_don_vi} className="sv__don_vi_card">
-              
+
               {/* IMAGE */}
               <div className="sv__card_image">
                 <img

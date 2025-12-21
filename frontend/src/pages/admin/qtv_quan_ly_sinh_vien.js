@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { sinhVienService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import AdminThemSinhVien from './qtv_them_sinh_vien';
 import AdminSuaSinhVien from './qtv_sua_sinh_vien';
 import '../../styles/admin/qtv_quan_ly_sinh_vien.css';
 
 const AdminQuanLySinhVien = () => {
+  const { showError } = useToast();
   const [sinhVien, setSinhVien] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
-  const [formType, setFormType] = useState(null); // 'them' hoặc 'sua'
+  const [formType, setFormType] = useState(null);
   const [editingSinhVien, setEditingSinhVien] = useState(null);
 
   useEffect(() => {
@@ -20,9 +21,8 @@ const AdminQuanLySinhVien = () => {
     try {
       const response = await sinhVienService.getAll();
       setSinhVien(response.data);
-      setError('');
-    } catch (err) {
-      setError('Không thể tải danh sách sinh viên');
+    } catch {
+      showError('Không thể tải danh sách sinh viên');
     } finally {
       setLoading(false);
     }
@@ -44,8 +44,8 @@ const AdminQuanLySinhVien = () => {
       try {
         await sinhVienService.delete(id);
         fetchSinhVien();
-      } catch (err) {
-        setError('Xóa thất bại');
+      } catch {
+        showError('Xóa thất bại');
       }
     }
   };
@@ -67,25 +67,27 @@ const AdminQuanLySinhVien = () => {
 
   return (
     <div className="qtv__quan_ly_sinh_vien">
-      <h1>Quản lý Sinh viên</h1>
-
-      {error && <div className="error-message">{error}</div>}
 
       {!showForm && (
-        <button onClick={handleAddClick} className="btn btn-primary">
-          + Thêm sinh viên
-        </button>
+        <div className="qtv__add_btn_wrapper">
+          <button
+            onClick={handleAddClick}
+            className="qtv__add_btn"
+          >
+            + Thêm sinh viên
+          </button>
+        </div>
       )}
 
       {showForm && formType === 'them' && (
-        <AdminThemSinhVien 
+        <AdminThemSinhVien
           onSuccess={handleFormSuccess}
           onCancel={handleFormCancel}
         />
       )}
 
       {showForm && formType === 'sua' && editingSinhVien && (
-        <AdminSuaSinhVien 
+        <AdminSuaSinhVien
           sinhVien={editingSinhVien}
           onSuccess={handleFormSuccess}
           onCancel={handleFormCancel}
@@ -100,7 +102,7 @@ const AdminQuanLySinhVien = () => {
               <th>Username</th>
               <th>Họ tên</th>
               <th>Giới tính</th>
-              <th>Số điện thoại</th>
+              <th>SĐT</th>
               <th>Email</th>
               <th>Thao tác</th>
             </tr>
@@ -117,13 +119,13 @@ const AdminQuanLySinhVien = () => {
                 <td className="qtv__quan_ly_sinh_vien--action_cell">
                   <button
                     onClick={() => handleEdit(sv)}
-                    className="qtv__quan_ly_sinh_vien--btn_link btn-warning"
+                    className="qtv__btn btn-warning"
                   >
                     Sửa
                   </button>
                   <button
                     onClick={() => handleDelete(sv.id)}
-                    className="qtv__quan_ly_sinh_vien--btn_link btn-danger"
+                    className="qtv__btn btn-danger"
                   >
                     Xóa
                   </button>

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { canBoQuanLyService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import AdminThemCanBo from './qtv_them_can_bo';
 import AdminSuaCanBo from './qtv_sua_can_bo';
 import '../../styles/admin/qtv_quan_ly_can_bo.css';
 
 const AdminQuanLyCanBo = () => {
+  const { showError } = useToast();
   const [canBo, setCanBo] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [formType, setFormType] = useState(null); // 'them' hoặc 'sua'
   const [editingCanBo, setEditingCanBo] = useState(null);
@@ -20,9 +21,8 @@ const AdminQuanLyCanBo = () => {
     try {
       const response = await canBoQuanLyService.getAll();
       setCanBo(response.data);
-      setError('');
     } catch (err) {
-      setError('Không thể tải danh sách cán bộ');
+      showError('Không thể tải danh sách cán bộ');
     } finally {
       setLoading(false);
     }
@@ -45,7 +45,7 @@ const AdminQuanLyCanBo = () => {
         await canBoQuanLyService.delete(id);
         fetchCanBo();
       } catch (err) {
-        setError('Xóa thất bại');
+        showError('Xóa thất bại');
       }
     }
   };
@@ -67,9 +67,7 @@ const AdminQuanLyCanBo = () => {
 
   return (
     <div className="qtv__quan_ly_can_bo">
-      <h1>Quản lý Cán bộ</h1>
-
-      {error && <div className="error-message">{error}</div>}
+      {/* <h1>Quản lý Cán bộ</h1> */}
 
       {!showForm && (
         <button onClick={handleAddClick} className="add-button-full">

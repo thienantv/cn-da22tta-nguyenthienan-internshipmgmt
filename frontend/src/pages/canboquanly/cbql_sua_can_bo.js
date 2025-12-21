@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { canBoHuongDanService, donViService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/canboquanly/cbql_sua_can_bo.css';
 
 const CanBoSua = () => {
+  const { showError, showSuccess } = useToast();
   const { ma_can_bo } = useParams();
   const navigate = useNavigate();
 
@@ -24,8 +26,6 @@ const CanBoSua = () => {
   const [showList, setShowList] = useState(false);
 
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const [newAvatar, setNewAvatar] = useState(null);
 
   // Fetch đơn vị
@@ -48,13 +48,13 @@ const CanBoSua = () => {
         const res = await canBoHuongDanService.getById(ma_can_bo);
         setCanBo(res.data);
       } catch (err) {
-        setError('Không thể tải thông tin cán bộ');
+        showError('Không thể tải thông tin cán bộ');
       } finally {
         setLoading(false);
       }
     };
     fetchCanBo();
-  }, [ma_can_bo]);
+  }, [ma_can_bo, showError]);
 
   // Handle input
   const handleChange = (e) => {
@@ -76,8 +76,6 @@ const CanBoSua = () => {
   // Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
 
     try {
       const updatedCanBo = {
@@ -88,14 +86,14 @@ const CanBoSua = () => {
       // Gọi API update
       const res = await canBoHuongDanService.update(ma_can_bo, updatedCanBo);
 
-      setSuccess('Cập nhật cán bộ thành công');
+      showSuccess('Cập nhật cán bộ thành công');
 
       // Redirect về danh sách và truyền state updatedCanBo
       setTimeout(() => {
         navigate('/quan-ly-can-bo-huong-dan', { state: { updatedCanBo: res.data.data } });
       }, 1200);
     } catch (err) {
-      setError(err.response?.data?.message || 'Cập nhật thất bại');
+      showError(err.response?.data?.message || 'Cập nhật thất bại');
     }
   };
 
@@ -104,9 +102,6 @@ const CanBoSua = () => {
   return (
     <div className="cbql__them_can_bo">
       <h1>Sửa cán bộ hướng dẫn</h1>
-
-      {error && <div className="cbql__them_can_bo--error-message">{error}</div>}
-      {success && <div className="cbql__them_can_bo--success-message">{success}</div>}
 
       <form onSubmit={handleSubmit} className="cbql__them_can_bo--form">
         <div className="cbql__them_can_bo--form_grid">

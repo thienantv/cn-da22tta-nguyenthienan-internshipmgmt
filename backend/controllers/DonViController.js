@@ -27,7 +27,11 @@ const uploadImage = (req, res) => {
 const getDonVi = async (req, res) => {
   try {
     const conn = await pool.getConnection();
-    const [donVi] = await conn.execute("SELECT * FROM don_vi ORDER BY created_at DESC");
+    const [donVi] = await conn.execute(`
+      SELECT *
+      FROM don_vi
+      ORDER BY CAST(SUBSTRING(ma_don_vi, 3) AS UNSIGNED) ASC
+    `);
     conn.release();
     return res.status(200).json(donVi);
   } catch (err) {
@@ -66,22 +70,62 @@ const createDonVi = async (req, res) => {
       gioi_thieu, dieu_kien_thuc_tap, hinh_anh
     } = req.body;
 
-    if (!ten_don_vi) return res.status(400).json({ message: "Tên đơn vị là bắt buộc" });
+    // 🔹 Kiểm tra bắt buộc
+    if (!ten_don_vi || !ten_don_vi.trim()) {
+      return res.status(400).json({ message: "Tên đơn vị là bắt buộc" });
+    }
+    if (!dia_chi || !dia_chi.trim()) {
+      return res.status(400).json({ message: "Địa chỉ là bắt buộc" });
+    }
+    if (!so_dien_thoai || !/^\d{10}$/.test(so_dien_thoai)) {
+      return res.status(400).json({ message: "Số điện thoại phải gồm đúng 10 chữ số (0-9)" });
+    }
+    if (!email_don_vi || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email_don_vi)) {
+      return res.status(400).json({ message: "Email không hợp lệ" });
+    }
 
     const conn = await pool.getConnection();
-    const [rows] = await conn.execute("SELECT MAX(CAST(SUBSTRING(ma_don_vi,3) AS UNSIGNED)) AS maxID FROM don_vi");
-    const nextNumber = (rows[0].maxID || 0) + 1;
+
+    // 🔹 Lấy toàn bộ mã đơn vị (DV001 → 1)
+    const [rows] = await conn.execute(`
+      SELECT CAST(SUBSTRING(ma_don_vi, 3) AS UNSIGNED) AS so
+      FROM don_vi
+      ORDER BY so ASC
+    `);
+
+    // 🔹 Tìm số nhỏ nhất bị thiếu
+    let nextNumber = 1;
+    for (const row of rows) {
+      if (row.so !== nextNumber) break;
+      nextNumber++;
+    }
+
     const ma_don_vi = "DV" + String(nextNumber).padStart(3, "0");
 
+    // 🔹 Insert
     await conn.execute(
       `INSERT INTO don_vi
         (ma_don_vi, ten_don_vi, dia_chi, so_dien_thoai, email_don_vi, gioi_thieu, dieu_kien_thuc_tap, hinh_anh)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [ma_don_vi, ten_don_vi, dia_chi || "", so_dien_thoai || "", email_don_vi || "",
-       gioi_thieu || "", dieu_kien_thuc_tap || "", hinh_anh || ""]
+      [
+        ma_don_vi,
+        ten_don_vi,
+        dia_chi,
+        so_dien_thoai,
+        email_don_vi,
+        gioi_thieu || "",
+        dieu_kien_thuc_tap || "",
+        hinh_anh || ""
+      ]
     );
+
     conn.release();
-    return res.status(201).json({ message: "Tạo đơn vị thành công", ma_don_vi });
+
+    return res.status(201).json({
+      message: "Tạo đơn vị thành công",
+      ma_don_vi
+    });
+
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Lỗi máy chủ" });
@@ -97,17 +141,32 @@ const updateDonVi = async (req, res) => {
       gioi_thieu, dieu_kien_thuc_tap, hinh_anh
     } = req.body;
 
+    // 🔹 Kiểm tra bắt buộc
+    if (!ten_don_vi || !ten_don_vi.trim()) {
+      return res.status(400).json({ message: "Tên đơn vị là bắt buộc" });
+    }
+    if (!dia_chi || !dia_chi.trim()) {
+      return res.status(400).json({ message: "Địa chỉ là bắt buộc" });
+    }
+    if (!so_dien_thoai || !/^\d{10}$/.test(so_dien_thoai)) {
+      return res.status(400).json({ message: "Số điện thoại phải gồm đúng 10 chữ số (0-9)" });
+    }
+    if (!email_don_vi || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email_don_vi)) {
+      return res.status(400).json({ message: "Email không hợp lệ" });
+    }
+
     const conn = await pool.getConnection();
     await conn.execute(
       `UPDATE don_vi SET 
         ten_don_vi=?, dia_chi=?, so_dien_thoai=?, email_don_vi=?,
         gioi_thieu=?, dieu_kien_thuc_tap=?, hinh_anh=? 
        WHERE ma_don_vi=?`,
-      [ten_don_vi, dia_chi || "", so_dien_thoai || "", email_don_vi || "",
+      [ten_don_vi, dia_chi, so_dien_thoai, email_don_vi,
        gioi_thieu || "", dieu_kien_thuc_tap || "", hinh_anh || "", maDonVi]
     );
     conn.release();
     return res.status(200).json({ message: "Cập nhật đơn vị thành công" });
+
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Lỗi máy chủ" });

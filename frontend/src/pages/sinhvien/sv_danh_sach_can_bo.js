@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { canBoHuongDanService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/sinhvien/sv_danh_sach_can_bo.css';
 
 const SinhVienDanhSachCanBo = () => {
+  const { showError } = useToast();
   const [canBo, setCanBo] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
@@ -21,9 +22,8 @@ const SinhVienDanhSachCanBo = () => {
         : await canBoHuongDanService.getAll();
 
       setCanBo(response.data);
-      setError('');
     } catch (err) {
-      setError('Không thể tải danh sách cán bộ');
+      showError('Không thể tải danh sách cán bộ');
     } finally {
       setLoading(false);
     }
@@ -40,7 +40,6 @@ const SinhVienDanhSachCanBo = () => {
 
   return (
     <div className="sv__quan_ly_can_bo">
-      {error && <div className="error-message">{error}</div>}
 
       {/* ===== FILTER ===== */}
       <div className="sv__filter_section">

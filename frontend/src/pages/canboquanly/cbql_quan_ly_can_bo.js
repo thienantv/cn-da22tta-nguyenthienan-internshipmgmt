@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { canBoHuongDanService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/canboquanly/cbql_quan_ly_can_bo.css';
 
 const CanBoQuanLyCanBoHuongDan = () => {
+  const { showError } = useToast();
   const location = useLocation();
 
   const [canBo, setCanBo] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState('table'); // table | card
 
@@ -25,9 +26,8 @@ const CanBoQuanLyCanBoHuongDan = () => {
         ? await canBoHuongDanService.search({ query })
         : await canBoHuongDanService.getAll();
       setCanBo(response.data);
-      setError('');
     } catch (err) {
-      setError('Không thể tải danh sách cán bộ');
+      showError('Không thể tải danh sách cán bộ');
     } finally {
       setLoading(false);
     }
@@ -60,7 +60,7 @@ const CanBoQuanLyCanBoHuongDan = () => {
         await canBoHuongDanService.delete(maCanBo);
         setCanBo(canBo.filter((cb) => cb.ma_can_bo !== maCanBo));
       } catch (err) {
-        setError('Xóa cán bộ thất bại');
+        showError('Xóa cán bộ thất bại');
       }
     }
   };
@@ -69,7 +69,6 @@ const CanBoQuanLyCanBoHuongDan = () => {
 
   return (
     <div className="cbql__quan_ly_can_bo">
-      {error && <div className="error-message">{error}</div>}
 
       <div className="cbql__quan_ly_can_bo--filter_section">
         <div className="cbql__quan_ly_can_bo--filter_row">

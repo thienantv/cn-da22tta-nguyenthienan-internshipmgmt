@@ -1,7 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
+import ToastContainer from './components/ToastContainer';
+import { ToastProvider } from './contexts/ToastContext';
 
 // Pages Admin
 import AdminQuanLyCanBo from './pages/admin/qtv_quan_ly_can_bo';
@@ -39,11 +42,12 @@ import Home from './pages/home';
 // Styles
 import './styles/app.css';
 
-// Wrapper để quản lý header
-const AppWrapper = () => {
+// Wrapper để quản lý header và footer
+const AppContent = () => {
   const location = useLocation();
-  const noHeaderRoutes = ['/dang-nhap', '/dang-ky'];
-  const showHeader = !noHeaderRoutes.includes(location.pathname);
+  const noHeaderFooterRoutes = ['/dang-nhap', '/dang-ky'];
+  const showHeader = !noHeaderFooterRoutes.includes(location.pathname);
+  const showFooter = !noHeaderFooterRoutes.includes(location.pathname);
 
   return (
     <>
@@ -236,14 +240,18 @@ const AppWrapper = () => {
           />
         </Routes>
       </main>
+      {showFooter && <Footer />}
     </>
   );
 };
 
-const App = () => (
-  <Router>
-    <AppWrapper />
-  </Router>
-);
-
-export default App;
+export default function App() {
+  return (
+    <ToastProvider>
+      <Router>
+        <AppContent />
+        <ToastContainer />
+      </Router>
+    </ToastProvider>
+  );
+}

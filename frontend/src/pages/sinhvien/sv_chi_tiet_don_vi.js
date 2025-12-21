@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { donViService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/sinhvien/sv_chi_tiet_don_vi.css';
 
 const SinhVienChiTietDonVi = () => {
   const { ma_don_vi } = useParams();
   const [donVi, setDonVi] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const { showError } = useToast();
   const navigate = useNavigate();
 
 useEffect(() => {
   const fetchDonViDetail = async () => {
     try {
       if (!ma_don_vi) {
-        setError('Không có mã đơn vị');
+        showError('Không có mã đơn vị');
         setLoading(false);
         return;
       }
@@ -23,7 +24,7 @@ useEffect(() => {
       setDonVi(response.data);
     } catch (err) {
       console.error('Error fetching don vi detail:', err);
-      setError('Không thể tải thông tin đơn vị');
+      showError('Không thể tải thông tin đơn vị');
     } finally {
       setLoading(false);
     }
@@ -33,8 +34,7 @@ useEffect(() => {
 }, [ma_don_vi]); // chỉ thêm ma_don_vi
 
   if (loading) return <div className="loading">Đang tải...</div>;
-  if (error) return <div className="error-message">{error}</div>;
-  if (!donVi) return <div className="error-message">Đơn vị không tồn tại</div>;
+  if (!donVi) return <div>Đơn vị không tồn tại</div>;
 
   return (
     <div className="sv__chi_tiet_don_vi">

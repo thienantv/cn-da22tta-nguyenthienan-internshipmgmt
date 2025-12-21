@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { canBoHuongDanService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/sinhvien/sv_chi_tiet_can_bo.css';
 
 const SinhVienChiTietCanBo = () => {
   const { ma_can_bo } = useParams();
   const [canBo, setCanBo] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const { showError } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCanBoDetail = async () => {
       try {
         if (!ma_can_bo) {
-          setError('Không có mã cán bộ');
+          showError('Không có mã cán bộ');
           setLoading(false);
           return;
         }
         const response = await canBoHuongDanService.getById(ma_can_bo);
         setCanBo(response.data);
       } catch (err) {
-        setError('Không thể tải thông tin cán bộ');
+        showError('Không thể tải thông tin cán bộ');
       } finally {
         setLoading(false);
       }
@@ -31,8 +32,7 @@ const SinhVienChiTietCanBo = () => {
   }, [ma_can_bo]);
 
   if (loading) return <div className="loading">Đang tải...</div>;
-  if (error) return <div className="error-message">{error}</div>;
-  if (!canBo) return <div className="error-message">Cán bộ không tồn tại</div>;
+  if (!canBo) return <div>Cán bộ không tồn tại</div>;
 
   return (
     <div className="sv__chi_tiet_can_bo">

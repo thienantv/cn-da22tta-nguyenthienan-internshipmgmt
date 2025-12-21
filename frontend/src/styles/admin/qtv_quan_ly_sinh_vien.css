@@ -3,33 +3,33 @@
   margin: 0 auto;
 }
 
-/* Title */
-.qtv__quan_ly_sinh_vien h1 {
-  margin-bottom: 2rem;
-  color: var(--text-color);
-}
-
-/* NÚT THÊM SINH VIÊN FULL WIDTH */
-.qtv__quan_ly_sinh_vien > .btn.btn-primary {
+/* ADD BUTTON FULL WIDTH */
+.qtv__add_btn_wrapper {
   width: 100%;
-  padding: 0.8rem;
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  transition: background-color 0.3s ease;
 }
 
-.qtv__quan_ly_sinh_vien > .btn.btn-primary:hover {
+.qtv__add_btn {
+  width: 100%;
+  display: block;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.qtv__add_btn:hover {
   background: #1e40af;
 }
 
 /* TABLE */
 .qtv__quan_ly_sinh_vien--table_wrapper {
-  background: white;
+  background: #fff;
   border-radius: 0.75rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   overflow-x: auto;
@@ -40,82 +40,48 @@
   border-collapse: collapse;
 }
 
-.qtv__quan_ly_sinh_vien--data_table thead {
-  background-color: var(--light-bg);
-  border-bottom: 2px solid var(--border-color);
-}
-
-.qtv__quan_ly_sinh_vien--data_table th {
-  padding: 1rem;
-  text-align: left;
-  font-weight: 600;
-  color: var(--text-color);
-}
-
+.qtv__quan_ly_sinh_vien--data_table th,
 .qtv__quan_ly_sinh_vien--data_table td {
   padding: 1rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.qtv__quan_ly_sinh_vien--data_table tbody tr:hover {
-  background-color: #f9fafb;
+.qtv__quan_ly_sinh_vien--data_table thead {
+  background: #f9fafb;
 }
 
-/* ACTION BUTTONS */
+/* ACTION */
 .qtv__quan_ly_sinh_vien--action_cell {
   display: flex;
   gap: 0.5rem;
-  white-space: nowrap;
 }
 
-.qtv__quan_ly_sinh_vien--btn_link {
+.qtv__btn {
   padding: 0.5rem 0.75rem;
   border-radius: 0.4rem;
   border: none;
   cursor: pointer;
-  color: white !important;
-  font-size: 0.875rem;
-  transition: background-color 0.25s ease;
+  color: #fff;
 }
 
-/* Sửa */
-.qtv__quan_ly_sinh_vien--btn_link.btn-warning {
-  background-color: var(--warning-color);
-}
-.qtv__quan_ly_sinh_vien--btn_link.btn-warning:hover {
-  background-color: #fbbf24;
+.btn-warning {
+  background: #f59e0b;
 }
 
-/* Xóa */
-.qtv__quan_ly_sinh_vien--btn_link.btn-danger {
-  background-color: var(--danger-color);
-}
-.qtv__quan_ly_sinh_vien--btn_link.btn-danger:hover {
-  background-color: #ef4444;
+.btn-danger {
+  background: #ef4444;
 }
 
-/* ERROR */
+/* ERROR & LOADING */
 .error-message {
-  background-color: #fee2e2;
-  color: #991b1b;
-  padding: 1rem;
-  border-radius: 0.5rem;
   margin-bottom: 1rem;
-  border-left: 4px solid var(--danger-color);
+  padding: 1rem;
+  background: #fee2e2;
+  color: #991b1b;
+  border-left: 4px solid #ef4444;
 }
 
-/* LOADING */
 .loading {
   text-align: center;
   padding: 2rem;
-  font-size: 1.125rem;
-  color: var(--text-light);
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .qtv__quan_ly_sinh_vien--action_cell {
-    flex-direction: column;
-    gap: 0.25rem;
-  }
 }

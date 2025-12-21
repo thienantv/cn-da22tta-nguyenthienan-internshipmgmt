@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { donViService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/canboquanly/cbql_quan_ly_don_vi.css';
 
 const CanBoQuanLyDonVi = () => {
+  const { showError } = useToast();
   const [donVi, setDonVi] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState('table');
   const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
@@ -27,9 +28,8 @@ const CanBoQuanLyDonVi = () => {
       }
 
       setDonVi(response.data);
-      setError('');
     } catch (err) {
-      setError('Không thể tải danh sách đơn vị');
+      showError('Không thể tải danh sách đơn vị');
     } finally {
       setLoading(false);
     }
@@ -50,7 +50,7 @@ const CanBoQuanLyDonVi = () => {
         await donViService.delete(maDonVi);
         setDonVi(donVi.filter((dv) => dv.ma_don_vi !== maDonVi));
       } catch (err) {
-        setError('Xóa đơn vị thất bại');
+        showError('Xóa đơn vị thất bại');
       }
     }
   };
@@ -61,7 +61,6 @@ const CanBoQuanLyDonVi = () => {
 
   return (
     <div className="cbql__quan_ly_don_vi">
-      {error && <div className="error-message">{error}</div>}
 
       {/* Bộ lọc */}
       <div className="cbql__quan_ly_don_vi--filter_section">

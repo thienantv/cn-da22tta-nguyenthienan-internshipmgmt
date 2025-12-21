@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { donViService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/canboquanly/cbql_chi_tiet_don_vi.css';
 
 const CanBoChiTietDonVi = () => {
   const { ma_don_vi } = useParams();
   const [donVi, setDonVi] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const { showError, showSuccess } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDonViDetail = async () => {
       try {
         if (!ma_don_vi) {
-          setError('Không có mã đơn vị');
+          showError('Không có mã đơn vị');
           setLoading(false);
           return;
         }
@@ -23,7 +24,7 @@ const CanBoChiTietDonVi = () => {
         setDonVi(response.data);
       } catch (err) {
         console.error('Error fetching don vi detail:', err);
-        setError('Không thể tải thông tin đơn vị');
+        showError('Không thể tải thông tin đơn vị');
       } finally {
         setLoading(false);
       }
@@ -36,16 +37,15 @@ const CanBoChiTietDonVi = () => {
 
     try {
       await donViService.delete(ma_don_vi);
-      alert("Xoá đơn vị thành công!");
+      showSuccess("Xoá đơn vị thành công!");
       navigate("/quan-ly-don-vi");
     } catch (err) {
-      alert("Xoá thất bại!");
+      showError("Xoá thất bại!");
     }
   };
 
   if (loading) return <div className="loading">Đang tải...</div>;
-  if (error) return <div className="error-message">{error}</div>;
-  if (!donVi) return <div className="error-message">Đơn vị không tồn tại</div>;
+  if (!donVi) return <div>Đơn vị không tồn tại</div>;
 
   return (
     <div className="cbql__chi_tiet_don_vi">

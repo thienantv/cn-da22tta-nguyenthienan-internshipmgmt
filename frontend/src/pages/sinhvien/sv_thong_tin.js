@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService, canBoQuanLyService, sinhVienService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/sinhvien/sv_thong_tin.css';
 
 const SinhVienThongTin = () => {
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const { showError, showSuccess } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({});
   const [newPassword, setNewPassword] = useState('');
@@ -25,7 +26,7 @@ const SinhVienThongTin = () => {
         setUserData(response.data.user);
         setFormData(response.data.user);
       } catch (err) {
-        setError('Không thể lấy thông tin');
+        showError('Không thể lấy thông tin');
         navigate('/dang-nhap');
       } finally {
         setLoading(false);
@@ -33,7 +34,7 @@ const SinhVienThongTin = () => {
     };
 
     fetchUserInfo();
-  }, [navigate]);
+  }, [navigate, showError]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -42,12 +43,11 @@ const SinhVienThongTin = () => {
 
   const handleSave = async () => {
     try {
-      setError('');
       const updateData = { ...formData };
 
       if (newPassword) {
         if (newPassword !== confirmPassword) {
-          setError('Mật khẩu mới và xác nhận không khớp');
+          showError('Mật khẩu mới và xác nhận không khớp');
           return;
         }
         updateData.password = newPassword;
@@ -63,9 +63,9 @@ const SinhVienThongTin = () => {
       setIsEditing(false);
       setNewPassword('');
       setConfirmPassword('');
-      alert('Cập nhật thông tin thành công');
+      showSuccess('Cập nhật thông tin thành công');
     } catch (err) {
-      setError(err.response?.data?.message || 'Cập nhật thất bại');
+      showError(err.response?.data?.message || 'Cập nhật thất bại');
     }
   };
 
@@ -86,8 +86,6 @@ const SinhVienThongTin = () => {
 
   return (
     <div className="sv__thong_tin">
-
-      {error && <div className="error-message">{error}</div>}
 
       {userData && (
         <div className="sv__thong_tin--content">

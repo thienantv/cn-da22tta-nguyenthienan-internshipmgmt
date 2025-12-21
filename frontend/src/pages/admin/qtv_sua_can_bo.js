@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { canBoQuanLyService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/admin/qtv_sua_can_bo.css';
 
 const AdminSuaCanBo = ({ canBo, onSuccess, onCancel }) => {
-  const [error, setError] = useState('');
+  const { showError } = useToast();
   const [formData, setFormData] = useState({
     username: canBo.username,
     ho_ten: canBo.ho_ten,
@@ -23,7 +24,7 @@ const AdminSuaCanBo = ({ canBo, onSuccess, onCancel }) => {
     try {
       // Kiểm tra xác nhận mật khẩu nếu có
       if (formData.password && formData.password !== formData.confirm_password) {
-        setError('Mật khẩu và xác nhận mật khẩu không khớp');
+        showError('Mật khẩu và xác nhận mật khẩu không khớp');
         return;
       }
 
@@ -38,10 +39,9 @@ const AdminSuaCanBo = ({ canBo, onSuccess, onCancel }) => {
         confirm_password: '',
       });
 
-      setError('');
       onSuccess();
     } catch (err) {
-      setError(err.response?.data?.message || 'Lỗi khi lưu dữ liệu');
+      showError(err.response?.data?.message || 'Lỗi khi lưu dữ liệu');
     }
   };
 
@@ -54,7 +54,6 @@ const AdminSuaCanBo = ({ canBo, onSuccess, onCancel }) => {
       password: '',
       confirm_password: '',
     });
-    setError('');
     onCancel();
   };
 
@@ -62,8 +61,6 @@ const AdminSuaCanBo = ({ canBo, onSuccess, onCancel }) => {
     <div className="qtv__sua_can_bo">
       <div className="qtv__sua_can_bo--form_container">
         <h3>Sửa cán bộ</h3>
-
-        {error && <div className="qtv__sua_can_bo--error_message">{error}</div>}
 
         <form onSubmit={handleSubmit}>
 

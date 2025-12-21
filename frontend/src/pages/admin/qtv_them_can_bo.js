@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { canBoQuanLyService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/admin/qtv_them_can_bo.css';
 
 const AdminThemCanBo = ({ onSuccess = () => alert('Thêm cán bộ thành công!'), onCancel = () => alert('Đã hủy') }) => {
-  const [error, setError] = useState('');
+  const { showError } = useToast();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -23,7 +24,7 @@ const AdminThemCanBo = ({ onSuccess = () => alert('Thêm cán bộ thành công!
 
     // Validate mật khẩu trùng nhau
     if (formData.password !== formData.confirm_password) {
-      setError("Mật khẩu và xác nhận mật khẩu không khớp!");
+      showError("Mật khẩu và xác nhận mật khẩu không khớp!");
       return;
     }
 
@@ -39,10 +40,9 @@ const AdminThemCanBo = ({ onSuccess = () => alert('Thêm cán bộ thành công!
         so_dien_thoai: '',
       });
 
-      setError('');
       onSuccess();
     } catch (err) {
-      setError(err.response?.data?.message || 'Lỗi khi lưu dữ liệu');
+      showError(err.response?.data?.message || 'Lỗi khi lưu dữ liệu');
     }
   };
 
@@ -55,7 +55,6 @@ const AdminThemCanBo = ({ onSuccess = () => alert('Thêm cán bộ thành công!
       gioi_tinh: 'Khác',
       so_dien_thoai: '',
     });
-    setError('');
     onCancel();
   };
 
@@ -63,8 +62,6 @@ const AdminThemCanBo = ({ onSuccess = () => alert('Thêm cán bộ thành công!
     <div className="qtv__them_can_bo">
       <div className="qtv__them_can_bo--form_container">
         <h3>Thêm cán bộ</h3>
-
-        {error && <div className="qtv__them_can_bo--error_message">{error}</div>}
 
         <form onSubmit={handleSubmit}>
 

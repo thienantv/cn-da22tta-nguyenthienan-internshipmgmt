@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { canBoHuongDanService, donViService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/canboquanly/cbql_them_can_bo.css';
 
 const CanBoThem = () => {
+  const { showError, showSuccess } = useToast();
   const [canBo, setCanBo] = useState({
     ho_ten: '',
     gioi_tinh: 'Khác',
@@ -19,9 +21,6 @@ const CanBoThem = () => {
   const [donViList, setDonViList] = useState([]);
   const [searchDonVi, setSearchDonVi] = useState('');
   const [showList, setShowList] = useState(false);
-
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -57,19 +56,40 @@ const CanBoThem = () => {
     reader.readAsDataURL(file);
   };
 
+  /* ===== VALIDATE FRONTEND ===== */
+  const validate = () => {
+    if (!canBo.ho_ten.trim()) {
+      showError('Họ tên là bắt buộc');
+      return false;
+    }
+
+    if (canBo.so_dien_thoai) {
+      const phoneRegex = /^\d{10}$/;
+      if (!phoneRegex.test(canBo.so_dien_thoai)) {
+        showError('Số điện thoại phải gồm đúng 10 chữ số (0-9)');
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   /* ===== SUBMIT ===== */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+
+    // 🔹 validate frontend
+    if (!validate()) return;
 
     try {
       setLoading(true);
       const res = await canBoHuongDanService.create(canBo);
-      setSuccess(`Thêm cán bộ thành công: ${res.data.ma_can_bo}`);
+      showSuccess(`Thêm cán bộ thành công: ${res.data.ma_can_bo}`);
       setTimeout(() => navigate('/quan-ly-can-bo-huong-dan'), 1200);
     } catch (err) {
-      setError(err.response?.data?.message || 'Thêm cán bộ thất bại');
+      // 🔹 hiển thị lỗi backend rõ ràng
+      const backendMessage = err.response?.data?.message;
+      showError(backendMessage || 'Thêm cán bộ thất bại');
     } finally {
       setLoading(false);
     }
@@ -79,16 +99,12 @@ const CanBoThem = () => {
     <div className="cbql__them_can_bo">
       <h1>Thêm cán bộ hướng dẫn</h1>
 
-      {error && <div className="cbql__them_can_bo--error-message">{error}</div>}
-      {success && <div className="cbql__them_can_bo--success-message">{success}</div>}
-
       <form onSubmit={handleSubmit} className="cbql__them_can_bo--form">
         <div className="cbql__them_can_bo--form_grid">
 
           {/* ===== AVATAR ===== */}
           <div style={{ gridColumn: 'span 2', textAlign: 'center' }}>
             <label>Ảnh đại diện</label>
-
             <div className="cbql__them_can_bo--avatar_wrapper">
               <img
                 src={canBo.avatar || '/images/teacher-icon.png'}
@@ -166,9 +182,7 @@ const CanBoThem = () => {
               {showList && searchDonVi && (
                 <div className="cbql__them_can_bo--donvi_dropdown">
                   {donViList
-                    .filter((dv) =>
-                      dv.ten_don_vi.toLowerCase().includes(searchDonVi.toLowerCase())
-                    )
+                    .filter((dv) => dv.ten_don_vi.toLowerCase().includes(searchDonVi.toLowerCase()))
                     .map((dv) => (
                       <div
                         key={dv.ma_don_vi}

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { sinhVienService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/admin/qtv_sua_sinh_vien.css';
 
 const AdminSuaSinhVien = ({ sinhVien = { id: 1, username: 'sv001', ho_ten: 'Sinh Viên', gioi_tinh: 'Nam', so_dien_thoai: '', email_sinh_vien: '' }, onSuccess = () => alert('Cập nhật sinh viên thành công!'), onCancel = () => alert('Đã hủy') }) => {
-  const [error, setError] = useState('');
+  const { showError } = useToast();
   const [formData, setFormData] = useState({
     username: sinhVien.username,
     ho_ten: sinhVien.ho_ten,
@@ -31,10 +32,9 @@ const AdminSuaSinhVien = ({ sinhVien = { id: 1, username: 'sv001', ho_ten: 'Sinh
         email_sinh_vien: '',
       });
 
-      setError('');
       onSuccess();
     } catch (err) {
-      setError(err.response?.data?.message || 'Lỗi khi lưu dữ liệu');
+      showError(err.response?.data?.message || 'Lỗi khi lưu dữ liệu');
     }
   };
 
@@ -46,7 +46,6 @@ const AdminSuaSinhVien = ({ sinhVien = { id: 1, username: 'sv001', ho_ten: 'Sinh
       so_dien_thoai: sinhVien.so_dien_thoai,
       email_sinh_vien: sinhVien.email_sinh_vien,
     });
-    setError('');
     onCancel();
   };
 
@@ -54,8 +53,6 @@ const AdminSuaSinhVien = ({ sinhVien = { id: 1, username: 'sv001', ho_ten: 'Sinh
     <div className="qtv__sua_sinh_vien">
       <div className="qtv__sua_sinh_vien--form_container">
         <h3>Sửa sinh viên</h3>
-
-        {error && <div className="qtv__sua_sinh_vien--error_message">{error}</div>}
 
         <form onSubmit={handleSubmit}>
 

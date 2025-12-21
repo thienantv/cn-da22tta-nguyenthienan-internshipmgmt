@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/auth/auth.css';
 
 const TrangDangKy = () => {
@@ -13,10 +14,9 @@ const TrangDangKy = () => {
     so_dien_thoai: '',
     email_sinh_vien: '',
   });
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { showError, showSuccess } = useToast();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,12 +25,10 @@ const TrangDangKy = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
     setLoading(true);
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Password và Confirm Password không khớp');
+      showError('Password và Confirm Password không khớp');
       setLoading(false);
       return;
     }
@@ -46,14 +44,14 @@ const TrangDangKy = () => {
         formData.email_sinh_vien
       );
 
-      setSuccess('Đăng ký thành công! Vui lòng đăng nhập');
+      showSuccess('Đăng ký thành công! Vui lòng đăng nhập');
       
       // Chuyển hướng về trang đăng nhập sau 2 giây
       setTimeout(() => {
         navigate('/dang-nhap');
       }, 2000);
     } catch (err) {
-      setError(err.response?.data?.message || 'Đăng ký thất bại');
+      showError(err.response?.data?.message || 'Đăng ký thất bại');
     } finally {
       setLoading(false);
     }
@@ -63,9 +61,6 @@ const TrangDangKy = () => {
     <div className="auth-container">
       <div className="auth-box">
         <h2>Đăng ký</h2>
-        
-        {error && <div className="error-message">{error}</div>}
-        {success && <div className="success-message">{success}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">

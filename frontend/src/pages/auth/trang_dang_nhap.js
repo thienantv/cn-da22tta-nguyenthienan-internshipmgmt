@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../../services/api';
+import { useToast } from '../../contexts/useToast';
 import '../../styles/auth/auth.css';
 
 const TrangDangNhap = () => {
@@ -8,9 +9,9 @@ const TrangDangNhap = () => {
     username: '',
     password: ''
   });
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { showError } = useToast();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +20,6 @@ const TrangDangNhap = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
     setLoading(true);
 
     try {
@@ -39,7 +39,7 @@ const TrangDangNhap = () => {
         else navigate('/trang-chu-sinh-vien');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Đăng nhập thất bại');
+      showError(err.response?.data?.message || 'Đăng nhập thất bại');
     } finally {
       setLoading(false);
     }
@@ -49,17 +49,15 @@ const TrangDangNhap = () => {
   <div className="auth-container">
 
     {/* LEFT BOX — LOGO BOX */}
-    <div className="auth-left">
+    {/* <div className="auth-left">
       <h1>Hệ thống quản lý</h1>
       <h1>Thông tin đơn vị thực tập</h1>
-      {/* <h1>Sinh viên khoa Công nghệ thông tin</h1> */}
-    </div>
+      <h1>Sinh viên khoa Công nghệ thông tin</h1>
+    </div> */}
 
     {/* RIGHT BOX — LOGIN BOX */}
     <div className="auth-box">
       <h2>Đăng nhập</h2>
-
-      {error && <div className="error-message">{error}</div>}
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
