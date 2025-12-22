@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { donViService } from '../../services/api';
+import { donViService, yeuThichService } from '../../services/api';
 import { useToast } from '../../contexts/useToast';
+import FavoriteButton from '../../components/FavoriteButton';
 import '../../styles/sinhvien/sv_danh_sach_don_vi.css';
 
 const SinhVienQuanLyDonVi = () => {
@@ -9,6 +10,7 @@ const SinhVienQuanLyDonVi = () => {
   const [donVi, setDonVi] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [favoriteStatuses, setFavoriteStatuses] = useState({});
 
   const fetchDonVi = useCallback(async (query = '') => {
     try {
@@ -18,6 +20,21 @@ const SinhVienQuanLyDonVi = () => {
         : await donViService.getAll();
 
       setDonVi(response.data);
+      
+      // Lấy trạng thái yêu thích cho tất cả đơn vị
+      if (response.data.length > 0) {
+        const maDonViList = response.data.map(dv => dv.ma_don_vi);
+        try {
+          const favoriteRes = await yeuThichService.batchCheckFavorites(maDonViList);
+          const statusMap = {};
+          maDonViList.forEach(id => {
+            statusMap[id] = favoriteRes.data.favoriteIds.includes(id);
+          });
+          setFavoriteStatuses(statusMap);
+        } catch (err) {
+          console.error('Lỗi lấy trạng thái yêu thích:', err);
+        }
+      }
     } catch (err) {
       showError('Không thể tải danh sách đơn vị');
     } finally {
@@ -34,6 +51,13 @@ const SinhVienQuanLyDonVi = () => {
   const handleReset = () => {
     setSearchQuery('');
     fetchDonVi();
+  };
+
+  const handleToggleFavorite = (maDonVi, isFavorited) => {
+    setFavoriteStatuses(prev => ({
+      ...prev,
+      [maDonVi]: isFavorited
+    }));
   };
 
   if (loading) return <div className="sv__loading">Đang tải...</div>;
@@ -61,6 +85,10 @@ const SinhVienQuanLyDonVi = () => {
           <button className="btn btn-secondary" onClick={handleReset}>
             Đặt lại
           </button>
+
+          <Link to="/sinh-vien/yeu-thich" className="btn btn-success">
+            ♥ Đã yêu thích ({Object.values(favoriteStatuses).filter(Boolean).length})
+          </Link>
         </div>
       </div>
 
@@ -95,6 +123,14 @@ const SinhVienQuanLyDonVi = () => {
                   >
                     Chi tiết
                   </Link>
+                  
+                  <FavoriteButton
+                    maDonVi={dv.ma_don_vi}
+                    initialState={favoriteStatuses[dv.ma_don_vi] || false}
+                    onToggle={(isFavorited) => handleToggleFavorite(dv.ma_don_vi, isFavorited)}
+                    size="md"
+                    showLabel={true}
+                  />
                 </div>
               </div>
 

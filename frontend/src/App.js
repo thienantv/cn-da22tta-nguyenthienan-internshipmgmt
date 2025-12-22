@@ -33,6 +33,7 @@ import SinhVienChiTietCanBo from './pages/sinhvien/sv_chi_tiet_can_bo';
 import SinhVienChiTietDonVi from './pages/sinhvien/sv_chi_tiet_don_vi';
 import SinhVienDanhSachCanBo from './pages/sinhvien/sv_danh_sach_can_bo';
 import SinhVienDanhSachDonVi from './pages/sinhvien/sv_danh_sach_don_vi';
+import SinhVienYeuThichDonVi from './pages/sinhvien/sv_yeu_thich_don_vi';
 import SinhVienThongTin from './pages/sinhvien/sv_thong_tin';
 import SinhVienTrangChu from './pages/sinhvien/sv_trang_chu';
 
@@ -196,6 +197,14 @@ const AppContent = () => {
                     element={
                       <ProtectedRoute requiredRole="sinh_vien">
                         <SinhVienDanhSachDonVi />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/sinh-vien/yeu-thich"
+                    element={
+                      <ProtectedRoute requiredRole="sinh_vien">
+                        <SinhVienYeuThichDonVi />
                       </ProtectedRoute>
                     }
                   />

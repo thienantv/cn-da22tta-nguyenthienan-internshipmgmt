@@ -24,7 +24,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <div className="home-content">
+      {/* <div className="home-content">
         <h1>Quản lý Thực tập CNTT</h1>
         <p>Hệ thống quản lý đơn vị thực tập của sinh viên CNTT</p>
         
@@ -49,7 +49,7 @@ const Home = () => {
             <li>Phân quyền theo vai trò (Admin, Cán bộ, Sinh viên)</li>
           </ul>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

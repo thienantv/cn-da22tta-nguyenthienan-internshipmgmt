@@ -291,3 +291,19 @@ INSERT INTO can_bo_quan_ly (username, password_hash, ho_ten, gioi_tinh, so_dien_
 INSERT INTO sinh_vien (username, password_hash) VALUES
 ('sinhvien1', '$2b$10$SSpKUn8soEFEFnFp6/17yOZLUposB5izTpHXGzUdGwy0b89TsNPV.'),
 ('sinhvien2', '$2b$10$QfkLGi06WgEVKhy35rwMheOSUQxJ9eEX6g6ECwMRY92i4zXSEHHp2');
+
+-- ========================================
+-- BẢNG YÊU THÍCH ĐƠN VỊ THỰC TẬP (Many-to-Many)
+-- ========================================
+CREATE TABLE IF NOT EXISTS yeu_thich_don_vi (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  sinh_vien_id INT NOT NULL,
+  ma_don_vi VARCHAR(10) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_favorite (sinh_vien_id, ma_don_vi),
+  FOREIGN KEY (sinh_vien_id) REFERENCES sinh_vien(id) ON DELETE CASCADE,
+  FOREIGN KEY (ma_don_vi) REFERENCES don_vi(ma_don_vi) ON DELETE CASCADE
+);
+
+-- Drop nếu bảng đã tồn tại trước
+DROP TABLE IF EXISTS yeu_thich_don_vi;

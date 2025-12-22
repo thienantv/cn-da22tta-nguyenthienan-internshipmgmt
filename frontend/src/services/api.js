@@ -111,4 +111,22 @@ export const adminService = {
     api.get('/admin/thong_ke'),
 };
 
+// ==================== Yêu thích Services ====================
+export const yeuThichService = {
+  toggleFavorite: (maDonVi) =>
+    api.post('/yeu_thich/toggle', { ma_don_vi: maDonVi }),
+  
+  checkFavorite: (maDonVi) =>
+    api.get(`/yeu_thich/check/${maDonVi}`),
+  
+  getFavoriteList: () =>
+    api.get('/yeu_thich/danh-sach'),
+  
+  batchCheckFavorites: (donViList) =>
+    api.post('/yeu_thich/batch-check', { donViList }),
+  
+  getFavoriteCount: (maDonVi) =>
+    api.get(`/yeu_thich/count/${maDonVi}`),
+};
+
 export default api;

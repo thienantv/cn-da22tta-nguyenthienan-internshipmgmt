@@ -1,34 +1,75 @@
 /* ==========================
    CONTAINER
 ========================== */
-.sv__danh_sach_don_vi {
+.sv__yeu_thich_don_vi {
   max-width: 1300px;
   margin: 0 auto;
   padding: 1rem;
 }
 
 /* ==========================
-   FILTER
+   HEADER
 ========================== */
-.sv__filter_section {
+.sv__yeu_thich_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: white;
   padding: 1.75rem;
   border-radius: 0.75rem;
   box-shadow: 0 3px 10px rgba(0,0,0,0.08);
   margin-bottom: 2rem;
-}
-
-.sv__filter_row {
-  display: flex;
   gap: 1rem;
-  align-items: center;
+  flex-wrap: wrap;
 }
 
-.sv__filter_row input {
+.sv__yeu_thich_header h1 {
+  font-size: 1.5rem;
+  color: #053485;
+  margin: 0;
   flex: 1;
-  padding: 0.6rem;
-  border-radius: 0.5rem;
-  border: 1px solid #d1d5db;
+  min-width: 200px;
+  text-align: right;
+}
+
+.sv__yeu_thich_header .btn {
+  white-space: nowrap;
+}
+
+/* ==========================
+   EMPTY STATE
+========================== */
+.sv__empty_state {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.sv__empty_icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.sv__empty_state h2 {
+  color: #053485;
+  margin-bottom: 0.5rem;
+}
+
+.sv__empty_state p {
+  color: #64748b;
+  margin-bottom: 1.5rem;
+}
+
+.sv__btn_inline {
+  display: inline-flex;     /* không chiếm full width */
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;      /* KHÔNG xuống dòng */
+  width: auto;              /* quan trọng */
+  max-width: 100%;
 }
 
 /* ==========================
@@ -59,7 +100,7 @@
 }
 
 /* ==========================
-   IMAGE (KHÔNG ZOOM MẤT ẢNH)
+   IMAGE
 ========================== */
 .sv__card_image {
   height: 140px;
@@ -91,12 +132,13 @@
   padding: 1.2rem;
   display: flex;
   flex-direction: column;
-  flex: 1; /* Content chiếm hết không gian còn lại */
+  flex: 1;
 }
 
 .sv__card_content h3 {
   font-size: 1.05rem;
   margin-bottom: 0.4rem;
+  color: #053485;
 }
 
 .sv__card_address {
@@ -114,7 +156,7 @@
    BUTTON
 ========================== */
 .sv__card_buttons {
-  margin-top: auto; /* Đẩy nút xuống cuối card */
+  margin-top: auto;
   display: flex;
   gap: 0.8rem;
   justify-content: center;
@@ -132,6 +174,7 @@
   flex: 1;
   text-align: center;
   min-width: 100px;
+  transition: background 0.3s ease;
 }
 
 .sv__btn_modern:hover {
@@ -141,30 +184,62 @@
 /* ==========================
    STATE
 ========================== */
-.sv__loading,
-.sv__empty-message {
+.sv__loading {
   text-align: center;
   padding: 2rem;
   color: #6b7280;
-}
-
-.sv__error-message {
-  background: #fee2e2;
-  color: #b91c1c;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
 }
 
 /* ==========================
    RESPONSIVE
 ========================== */
 @media (max-width: 768px) {
-  .sv__filter_row {
+  .sv__yeu_thich_header {
     flex-direction: column;
+    text-align: center;
+  }
+
+  .sv__yeu_thich_header h1 {
+    font-size: 1.2rem;
+    order: 2;
+  }
+
+  .sv__yeu_thich_header .btn {
+    order: 3;
+    width: 100%;
+  }
+
+  .sv__yeu_thich_header .btn:first-child {
+    order: 1;
+  }
+
+  .sv__empty_state {
+    padding: 2rem 1rem;
+  }
+
+  .sv__empty_icon {
+    font-size: 3rem;
+  }
+
+  .sv__don_vi_cards {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
   }
 
   .sv__card_image {
     height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sv__don_vi_cards {
+    grid-template-columns: 1fr;
+  }
+
+  .sv__yeu_thich_header h1 {
+    font-size: 1rem;
   }
 }
