@@ -158,7 +158,7 @@ const getCurrentUser = async (req, res) => {
       const [users] = await connection.execute(query, [id]);
       userData = users[0];
     } else if (role === 'can_bo_quan_ly') {
-      query = 'SELECT id, username, ho_ten, gioi_tinh, so_dien_thoai FROM can_bo_quan_ly WHERE id = ?';
+      query = 'SELECT id, username, ho_ten, gioi_tinh, so_dien_thoai, email_can_bo FROM can_bo_quan_ly WHERE id = ?';
       const [users] = await connection.execute(query, [id]);
       userData = users[0];
     } else if (role === 'sinh_vien') {

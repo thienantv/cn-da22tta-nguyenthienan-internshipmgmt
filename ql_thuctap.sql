@@ -7,6 +7,8 @@ USE ql_thuctap;
 -- ========================================
 -- BẢNG ĐƠN VỊ THỰC TẬP
 -- ========================================
+DROP TABLE IF EXISTS don_vi;
+
 CREATE TABLE IF NOT EXISTS don_vi (
   ma_don_vi VARCHAR(10) PRIMARY KEY,
   ten_don_vi VARCHAR(255) NOT NULL,
@@ -20,11 +22,11 @@ CREATE TABLE IF NOT EXISTS don_vi (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS don_vi;
-
 -- ========================================
 -- BẢNG CÁN BỘ HƯỚNG DẪN
 -- ========================================
+DROP TABLE IF EXISTS can_bo_huong_dan;
+
 CREATE TABLE IF NOT EXISTS can_bo_huong_dan (
   ma_can_bo VARCHAR(10) PRIMARY KEY,
   avatar LONGTEXT DEFAULT NULL,
@@ -41,11 +43,11 @@ CREATE TABLE IF NOT EXISTS can_bo_huong_dan (
   FOREIGN KEY (ma_don_vi) REFERENCES don_vi(ma_don_vi) ON DELETE SET NULL
 );
 
-DROP TABLE IF EXISTS can_bo_huong_dan;
-
 -- ========================================
 -- BẢNG ADMIN
 -- ========================================
+DROP TABLE IF EXISTS admin;
+
 CREATE TABLE IF NOT EXISTS admin (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(100) NOT NULL UNIQUE,
@@ -55,11 +57,11 @@ CREATE TABLE IF NOT EXISTS admin (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS admin;
-
 -- ========================================
 -- BẢNG CÁN BỘ
 -- ========================================
+DROP TABLE IF EXISTS can_bo_quan_ly;
+
 CREATE TABLE IF NOT EXISTS can_bo_quan_ly (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(100) NOT NULL UNIQUE,
@@ -72,11 +74,11 @@ CREATE TABLE IF NOT EXISTS can_bo_quan_ly (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS can_bo_quan_ly;
-
 -- ========================================
 -- BẢNG SINH VIÊN
 -- ========================================
+DROP TABLE IF EXISTS sinh_vien;
+
 CREATE TABLE IF NOT EXISTS sinh_vien (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(100) NOT NULL UNIQUE,
@@ -303,6 +305,8 @@ INSERT INTO sinh_vien (username, password_hash, email_sinh_vien) VALUES
 -- ========================================
 -- BẢNG YÊU THÍCH ĐƠN VỊ THỰC TẬP (Many-to-Many)
 -- ========================================
+DROP TABLE IF EXISTS yeu_thich_don_vi;
+
 CREATE TABLE IF NOT EXISTS yeu_thich_don_vi (
   id INT AUTO_INCREMENT PRIMARY KEY,
   sinh_vien_id INT NOT NULL,
@@ -313,5 +317,59 @@ CREATE TABLE IF NOT EXISTS yeu_thich_don_vi (
   FOREIGN KEY (ma_don_vi) REFERENCES don_vi(ma_don_vi) ON DELETE CASCADE
 );
 
--- Drop nếu bảng đã tồn tại trước
-DROP TABLE IF EXISTS yeu_thich_don_vi;
+-- ========================================
+-- BẢNG LƯU SESSION TẠM THỜI QUÊN MẬT KHẨU
+-- ========================================
+DROP TABLE IF EXISTS forgot_password_sessions;
+
+CREATE TABLE IF NOT EXISTS forgot_password_sessions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  session_token VARCHAR(255) NOT NULL UNIQUE,
+  user_id INT,
+  user_type ENUM('can_bo_quan_ly', 'sinh_vien', 'admin'),
+  username VARCHAR(100),
+  email VARCHAR(100),
+  step INT DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  expires_at TIMESTAMP NOT NULL,
+  is_active BOOLEAN DEFAULT TRUE,
+  INDEX idx_session_token (session_token),
+  INDEX idx_is_active (is_active)
+);
+
+-- ========================================
+-- BẢNG LƯU TOKEN RESET PASSWORD
+-- ========================================
+DROP TABLE IF EXISTS password_reset_tokens;
+
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  token VARCHAR(255) NOT NULL UNIQUE,
+  token_type ENUM('can_bo_quan_ly', 'sinh_vien', 'admin') NOT NULL,
+  email_verified VARCHAR(100) NOT NULL,
+  is_used BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  expires_at TIMESTAMP NOT NULL,
+  used_at TIMESTAMP NULL,
+  INDEX idx_token (token),
+  INDEX idx_user_id (user_id),
+  INDEX idx_is_used (is_used)
+);
+
+-- ========================================
+-- BẢNG GIỚI HẠN SỐ LẦN GỬI EMAIL RESET
+-- ========================================
+DROP TABLE IF EXISTS reset_email_attempts;
+
+CREATE TABLE IF NOT EXISTS reset_email_attempts (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(100) NOT NULL,
+  user_type ENUM('can_bo_quan_ly', 'sinh_vien', 'admin'),
+  attempt_count INT DEFAULT 0,
+  last_attempt_at TIMESTAMP,
+  locked_until TIMESTAMP NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_email_type (email, user_type),
+  INDEX idx_email (email)
+);

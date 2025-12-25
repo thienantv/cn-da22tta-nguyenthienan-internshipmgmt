@@ -44,7 +44,7 @@ const getCanBoQuanLyById = async (req, res) => {
 // Tạo cán bộ quản lý (chỉ admin)
 const createCanBoQuanLy = async (req, res) => {
   try {
-    const { username, password, ho_ten, gioi_tinh, so_dien_thoai } = req.body;
+    const { username, password, ho_ten, gioi_tinh, so_dien_thoai, email_can_bo } = req.body;
 
     if (!username || !password || !ho_ten) {
       return res.status(400).json({ message: 'Username, password và họ tên là bắt buộc' });
@@ -67,8 +67,8 @@ const createCanBoQuanLy = async (req, res) => {
 
     await connection.execute(
       `INSERT INTO can_bo_quan_ly (username, password_hash, ho_ten, gioi_tinh, so_dien_thoai, email_can_bo)
-       VALUES (?, ?, ?, ?, ?)`,
-      [username, hashedPassword, ho_ten, gioi_tinh || 'Khác', so_dien_thoai || '']
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [username, hashedPassword, ho_ten, gioi_tinh || 'Khác', so_dien_thoai || '', email_can_bo || null]
     );
 
     connection.release();

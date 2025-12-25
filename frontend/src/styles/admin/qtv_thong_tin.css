@@ -54,6 +54,23 @@
   color: var(--text-light);
 }
 
+/* ================= INPUT EMAIL (CHỈNH SỬA) ================= */
+.qtv__thong_tin--info_row input.value {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.qtv__thong_tin--info_row input.value:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* ================= FORM GROUP ================= */
 .qtv__thong_tin--form_group {
   display: grid;
   gap: 1rem;
@@ -84,6 +101,7 @@
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
+/* ================= BUTTON ================= */
 .qtv__thong_tin--button_group {
   display: flex;
   gap: 1rem;
@@ -97,6 +115,7 @@
   max-width: 200px;
 }
 
+/* ================= ERROR ================= */
 .error-message {
   background-color: #fee2e2;
   color: #991b1b;
@@ -106,11 +125,11 @@
   border-left: 4px solid var(--danger-color);
 }
 
-/* ================= Chỉnh khoảng cách ô mật khẩu ================= */
+/* ================= PASSWORD INPUT ================= */
 .qtv__thong_tin--section input[type="password"] {
   display: block;
   width: 100%;
-  margin-bottom: 1rem; /* Khoảng cách giữa Mật khẩu mới và Xác nhận mật khẩu */
+  margin-bottom: 1rem;
   padding: 0.75rem;
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
@@ -118,10 +137,10 @@
 }
 
 .qtv__thong_tin--section input[type="password"]:last-child {
-  margin-bottom: 0; /* Bỏ margin ô cuối cùng */
+  margin-bottom: 0;
 }
 
-/* ================= Responsive ================= */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
   .qtv__thong_tin--content {
     padding: 1.5rem;

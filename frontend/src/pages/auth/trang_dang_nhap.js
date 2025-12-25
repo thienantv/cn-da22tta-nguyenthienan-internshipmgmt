@@ -95,6 +95,10 @@ const TrangDangNhap = () => {
         Chưa có tài khoản? <Link to="/dang-ky">Đăng ký tại đây</Link>
       </p>
 
+      <p className="auth-link" style={{ marginTop: '10px', textAlign: 'center' }}>
+        <Link to="/quen-mat-khau">Quên mật khẩu?</Link>
+      </p>
+
     </div>
   </div>
 );

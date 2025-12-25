@@ -134,4 +134,27 @@ export const yeuThichService = {
     api.get(`/yeu_thich/count/${maDonVi}`),
 };
 
+// ==================== Quên Mật Khẩu Services ====================
+export const quenMatKhauService = {
+  // Bước 1: Kiểm tra username
+  step1CheckUsername: (username) =>
+    api.post('/quen-mat-khau/buoc-1', { username }),
+  
+  // Bước 2: Xác nhận email
+  step2VerifyEmail: (sessionToken, email) =>
+    api.post('/quen-mat-khau/buoc-2', { sessionToken, email }),
+  
+  // Bước 3: Gửi email reset
+  step3SendResetEmail: (sessionToken, email) =>
+    api.post('/quen-mat-khau/buoc-3', { sessionToken, email }),
+  
+  // Xác thực token trước khi reset
+  verifyResetToken: (token) =>
+    api.get(`/quen-mat-khau/verify-token/${token}`),
+  
+  // Bước 4: Đặt lại mật khẩu
+  step4ResetPassword: (token, newPassword, confirmPassword) =>
+    api.post('/quen-mat-khau/buoc-4', { token, newPassword, confirmPassword }),
+};
+
 export default api;

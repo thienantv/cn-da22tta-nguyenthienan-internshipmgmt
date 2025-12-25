@@ -15,6 +15,9 @@ import AdminThongTin from './pages/admin/qtv_thong_tin';
 // Pages Auth
 import TrangDangKy from './pages/auth/trang_dang_ky';
 import TrangDangNhap from './pages/auth/trang_dang_nhap';
+import TrangQuenMatKhau from './pages/auth/trang_quen_mat_khau';
+import TrangXacNhanEmail from './pages/auth/trang_xac_nhan_email';
+import TrangDatLaiMatKhau from './pages/auth/trang_dat_lai_mat_khau';
 
 // Pages Cán bộ quản lý
 import CanBoChiTietCanBo from './pages/canboquanly/cbql_chi_tiet_can_bo';
@@ -46,7 +49,7 @@ import './styles/app.css';
 // Wrapper để quản lý header và footer
 const AppContent = () => {
   const location = useLocation();
-  const noHeaderFooterRoutes = ['/dang-nhap', '/dang-ky'];
+  const noHeaderFooterRoutes = ['/dang-nhap', '/dang-ky', '/quen-mat-khau', '/quen-mat-khau/xac-nhan-email', '/dat-lai-mat-khau'];
   const showHeader = !noHeaderFooterRoutes.includes(location.pathname);
   const showFooter = !noHeaderFooterRoutes.includes(location.pathname);
 
@@ -58,6 +61,9 @@ const AppContent = () => {
           {/* Khi chưa đăng nhập */}
           <Route path="/dang-nhap" element={<TrangDangNhap />} />
           <Route path="/dang-ky" element={<TrangDangKy />} />
+          <Route path="/quen-mat-khau" element={<TrangQuenMatKhau />} />
+          <Route path="/quen-mat-khau/xac-nhan-email" element={<TrangXacNhanEmail />} />
+          <Route path="/dat-lai-mat-khau" element={<TrangDatLaiMatKhau />} />
 
           {/* Khi đã đăng nhập */}
           <Route

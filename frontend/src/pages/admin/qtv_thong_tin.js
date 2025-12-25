@@ -86,20 +86,24 @@ const AdminThongTinCaNhan = () => {
         </div>
 
         <div className="qtv__thong_tin--section">
+  <div className="qtv__thong_tin--info_row">
+    <span className="label">Email:</span>
 
-          {isEditing ? (
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          ) : (
-            <div className="qtv__thong_tin--info_row">
-              <span className="label">Email:</span>
-              <span className="value">{userData.email_admin || 'Chưa cập nhật'}</span>
-            </div>
-          )}
-        </div>
+    {isEditing ? (
+      <input
+        type="email"
+        className="value"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+    ) : (
+      <span className="value">
+        {userData.email_admin || 'Chưa cập nhật'}
+      </span>
+    )}
+  </div>
+</div>
+
 
         {isEditing && (
           <div className="qtv__thong_tin--section">

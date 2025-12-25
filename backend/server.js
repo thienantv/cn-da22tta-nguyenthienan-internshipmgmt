@@ -13,6 +13,7 @@ const canBoQuanLyRoutes = require('./routes/CanBoQuanLyRoutes');
 const sinhVienRoutes = require('./routes/SinhVienRoutes');
 const adminRoutes = require('./routes/QuanTriVienRoutes');
 const yeuThichRoutes = require('./routes/YeuThichRoutes');
+const quenMatKhauRoutes = require('./routes/QuenMatKhauRoutes');
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use('/api/can_bo_quan_ly', canBoQuanLyRoutes);
 app.use('/api/sinh_vien', sinhVienRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/yeu_thich', yeuThichRoutes);
+app.use('/api/quen-mat-khau', quenMatKhauRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
