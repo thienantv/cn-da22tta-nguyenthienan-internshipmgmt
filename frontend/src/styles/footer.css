@@ -6,6 +6,9 @@
   border-top: 3px solid #3498db;
 }
 
+/* ======================
+   CONTAINER
+====================== */
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -19,6 +22,9 @@
   margin-bottom: 30px;
 }
 
+/* ======================
+   SECTIONS
+====================== */
 .footer-section h3 {
   color: #ffffff;
   font-size: 16px;
@@ -56,6 +62,9 @@
   color: #3498db;
 }
 
+/* ======================
+   SOCIAL LINKS BASE
+====================== */
 .social-links {
   display: flex;
   gap: 15px;
@@ -68,21 +77,87 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  background-color: rgba(52, 152, 219, 0.2);
   border-radius: 50%;
-  color: #3498db;
   text-decoration: none;
   font-size: 16px;
   transition: all 0.3s ease;
   border: 1px solid transparent;
 }
 
-.social-link:hover {
-  background-color: #3498db;
-  color: #fff;
+/* ======================
+   FACEBOOK
+====================== */
+.social-link.facebook {
+  color: #ffffff;
+  background-color: #1877f2;
+}
+
+.social-link.facebook:hover {
+  background-color: #1877f2;
+  color: #ffffff;
   transform: translateY(-3px);
 }
 
+/* ======================
+   INSTAGRAM (GRADIENT)
+====================== */
+.social-link.instagram {
+  background: linear-gradient(
+    45deg,
+    #feda75,
+    #fa7e1e,
+    #d62976,
+    #962fbf,
+    #4f5bd5
+  );
+}
+
+.social-link.instagram i {
+  color: #ffffff;
+}
+
+.social-link.instagram:hover {
+  filter: brightness(1.1);
+  transform: translateY(-3px);
+}
+
+/* ======================
+   ZALO
+====================== */
+.social-link.zalo {
+  background-color: #0068ff;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.social-link.zalo:hover {
+  background-color: #0050cc;
+  transform: translateY(-3px);
+}
+
+.zalo-text {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: Arial, sans-serif;
+}
+
+/* ======================
+   GMAIL
+====================== */
+.social-link.gmail {
+  color: #d93025;
+  background-color: rgb(255, 255, 255);
+}
+
+.social-link.gmail:hover {
+  background-color: #d93025;
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+
+/* ======================
+   FOOTER BOTTOM
+====================== */
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 20px;
@@ -92,10 +167,12 @@
 }
 
 .footer-bottom p {
-  margin-bottom: 15px;
   margin: 0;
 }
 
+/* ======================
+   FOOTER LINKS
+====================== */
 .footer-links {
   display: flex;
   justify-content: center;
@@ -118,7 +195,9 @@
   color: #7f8c8d;
 }
 
-/* Responsive design */
+/* ======================
+   RESPONSIVE
+====================== */
 @media (max-width: 768px) {
   .footer-container {
     padding: 30px 15px;

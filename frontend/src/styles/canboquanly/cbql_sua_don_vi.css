@@ -118,22 +118,22 @@
 
 /* Nút cập nhật */
 .cbql__sua_don_vi--form_buttons .btn-success {
-  background-color: #053485;
+  background-color: var(--success-color);
   color: #fff;
 }
 
 .cbql__sua_don_vi--form_buttons .btn-success:hover {
-  background-color: #0952c0;
+  background-color: #15803d;
 }
 
 /* Nút hủy */
 .cbql__sua_don_vi--form_buttons .btn-secondary {
-  background-color: #6c757d;
+  background-color: var(--secondary-color);
   color: #fff;
 }
 
 .cbql__sua_don_vi--form_buttons .btn-secondary:hover {
-  background-color: #5a6268;
+  background-color: #475569;
 }
 
 /* Responsive */

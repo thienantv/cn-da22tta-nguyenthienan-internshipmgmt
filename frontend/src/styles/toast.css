@@ -23,6 +23,11 @@
   word-wrap: break-word;
 }
 
+/* Animation khi exit */
+.toast-exit {
+  animation: slideOut 0.3s ease-out forwards !important;
+}
+
 @keyframes slideIn {
   from {
     transform: translateX(450px);

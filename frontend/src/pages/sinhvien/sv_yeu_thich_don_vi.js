@@ -22,11 +22,13 @@ const SinhVienYeuThichDonVi = () => {
     } finally {
       setLoading(false);
     }
-  }, [showError]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     fetchFavorites();
-  }, [fetchFavorites]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleToggleFavorite = (maDonVi, isFavorited) => {
     if (!isFavorited) {

@@ -75,12 +75,12 @@
 
 /* Success */
 .qtv__them_sinh_vien--form_buttons .btn-success {
-  background-color: #053485;
+  background-color: var(--success-color);
   color: white;
 }
 
 .qtv__them_sinh_vien--form_buttons .btn-success:hover {
-  background-color: #3b82f6;
+  background-color: #15803d;
 }
 
 /* Cancel */
@@ -91,16 +91,6 @@
 
 .qtv__them_sinh_vien--form_buttons .btn-secondary:hover {
   background-color: #475569;
-}
-
-/* ERROR MESSAGE */
-.qtv__them_sinh_vien--error_message {
-  background-color: #fee2e2;
-  color: #991b1b;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  border-left: 4px solid var(--danger-color);
 }
 
 /* RESPONSIVE */

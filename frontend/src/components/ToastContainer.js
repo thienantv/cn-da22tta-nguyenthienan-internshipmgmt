@@ -10,7 +10,7 @@ const ToastContainer = () => {
       {toasts.map((toast) => (
         <div
           key={toast.id}
-          className={`toast toast-${toast.type}`}
+          className={`toast toast-${toast.type} ${toast.isExiting ? 'toast-exit' : ''}`}
           onClick={() => removeToast(toast.id)}
         >
           <div className="toast-content">

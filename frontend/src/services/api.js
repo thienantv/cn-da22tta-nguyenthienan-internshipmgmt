@@ -107,8 +107,13 @@ export const sinhVienService = {
 
 // ==================== Admin Services ====================
 export const adminService = {
-  getThongKe: () =>
-    api.get('/admin/thong_ke'),
+  getThongKe: () => api.get('/admin/thong_ke'),
+
+  // Lấy profile admin theo ID
+  getProfile: (id) => api.get(`/admin/profile/${id}`),
+
+  // Cập nhật thông tin admin
+  update: (id, data) => api.put(`/admin/${id}`, data),
 };
 
 // ==================== Yêu thích Services ====================

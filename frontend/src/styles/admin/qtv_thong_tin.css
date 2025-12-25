@@ -106,6 +106,22 @@
   border-left: 4px solid var(--danger-color);
 }
 
+/* ================= Chỉnh khoảng cách ô mật khẩu ================= */
+.qtv__thong_tin--section input[type="password"] {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem; /* Khoảng cách giữa Mật khẩu mới và Xác nhận mật khẩu */
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.qtv__thong_tin--section input[type="password"]:last-child {
+  margin-bottom: 0; /* Bỏ margin ô cuối cùng */
+}
+
+/* ================= Responsive ================= */
 @media (max-width: 768px) {
   .qtv__thong_tin--content {
     padding: 1.5rem;

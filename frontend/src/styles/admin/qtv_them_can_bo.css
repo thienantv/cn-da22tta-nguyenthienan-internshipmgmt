@@ -82,12 +82,12 @@
 }
 
 .qtv__them_can_bo--form_buttons .btn-success {
-  background-color: #053485;
+  background-color: var(--success-color);
   color: white;
 }
 
 .qtv__them_can_bo--form_buttons .btn-success:hover {
-  background-color: #3b82f6;
+  background-color: #15803d;
 }
 
 .qtv__them_can_bo--form_buttons .btn-secondary {

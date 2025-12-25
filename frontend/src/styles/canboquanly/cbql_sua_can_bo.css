@@ -175,22 +175,22 @@
   transition: 0.2s;
 }
 
-.btn-success {
-  background-color: #28a745;
+.cbql__sua_can_bo--form_buttons .btn-success {
+  background-color: var(--success-color);
   color: #fff;
 }
 
-.btn-success:hover {
-  background-color: #218838;
+.cbql__sua_can_bo--form_buttons .btn-success:hover {
+  background-color: #15803d;
 }
 
-.btn-secondary {
-  background-color: #6c757d;
+.cbql__sua_can_bo--form_buttons .btn-secondary {
+  background-color: var(--secondary-color);
   color: #fff;
 }
 
-.btn-secondary:hover {
-  background-color: #5a6268;
+.cbql__sua_can_bo--form_buttons .btn-secondary:hover {
+  background-color: #475569;
 }
 
 /* =======================

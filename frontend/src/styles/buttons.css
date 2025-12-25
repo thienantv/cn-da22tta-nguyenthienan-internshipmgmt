@@ -1,0 +1,165 @@
+/* ==================================
+   BUTTONS STYLES
+================================== */
+
+/* Base button */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ==================================
+   BUTTON COLORS
+================================== */
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #475569;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
+}
+
+.btn-success {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+  background-color: #15803d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+}
+
+.btn-danger {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #b91c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.btn-warning {
+  background-color: var(--warning-color);
+  color: white;
+}
+
+.btn-warning:hover:not(:disabled) {
+  background-color: #d97706;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+/* ==================================
+   BUTTON SIZES
+================================== */
+
+.btn-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn-large {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* ==================================
+   BUTTON VARIANTS
+================================== */
+
+.btn-link {
+  background: none;
+  color: var(--primary-color);
+  padding: 0.5rem;
+  text-decoration: underline;
+  font-size: 0.875rem;
+  border: none;
+}
+
+.btn-link:hover:not(:disabled) {
+  color: #1d4ed8;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-link.btn-danger {
+  color: var(--danger-color);
+}
+
+.btn-link.btn-danger:hover:not(:disabled) {
+  color: #b91c1c;
+}
+
+.btn-link.btn-warning {
+  color: var(--warning-color);
+}
+
+.btn-link.btn-warning:hover:not(:disabled) {
+  color: #d97706;
+}
+
+.btn-link.btn-success {
+  color: var(--success-color);
+}
+
+.btn-link.btn-success:hover:not(:disabled) {
+  color: #15803d;
+}
+
+/* ==================================
+   BUTTON BLOCK
+================================== */
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+/* ==================================
+   RESPONSIVE
+================================== */
+
+@media (max-width: 768px) {
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .btn-large {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}

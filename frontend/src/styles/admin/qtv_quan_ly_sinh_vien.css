@@ -62,26 +62,23 @@
   border: none;
   cursor: pointer;
   color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
 }
 
-.btn-warning {
-  background: #f59e0b;
+.qtv__btn.btn-warning {
+  background: var(--warning-color);
 }
 
-.btn-danger {
-  background: #ef4444;
+.qtv__btn.btn-warning:hover {
+  background: #d97706;
 }
 
-/* ERROR & LOADING */
-.error-message {
-  margin-bottom: 1rem;
-  padding: 1rem;
-  background: #fee2e2;
-  color: #991b1b;
-  border-left: 4px solid #ef4444;
+.qtv__btn.btn-danger {
+  background: var(--danger-color);
 }
 
-.loading {
-  text-align: center;
-  padding: 2rem;
+.qtv__btn.btn-danger:hover {
+  background: #b91c1c;
 }

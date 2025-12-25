@@ -50,8 +50,12 @@ CREATE TABLE IF NOT EXISTS admin (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(100) NOT NULL UNIQUE,
   password_hash VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  email_admin VARCHAR(100) UNIQUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+DROP TABLE IF EXISTS admin;
 
 -- ========================================
 -- BẢNG CÁN BỘ
@@ -63,8 +67,12 @@ CREATE TABLE IF NOT EXISTS can_bo_quan_ly (
   ho_ten VARCHAR(255) NOT NULL,
   gioi_tinh ENUM('Nam', 'Nữ', 'Khác'),
   so_dien_thoai VARCHAR(50),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  email_can_bo VARCHAR(100) UNIQUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+DROP TABLE IF EXISTS can_bo_quan_ly;
 
 -- ========================================
 -- BẢNG SINH VIÊN
@@ -77,9 +85,9 @@ CREATE TABLE IF NOT EXISTS sinh_vien (
   gioi_tinh ENUM('Nam', 'Nữ', 'Khác'),
   so_dien_thoai VARCHAR(50),
   email_sinh_vien VARCHAR(100) UNIQUE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
 
 -- Chèn dữ liệu mẫu cho bảng don_vi
 INSERT INTO don_vi
@@ -281,16 +289,16 @@ INSERT INTO can_bo_huong_dan
 
 DELETE FROM can_bo_huong_dan;
 
-INSERT INTO admin (username, password_hash) VALUES
-('admin1', '$2b$10$.FiYZZotsN/DTdaqRdiR/evidVeKv6tkaBOr5z964LPFDgnBKuMgC');
+INSERT INTO admin (username, password_hash, email_admin) VALUES
+('admin', '$2b$10$.FiYZZotsN/DTdaqRdiR/evidVeKv6tkaBOr5z964LPFDgnBKuMgC', 'thienantv21@gmail.com');
 
-INSERT INTO can_bo_quan_ly (username, password_hash, ho_ten, gioi_tinh, so_dien_thoai) VALUES
-('canbo1', '$2b$10$0RCYzCnkO52an08zhDf2fOWpbZ2vaIIosQPBg.ZjkH5fg0myrXKbO', 'Nguyễn Văn A', 'Nam', '0909123456'),
-('canbo2', '$2b$10$0RCYzCnkO52an08zhDf2fOWpbZ2vaIIosQPBg.ZjkH5fg0myrXKbO', 'Trần Thị B', 'Nữ', '0912345678');
+INSERT INTO can_bo_quan_ly (username, password_hash, ho_ten, gioi_tinh, so_dien_thoai, email_can_bo) VALUES
+('canbo1', '$2b$10$0RCYzCnkO52an08zhDf2fOWpbZ2vaIIosQPBg.ZjkH5fg0myrXKbO', 'Nguyễn Văn A', 'Nam', '0909123456', 'thienantv211@gmail.com'),
+('canbo2', '$2b$10$0RCYzCnkO52an08zhDf2fOWpbZ2vaIIosQPBg.ZjkH5fg0myrXKbO', 'Trần Thị B', 'Nữ', '0912345678', 'canbo2@tvu.edu.vn');
 
-INSERT INTO sinh_vien (username, password_hash) VALUES
-('sinhvien1', '$2b$10$SSpKUn8soEFEFnFp6/17yOZLUposB5izTpHXGzUdGwy0b89TsNPV.'),
-('sinhvien2', '$2b$10$QfkLGi06WgEVKhy35rwMheOSUQxJ9eEX6g6ECwMRY92i4zXSEHHp2');
+INSERT INTO sinh_vien (username, password_hash, email_sinh_vien) VALUES
+('sinhvien1', '$2b$10$SSpKUn8soEFEFnFp6/17yOZLUposB5izTpHXGzUdGwy0b89TsNPV.', 'thienantv4894@gmail.com'),
+('sinhvien2', '$2b$10$QfkLGi06WgEVKhy35rwMheOSUQxJ9eEX6g6ECwMRY92i4zXSEHHp2', 'sinhvien2@tvu.edu.vn');
 
 -- ========================================
 -- BẢNG YÊU THÍCH ĐƠN VỊ THỰC TẬP (Many-to-Many)

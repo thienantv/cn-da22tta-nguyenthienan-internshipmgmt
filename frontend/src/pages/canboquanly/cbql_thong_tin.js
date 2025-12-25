@@ -140,17 +140,15 @@ const CanBoThongTinCaNhan = () => {
                       onChange={handleInputChange}
                     />
                   </div>
-                  {userData.email_sinh_vien !== undefined && (
-                    <div className="cbql__thong_tin--form_item">
-                      <label>Email:</label>
-                      <input
-                        type="email"
-                        name="email_sinh_vien"
-                        value={formData.email_sinh_vien || ''}
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  )}
+                  <div className="cbql__thong_tin--form_item">
+                    <label>Email:</label>
+                    <input
+                      type="email"
+                      name="email_can_bo"
+                      value={formData.email_can_bo || ''}
+                      onChange={handleInputChange}
+                    />
+                  </div>
                 </div>
               ) : (
                 <div className="cbql__thong_tin--info_group">
@@ -168,12 +166,10 @@ const CanBoThongTinCaNhan = () => {
                     <span className="label">Số điện thoại:</span>
                     <span className="value">{userData.so_dien_thoai || 'Chưa cập nhật'}</span>
                   </div>
-                  {userData.email_sinh_vien && (
-                    <div className="cbql__thong_tin--info_row">
-                      <span className="label">Email:</span>
-                      <span className="value">{userData.email_sinh_vien || 'Chưa cập nhật'}</span>
-                    </div>
-                  )}
+                  <div className="cbql__thong_tin--info_row">
+                    <span className="label">Email:</span>
+                    <span className="value">{userData.email_can_bo || 'Chưa cập nhật'}</span>
+                  </div>
                 </div>
               )}
             </div>

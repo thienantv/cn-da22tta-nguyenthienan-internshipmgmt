@@ -6,7 +6,7 @@ const getCanBoQuanLy = async (req, res) => {
   try {
     const connection = await pool.getConnection();
     const [canBo] = await connection.execute(
-      'SELECT id, username, ho_ten, gioi_tinh, so_dien_thoai, created_at FROM can_bo_quan_ly ORDER BY created_at DESC'
+      'SELECT id, username, ho_ten, gioi_tinh, so_dien_thoai, email_can_bo, created_at FROM can_bo_quan_ly ORDER BY created_at DESC'
     );
     connection.release();
 
@@ -24,7 +24,7 @@ const getCanBoQuanLyById = async (req, res) => {
     const connection = await pool.getConnection();
 
     const [canBo] = await connection.execute(
-      'SELECT id, username, ho_ten, gioi_tinh, so_dien_thoai, created_at FROM can_bo_quan_ly WHERE id = ?',
+      'SELECT id, username, ho_ten, gioi_tinh, so_dien_thoai, email_can_bo, created_at FROM can_bo_quan_ly WHERE id = ?',
       [id]
     );
 
@@ -66,7 +66,7 @@ const createCanBoQuanLy = async (req, res) => {
     }
 
     await connection.execute(
-      `INSERT INTO can_bo_quan_ly (username, password_hash, ho_ten, gioi_tinh, so_dien_thoai)
+      `INSERT INTO can_bo_quan_ly (username, password_hash, ho_ten, gioi_tinh, so_dien_thoai, email_can_bo)
        VALUES (?, ?, ?, ?, ?)`,
       [username, hashedPassword, ho_ten, gioi_tinh || 'Khác', so_dien_thoai || '']
     );
@@ -84,7 +84,7 @@ const createCanBoQuanLy = async (req, res) => {
 const updateCanBoQuanLy = async (req, res) => {
   try {
     const { id } = req.params;
-    const { ho_ten, gioi_tinh, so_dien_thoai, password } = req.body;
+    const { ho_ten, gioi_tinh, so_dien_thoai, email_can_bo, password } = req.body;
 
     // Kiểm tra quyền
     if (req.user.role === 'can_bo_quan_ly' && req.user.id != id) {
@@ -93,20 +93,32 @@ const updateCanBoQuanLy = async (req, res) => {
 
     const connection = await pool.getConnection();
 
+    // Nếu email được cập nhật, kiểm tra email đã tồn tại chưa
+    if (email_can_bo) {
+      const [existingEmail] = await connection.execute(
+        'SELECT id FROM can_bo_quan_ly WHERE email_can_bo = ? AND id != ?',
+        [email_can_bo, id]
+      );
+      if (existingEmail.length > 0) {
+        connection.release();
+        return res.status(400).json({ message: 'Email này đã được sử dụng bởi cán bộ khác' });
+      }
+    }
+
     if (password) {
       const hashedPassword = await bcrypt.hash(password, 10);
       await connection.execute(
         `UPDATE can_bo_quan_ly 
-         SET ho_ten = ?, gioi_tinh = ?, so_dien_thoai = ?, password_hash = ?
+         SET ho_ten = ?, gioi_tinh = ?, so_dien_thoai = ?, email_can_bo = ?, password_hash = ?
          WHERE id = ?`,
-        [ho_ten, gioi_tinh || 'Khác', so_dien_thoai || '', hashedPassword, id]
+        [ho_ten, gioi_tinh || 'Khác', so_dien_thoai || '', email_can_bo || null, hashedPassword, id]
       );
     } else {
       await connection.execute(
         `UPDATE can_bo_quan_ly 
-         SET ho_ten = ?, gioi_tinh = ?, so_dien_thoai = ?
+         SET ho_ten = ?, gioi_tinh = ?, so_dien_thoai = ?, email_can_bo = ?
          WHERE id = ?`,
-        [ho_ten, gioi_tinh || 'Khác', so_dien_thoai || '', id]
+        [ho_ten, gioi_tinh || 'Khác', so_dien_thoai || '', email_can_bo || null, id]
       );
     }
 

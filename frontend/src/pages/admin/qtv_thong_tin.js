@@ -1,69 +1,62 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authService, canBoQuanLyService, sinhVienService } from '../../services/api';
+import { authService, adminService } from '../../services/api';
 import { useToast } from '../../contexts/useToast';
 import '../../styles/admin/qtv_thong_tin.css';
 
 const AdminThongTinCaNhan = () => {
   const { showError, showSuccess } = useToast();
-  const [user, setUser] = useState(null);
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({});
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const storedUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
-        setUser(storedUser);
+  const [userData, setUserData] = useState(null);
+  const [email, setEmail] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-        // Lấy thông tin người dùng hiện tại
-        const response = await authService.getCurrentUser();
-        setUserData(response.data.user);
-        setFormData(response.data.user);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Lấy thông tin đăng nhập hiện tại để biết id
+        const authRes = await authService.getCurrentUser();
+        const userId = authRes.data.user.id;
+
+        // Lấy thông tin profile admin
+        const profileRes = await adminService.getProfile(userId);
+
+        setUserData(profileRes.data.user);
+        setEmail(profileRes.data.user.email_admin || '');
       } catch (err) {
-        showError('Không thể lấy thông tin');
+        showError('Vui lòng đăng nhập lại');
         navigate('/dang-nhap');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUserInfo();
+    fetchData();
   }, [navigate, showError]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
   const handleSave = async () => {
     try {
-      const updateData = { ...formData };
+      const updateData = { email_admin: email };
 
       if (newPassword) {
         if (newPassword !== confirmPassword) {
-          showError('Mật khẩu mới và xác nhận không khớp');
+          showError('Mật khẩu xác nhận không khớp');
           return;
         }
         updateData.password = newPassword;
       }
 
-      if (user.role === 'can_bo_quan_ly') {
-        await canBoQuanLyService.update(user.id, updateData);
-      } else if (user.role === 'sinh_vien') {
-        await sinhVienService.update(user.id, updateData);
-      }
+      await adminService.update(userData.id, updateData);
 
-      setUserData(formData);
       setIsEditing(false);
       setNewPassword('');
       setConfirmPassword('');
-      showSuccess('Cập nhật thông tin thành công');
+      showSuccess('Cập nhật thành công');
     } catch (err) {
       showError(err.response?.data?.message || 'Cập nhật thất bại');
     }
@@ -71,167 +64,86 @@ const AdminThongTinCaNhan = () => {
 
   if (loading) return <div className="loading">Đang tải...</div>;
 
-  const getRoleLabel = (role) => {
-    switch (role) {
-      case 'admin':
-        return 'Quản trị viên';
-      case 'can_bo_quan_ly':
-        return 'Cán bộ quản lý';
-      case 'sinh_vien':
-        return 'Sinh viên';
-      default:
-        return role;
-    }
-  };
-
   return (
     <div className="qtv__thong_tin">
       <h1>Thông tin cá nhân</h1>
 
-      {userData && (
-        <div className="qtv__thong_tin--content">
-          <div className="qtv__thong_tin--section">
-            <h3>Thông tin tài khoản</h3>
-            <div className="qtv__thong_tin--info_group">
-              <div className="qtv__thong_tin--info_row">
-                <span className="label">Vai trò:</span>
-                <span className="value">{getRoleLabel(user?.role)}</span>
-              </div>
-              <div className="qtv__thong_tin--info_row">
-                <span className="label">Username:</span>
-                <span className="value">{userData.username}</span>
-              </div>
-            </div>
-          </div>
+      <div className="qtv__thong_tin--content">
+        <div className="qtv__thong_tin--section">
+          <h3>Thông tin tài khoản</h3>
 
-          {userData.ho_ten !== undefined && (
-            <div className="qtv__thong_tin--section">
-              <h3>Thông tin cá nhân</h3>
-              {isEditing ? (
-                <div className="qtv__thong_tin--form_group">
-                  <div className="qtv__thong_tin--form_item">
-                    <label>Họ tên:</label>
-                    <input
-                      type="text"
-                      name="ho_ten"
-                      value={formData.ho_ten || ''}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  {userData.gioi_tinh !== undefined && (
-                    <div className="qtv__thong_tin--form_item">
-                      <label>Giới tính:</label>
-                      <select
-                        name="gioi_tinh"
-                        value={formData.gioi_tinh || ''}
-                        onChange={handleInputChange}
-                      >
-                        <option value="Nam">Nam</option>
-                        <option value="Nữ">Nữ</option>
-                        <option value="Khác">Khác</option>
-                      </select>
-                    </div>
-                  )}
-                  <div className="qtv__thong_tin--form_item">
-                    <label>Số điện thoại:</label>
-                    <input
-                      type="tel"
-                      name="so_dien_thoai"
-                      value={formData.so_dien_thoai || ''}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  {userData.email_sinh_vien !== undefined && (
-                    <div className="qtv__thong_tin--form_item">
-                      <label>Email:</label>
-                      <input
-                        type="email"
-                        name="email_sinh_vien"
-                        value={formData.email_sinh_vien || ''}
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="qtv__thong_tin--info_group">
-                  <div className="qtv__thong_tin--info_row">
-                    <span className="label">Họ tên:</span>
-                    <span className="value">{userData.ho_ten}</span>
-                  </div>
-                  {userData.gioi_tinh && (
-                    <div className="qtv__thong_tin--info_row">
-                      <span className="label">Giới tính:</span>
-                      <span className="value">{userData.gioi_tinh}</span>
-                    </div>
-                  )}
-                  <div className="qtv__thong_tin--info_row">
-                    <span className="label">Số điện thoại:</span>
-                    <span className="value">{userData.so_dien_thoai || 'Chưa cập nhật'}</span>
-                  </div>
-                  {userData.email_sinh_vien && (
-                    <div className="qtv__thong_tin--info_row">
-                      <span className="label">Email:</span>
-                      <span className="value">{userData.email_sinh_vien || 'Chưa cập nhật'}</span>
-                    </div>
-                  )}
-                </div>
-              )}
+          <div className="qtv__thong_tin--info_group">
+            <div className="qtv__thong_tin--info_row">
+              <span className="label">Vai trò:</span>
+              <span className="value">Quản trị viên</span>
             </div>
-          )}
 
-          {isEditing && (
-            <div className="qtv__thong_tin--section">
-              <h3>Đổi mật khẩu</h3>
-              <div className="qtv__thong_tin--form_group">
-                <div className="qtv__thong_tin--form_item">
-                  <label>Mật khẩu mới (để trống nếu không đổi):</label>
-                  <input
-                    type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    placeholder="Nhập mật khẩu mới"
-                  />
-                </div>
-                <div className="qtv__thong_tin--form_item">
-                  <label>Xác nhận mật khẩu:</label>
-                  <input
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    placeholder="Xác nhận mật khẩu"
-                  />
-                </div>
-              </div>
+            <div className="qtv__thong_tin--info_row">
+              <span className="label">Username:</span>
+              <span className="value">{userData.username}</span>
             </div>
-          )}
-
-          <div className="qtv__thong_tin--button_group">
-            {!isEditing ? (
-              <button onClick={() => setIsEditing(true)} className="btn btn-primary">
-                Chỉnh sửa
-              </button>
-            ) : (
-              <>
-                <button onClick={handleSave} className="btn btn-success">
-                  Lưu
-                </button>
-                <button
-                  onClick={() => {
-                    setIsEditing(false);
-                    setFormData(userData);
-                    setNewPassword('');
-                    setConfirmPassword('');
-                  }}
-                  className="btn btn-secondary"
-                >
-                  Hủy
-                </button>
-              </>
-            )}
           </div>
         </div>
-      )}
+
+        <div className="qtv__thong_tin--section">
+
+          {isEditing ? (
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          ) : (
+            <div className="qtv__thong_tin--info_row">
+              <span className="label">Email:</span>
+              <span className="value">{userData.email_admin || 'Chưa cập nhật'}</span>
+            </div>
+          )}
+        </div>
+
+        {isEditing && (
+          <div className="qtv__thong_tin--section">
+            <h3>Đổi mật khẩu</h3>
+            <input
+              type="password"
+              placeholder="Mật khẩu mới"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Xác nhận mật khẩu"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+        )}
+
+        <div className="qtv__thong_tin--button_group">
+          {!isEditing ? (
+            <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
+              Chỉnh sửa
+            </button>
+          ) : (
+            <>
+              <button className="btn btn-success" onClick={handleSave}>
+                Lưu
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={() => {
+                  setIsEditing(false);
+                  setEmail(userData.email_admin || '');
+                  setNewPassword('');
+                  setConfirmPassword('');
+                }}
+              >
+                Hủy
+              </button>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

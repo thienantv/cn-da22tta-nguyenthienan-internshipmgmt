@@ -4,10 +4,9 @@
 .auth-container {
   display: flex;
   justify-content: center;
-  align-items: stretch; /* khối con cùng chiều cao */
-  min-height: 50vh;
+  align-items: center;      /* căn giữa theo chiều dọc */
+  min-height: 100vh;        /* chiếm toàn màn hình */
   padding: 2rem;
-  gap: 0rem; /* khoảng cách giữa 2 khối */
 }
 
 /* ======================
@@ -39,12 +38,12 @@
    LOGIN BOX (RIGHT)
 ====================== */
 .auth-box {
-  flex: 0 0 350px; /* cố định 350px */
-  max-width: 350px;
+  width: 100%;
+  max-width: 380px;   /* rộng vừa phải */
   background: white;
-  border-radius: 0 0.75rem 0.75rem 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  padding: 2rem 1.75rem;
 
   display: flex;
   flex-direction: column;
@@ -62,84 +61,35 @@
   margin-bottom: 1rem;
 }
 
-/* ======================
-   FORM ELEMENTS
-====================== */
-.form-group {
+/* Form elements - specific to auth */
+.auth-container .form-group {
   margin-bottom: 1rem;
 }
 
-.form-group label {
+.auth-container .form-group label {
   font-weight: 500;
   margin-bottom: 0.25rem;
   display: block;
 }
 
-.form-group input,
-.form-group select {
-  width: 90%; /* nhỏ hơn full width */
-  margin: 0 auto;
-  display: block;
-  padding: 0.6rem;
-  border: 1px solid var(--border-color);
-  border-radius: 0.5rem;
+.auth-container .form-group input,
+.auth-container .form-group select {
+  padding: 0.65rem 0.75rem;
   font-size: 0.95rem;
 }
 
-.form-group input:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-/* ======================
-   MESSAGES
-====================== */
-.error-message {
-  background-color: #fee2e2;
-  color: #991b1b;
-  padding: 0.8rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  border-left: 4px solid var(--danger-color);
-}
-
-.success-message {
-  background-color: #dcfce7;
-  color: #166534;
-  padding: 0.8rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  border-left: 4px solid var(--success-color);
-}
-
-/* ======================
-   BUTTON PRIMARY
-====================== */
-.btn-primary {
-  width: 200px;      /* cố định width button */
-  max-width: 90%;    /* đảm bảo responsive */
-  margin: 1rem auto; /* center button */
-  display: block;
-  padding: 0.7rem;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
+/* Button primary - full width for auth */
+.auth-container .btn-primary {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem;
   font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  font-weight: 600;
 }
 
-.btn-primary:hover:not(:disabled) {
+.auth-container .btn-primary:hover:not(:disabled) {
   background-color: #1d4ed8;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.btn-primary:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 /* ======================
@@ -200,21 +150,11 @@
 /* ======================
    RESPONSIVE
 ====================== */
-@media (max-width: 768px) {
-  .auth-container {
-    flex-direction: column;
-    align-items: center;
-    padding: 1.5rem;
-  }
-
-  .auth-left,
-  .auth-box {
-    width: 100%;
-    max-width: 320px;
-  }
-}
-
 @media (max-width: 480px) {
+  .auth-container {
+    padding: 1rem;
+  }
+
   .auth-left,
   .auth-box {
     padding: 1rem;
@@ -228,12 +168,12 @@
     font-size: 1.3rem;
   }
 
-  .form-group input,
-  .form-group select {
+  .auth-container .form-group input,
+  .auth-container .form-group select {
     width: 95%;
   }
 
-  .btn-primary {
+  .auth-container .btn-primary {
     width: 95%;
   }
 }

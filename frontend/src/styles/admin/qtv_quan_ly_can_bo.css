@@ -82,7 +82,7 @@
 }
 
 .qtv__quan_ly_can_bo--btn_link.btn-warning:hover {
-  background-color: #fbbf24;
+  background-color: #d97706;
 }
 
 /* Xóa */
@@ -91,7 +91,7 @@
 }
 
 .qtv__quan_ly_can_bo--btn_link.btn-danger:hover {
-  background-color: #ef4444;
+  background-color: #b91c1c;
 }
 
 /* ERROR */

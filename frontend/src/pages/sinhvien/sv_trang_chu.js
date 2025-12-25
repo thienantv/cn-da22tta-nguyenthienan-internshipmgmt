@@ -7,7 +7,7 @@ const SinhVienTrangChu = () => {
     <div className="sv__trang_chu">
 
       <div className="sv__trang_chu--welcome_section">
-        <p>Chào mừng đến cổng thông tin quản lý thực tập</p>
+        <p>Chào mừng đến cổng quản lý thông tin thực tập</p>
       </div>
 
       <div className="sv__trang_chu--action_container">

@@ -146,12 +146,24 @@
 }
 
 /* ==========================
-   CARD & TABLE BUTTONS
+   CARD CONTENT
+========================== */
+.cbql__quan_ly_don_vi--card_content {
+  padding: 1.3rem;
+  display: flex;
+  flex-direction: column; /* giữ column để các nút xuống dưới */
+  height: 100%; /* chiếm hết chiều cao card */
+}
+
+/* ==========================
+   CARD BUTTONS - NẰM DƯỚI
 ========================== */
 .cbql__quan_ly_don_vi--card_buttons {
   display: flex;
   justify-content: center;
   gap: 0.75rem;
+  margin-top: auto; /* đẩy xuống sát đáy */
+  flex-wrap: wrap; /* nếu nút quá nhiều trên mobile */
 }
 
 /* Nút Chi tiết - Xanh */

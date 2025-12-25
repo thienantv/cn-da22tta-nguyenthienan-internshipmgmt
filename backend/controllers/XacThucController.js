@@ -154,7 +154,7 @@ const getCurrentUser = async (req, res) => {
     const connection = await pool.getConnection();
 
     if (role === 'admin') {
-      query = 'SELECT id, username FROM admin WHERE id = ?';
+      query = 'SELECT id, username, email_admin FROM admin WHERE id = ?';
       const [users] = await connection.execute(query, [id]);
       userData = users[0];
     } else if (role === 'can_bo_quan_ly') {
