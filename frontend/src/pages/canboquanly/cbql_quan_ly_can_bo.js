@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { canBoHuongDanService } from '../../services/api';
 import { useToast } from '../../contexts/useToast';
@@ -19,7 +19,7 @@ const CanBoQuanLyCanBoHuongDan = () => {
 
   const isCanBo = user && user.role === 'can_bo_quan_ly';
 
-  const fetchCanBo = async (query = '') => {
+  const fetchCanBo = useCallback(async (query = '') => {
     try {
       setLoading(true);
       const response = query
@@ -31,7 +31,7 @@ const CanBoQuanLyCanBoHuongDan = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showError]);
 
   useEffect(() => {
     fetchCanBo();
@@ -46,7 +46,7 @@ const CanBoQuanLyCanBoHuongDan = () => {
         )
       );
     }
-  }, [location.state]);
+  }, [fetchCanBo, location.state]);
 
   const handleSearch = () => fetchCanBo(searchQuery);
   const handleReset = () => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { canBoHuongDanService } from '../../services/api';
 import { useToast } from '../../contexts/useToast';
@@ -10,11 +10,7 @@ const SinhVienDanhSachCanBo = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(() => {
-    fetchCanBo();
-  }, []);
-
-  const fetchCanBo = async (query = '') => {
+  const fetchCanBo = useCallback(async (query = '') => {
     try {
       setLoading(true);
       const response = query
@@ -27,7 +23,11 @@ const SinhVienDanhSachCanBo = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showError]);
+
+  useEffect(() => {
+    fetchCanBo();
+  }, [fetchCanBo]);
 
   const handleSearch = () => fetchCanBo(searchQuery);
 

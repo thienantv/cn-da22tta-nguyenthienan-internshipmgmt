@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { canBoQuanLyService } from '../../services/api';
 import { useToast } from '../../contexts/useToast';
 import AdminThemCanBo from './qtv_them_can_bo';
@@ -13,11 +13,7 @@ const AdminQuanLyCanBo = () => {
   const [formType, setFormType] = useState(null); // 'them' hoặc 'sua'
   const [editingCanBo, setEditingCanBo] = useState(null);
 
-  useEffect(() => {
-    fetchCanBo();
-  }, []);
-
-  const fetchCanBo = async () => {
+  const fetchCanBo = useCallback(async () => {
     try {
       const response = await canBoQuanLyService.getAll();
       setCanBo(response.data);
@@ -26,7 +22,11 @@ const AdminQuanLyCanBo = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showError]);
+
+  useEffect(() => {
+    fetchCanBo();
+  }, [fetchCanBo]);
 
   const handleAddClick = () => {
     setFormType('them');

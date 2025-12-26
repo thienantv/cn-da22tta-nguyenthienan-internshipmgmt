@@ -60,7 +60,7 @@ const FavoriteButton = ({
       title={isFavorited ? 'Bỏ yêu thích' : 'Thêm yêu thích'}
       aria-label={isFavorited ? 'Bỏ yêu thích' : 'Thêm yêu thích'}
     >
-      <span className="favorite-btn__icon">♥</span>
+      <span className="favorite-btn__icon"></span>
       {showLabel && (
         <span className="favorite-btn__label">
           {isFavorited ? 'Bỏ yêu thích' : 'Yêu thích'}

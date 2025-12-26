@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { sinhVienService } from '../../services/api';
 import { useToast } from '../../contexts/useToast';
 import AdminThemSinhVien from './qtv_them_sinh_vien';
@@ -13,11 +13,7 @@ const AdminQuanLySinhVien = () => {
   const [formType, setFormType] = useState(null);
   const [editingSinhVien, setEditingSinhVien] = useState(null);
 
-  useEffect(() => {
-    fetchSinhVien();
-  }, []);
-
-  const fetchSinhVien = async () => {
+  const fetchSinhVien = useCallback(async () => {
     try {
       const response = await sinhVienService.getAll();
       setSinhVien(response.data);
@@ -26,7 +22,11 @@ const AdminQuanLySinhVien = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showError]);
+
+  useEffect(() => {
+    fetchSinhVien();
+  }, [fetchSinhVien]);
 
   const handleAddClick = () => {
     setFormType('them');

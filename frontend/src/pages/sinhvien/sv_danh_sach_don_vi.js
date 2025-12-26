@@ -88,7 +88,7 @@ const SinhVienQuanLyDonVi = () => {
           </button>
 
           <Link to="/sinh-vien/yeu-thich" className="btn btn-success">
-            ♥ Đã yêu thích ({Object.values(favoriteStatuses).filter(Boolean).length})
+            Đã yêu thích ({Object.values(favoriteStatuses).filter(Boolean).length})
           </Link>
         </div>
       </div>

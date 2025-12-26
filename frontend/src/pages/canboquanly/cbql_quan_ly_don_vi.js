@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { donViService } from '../../services/api';
 import { useToast } from '../../contexts/useToast';
@@ -12,11 +12,7 @@ const CanBoQuanLyDonVi = () => {
   const [viewMode, setViewMode] = useState('table');
   const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 
-  useEffect(() => {
-    fetchDonVi();
-  }, []);
-
-  const fetchDonVi = async (query = '') => {
+  const fetchDonVi = useCallback(async (query = '') => {
     try {
       setLoading(true);
       let response;
@@ -33,7 +29,11 @@ const CanBoQuanLyDonVi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showError]);
+
+  useEffect(() => {
+    fetchDonVi();
+  }, [fetchDonVi]);
 
   const handleSearch = () => {
     fetchDonVi(searchQuery);
