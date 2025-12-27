@@ -1,10 +1,18 @@
 const pool = require("../config/db");
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 
 /* ================= Multer config – Upload ảnh ================= */
+const uploadDir = path.join(__dirname, "../uploads");
+
+// Create uploads directory if it doesn't exist
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "uploads/"),
+  destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
     const unique = Date.now() + "-" + Math.round(Math.random() * 1e9);
     cb(null, unique + path.extname(file.originalname));
@@ -15,8 +23,9 @@ const upload = multer({ storage });
 const uploadImage = (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ message: "Không có file" });
-    const fileUrl = `/uploads/${req.file.filename}`;
-    return res.status(200).json({ url: fileUrl });
+    // Return full URL instead of just file path
+    const fullUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    return res.status(200).json({ url: fullUrl });
   } catch (err) {
     console.error("Upload error:", err);
     return res.status(500).json({ message: "Lỗi máy chủ" });

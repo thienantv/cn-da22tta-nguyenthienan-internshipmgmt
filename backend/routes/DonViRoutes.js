@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { verifyToken, checkRole } = require('../middleware/auth');
 const {
+  upload,
+  uploadImage,
   getDonVi,
   getDonViById,
   createDonVi,
@@ -9,6 +11,9 @@ const {
   deleteDonVi,
   searchDonVi,
 } = require('../controllers/DonViController');
+
+// POST /api/don_vi/upload - Upload ảnh đơn vị (must come BEFORE parameterized routes)
+router.post('/upload', verifyToken, checkRole('can_bo_quan_ly'), upload.single('file'), uploadImage);
 
 // GET /api/don_vi - Lấy danh sách đơn vị (công khai)
 router.get('/', getDonVi);

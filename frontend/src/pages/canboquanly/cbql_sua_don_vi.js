@@ -60,15 +60,72 @@ const CanBoSuaDonVi = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Validate required fields
+      if (!donVi.ten_don_vi || !donVi.ten_don_vi.trim()) {
+        showError('Tên đơn vị là bắt buộc');
+        return;
+      }
+      if (!donVi.dia_chi || !donVi.dia_chi.trim()) {
+        showError('Địa chỉ là bắt buộc');
+        return;
+      }
+      if (!donVi.so_dien_thoai || !/^\d{10}$/.test(donVi.so_dien_thoai)) {
+        showError('Số điện thoại phải gồm đúng 10 chữ số');
+        return;
+      }
+      if (!donVi.email_don_vi || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(donVi.email_don_vi)) {
+        showError('Email không hợp lệ');
+        return;
+      }
+
+      let hinhAnhUrl = donVi.hinh_anh;
+
+      // Upload new image if selected
+      if (newImage && newImage.startsWith('data:')) {
+        try {
+          const blob = await fetch(newImage).then(res => res.blob());
+          const formData = new FormData();
+          formData.append('file', blob, 'image.jpg');
+          
+          const uploadResponse = await fetch('http://localhost:5000/api/don_vi/upload', {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          });
+          
+          if (uploadResponse.ok) {
+            const uploadData = await uploadResponse.json();
+            hinhAnhUrl = uploadData.url;
+          } else {
+            showError('Tải ảnh lên thất bại');
+            return;
+          }
+        } catch (uploadErr) {
+          console.error('Upload error:', uploadErr);
+          showError('Lỗi khi tải ảnh lên');
+          return;
+        }
+      }
+
       const updatedDonVi = {
-        ...donVi,
-        hinh_anh: newImage || donVi.hinh_anh,  // Nếu có hình ảnh mới thì dùng nó, nếu không dùng hình ảnh cũ
+        ten_don_vi: donVi.ten_don_vi,
+        dia_chi: donVi.dia_chi,
+        so_dien_thoai: donVi.so_dien_thoai,
+        email_don_vi: donVi.email_don_vi,
+        gioi_thieu: donVi.gioi_thieu || '',
+        dieu_kien_thuc_tap: donVi.dieu_kien_thuc_tap || '',
+        hinh_anh: hinhAnhUrl || '',
       };
+      
+      console.log('Sending data:', updatedDonVi);
       await donViService.update(ma_don_vi, updatedDonVi); 
       showSuccess('Cập nhật đơn vị thành công');
       setTimeout(() => navigate(`/can-bo/chi-tiet-don-vi/${ma_don_vi}`), 1000);
     } catch (err) {
-      showError('Cập nhật thông tin đơn vị thất bại'); 
+      console.error('Error details:', err.response?.data || err.message);
+      showError(err.response?.data?.message || 'Cập nhật thông tin đơn vị thất bại'); 
     }
   };
 
@@ -148,18 +205,20 @@ const CanBoSuaDonVi = () => {
         <div className="cbql__sua_don_vi--form_group cbql__sua_don_vi--full">
           <label>Hình ảnh:</label>
           <div className="cbql__sua_don_vi--image_preview">
-            {donVi.hinh_anh && !newImage ? (
+            {newImage ? (
+              <img 
+                src={newImage} 
+                alt="Hình ảnh mới" 
+                style={{ width: '200px', height: 'auto' }}
+              />
+            ) : donVi.hinh_anh ? (
               <img 
                 src={donVi.hinh_anh} 
                 alt="Hình ảnh đơn vị" 
                 style={{ width: '200px', height: 'auto' }}
               />
             ) : (
-              <img 
-                src={newImage} 
-                alt="Hình ảnh mới" 
-                style={{ width: '200px', height: 'auto' }}
-              />
+              <p>Chưa có hình ảnh</p>
             )}
           </div>
           <input 

@@ -94,131 +94,216 @@ CREATE TABLE IF NOT EXISTS sinh_vien (
 -- Chèn dữ liệu mẫu cho bảng don_vi
 INSERT INTO don_vi
 (ma_don_vi, ten_don_vi, dia_chi, so_dien_thoai, email_don_vi, gioi_thieu, dieu_kien_thuc_tap) VALUES
--- 1
-('DV001', 'Phòng Truyền thông và Quảng bá Cộng đồng (TVU)', '126 Nguyễn Thiện Thành, K4, P5, TP Trà Vinh', NULL, 'tttt@tvu.edu.vn','Đơn vị trực thuộc Trường Đại học Trà Vinh, phụ trách truyền thông và quảng bá hình ảnh nhà trường.', 'Sinh viên năm 3 trở lên, có kỹ năng truyền thông, CNTT hoặc thiết kế cơ bản.'),
 
--- 2
-('DV002', 'Công ty Cổ phần Hệ Sinh Thái 365', 'P903, Tầng 9, Toà nhà Diamond Plaza, 34 Lê Duẩn, P. Bến Nghé, Q1, TP.HCM', NULL, 'contact@hesinhthai365.vn', 'Doanh nghiệp hoạt động trong lĩnh vực công nghệ, truyền thông và giải pháp số.','Sinh viên CNTT, Truyền thông đa phương tiện; có kiến thức cơ bản về công nghệ.'),
+('DV001','Phòng Truyền thông và Quảng bá Cộng đồng (TVU)',
+'126 Nguyễn Thiện Thành, K4, P5, TP Trà Vinh','02943881234','tttt@tvu.edu.vn',
+'Đơn vị trực thuộc Trường Đại học Trà Vinh, phụ trách truyền thông và quảng bá hình ảnh nhà trường.',
+'Sinh viên năm 3 trở lên, có kỹ năng truyền thông, CNTT hoặc thiết kế cơ bản.'),
 
--- 3
-('DV003', 'Công ty Cổ phần Thủy sản Cửu Long', '36 Bạch Đằng, P4, TP Trà Vinh, Tỉnh Trà Vinh', NULL, 'info@cuulongfish.vn', 'Doanh nghiệp hoạt động trong lĩnh vực nuôi trồng và chế biến thủy sản.', 'Sinh viên CNTT, Quản trị hệ thống hoặc Văn phòng.'),
+('DV002','Công ty Cổ phần Hệ Sinh Thái 365',
+'P903, Tầng 9, Toà nhà Diamond Plaza, 34 Lê Duẩn, Q1, TP.HCM','02838291234','contact@hesinhthai365.vn',
+'Doanh nghiệp hoạt động trong lĩnh vực công nghệ, truyền thông và giải pháp số.',
+'Sinh viên CNTT, Truyền thông đa phương tiện; có kiến thức cơ bản về công nghệ.'),
 
--- 4
-('DV004', 'Công ty Cổ phần Văn hóa Tổng hợp Trà Vinh', '72A Trần Phú, P3, TP Trà Vinh, Tỉnh Trà Vinh', NULL, 'vanhoa@travinh.vn', 'Đơn vị hoạt động trong lĩnh vực văn hóa, truyền thông và xuất bản.', 'Sinh viên CNTT, Truyền thông, Thiết kế hoặc Văn phòng.'),
+('DV003','Công ty Cổ phần Thủy sản Cửu Long',
+'36 Bạch Đằng, P4, TP Trà Vinh','02943894567','info@cuulongfish.vn',
+'Doanh nghiệp hoạt động trong lĩnh vực nuôi trồng và chế biến thủy sản.',
+'Sinh viên CNTT, Quản trị hệ thống hoặc Văn phòng.'),
 
--- 5
-('DV005', 'Công ty Cổ phần Viễn thông FPT - Chi nhánh Trà Vinh','TP Trà Vinh, Tỉnh Trà Vinh', NULL, 'fpttravinh@fpt.com.vn', 'Chi nhánh FPT Telecom tại Trà Vinh, cung cấp dịch vụ viễn thông và CNTT.', 'Sinh viên CNTT, Mạng máy tính; có kiến thức cơ bản về mạng.'),
+('DV004','Công ty Cổ phần Văn hóa Tổng hợp Trà Vinh',
+'72A Trần Phú, P3, TP Trà Vinh','02943895678','vanhoa@travinh.vn',
+'Đơn vị hoạt động trong lĩnh vực văn hóa, truyền thông và xuất bản.',
+'Sinh viên CNTT, Truyền thông, Thiết kế hoặc Văn phòng.'),
 
--- 6
-('DV006', 'Công ty TNHH Quảng Cáo NAHY', '141 Nguyễn Đáng, Khóm 1, Phường 7, TP Trà Vinh', NULL, 'nahyads@gmail.com', 'Doanh nghiệp hoạt động trong lĩnh vực quảng cáo và truyền thông.', 'Sinh viên Truyền thông, CNTT hoặc Marketing.'),
+('DV005','Công ty Cổ phần Viễn thông FPT - Chi nhánh Trà Vinh',
+'TP Trà Vinh','02943896789','fpttravinh@fpt.com.vn',
+'Chi nhánh FPT Telecom tại Trà Vinh, cung cấp dịch vụ viễn thông và CNTT.',
+'Sinh viên CNTT, Mạng máy tính; có kiến thức cơ bản về mạng.'),
 
--- 7
-('DV007', 'Công ty TNHH Giải Pháp Cloud Air', '571/25A Phạm Văn Bạch, P15, Q. Tân Bình, TP. Hồ Chí Minh', NULL, 'cloudair@cloudair.vn', 'Công ty chuyên cung cấp giải pháp điện toán đám mây và hạ tầng CNTT.', 'Sinh viên CNTT, Hệ thống thông tin, Điện toán đám mây.'),
+('DV006','Công ty TNHH Quảng Cáo NAHY',
+'141 Nguyễn Đáng, P7, TP Trà Vinh','02943897890','nahyads@gmail.com',
+'Doanh nghiệp hoạt động trong lĩnh vực quảng cáo và truyền thông.',
+'Sinh viên Truyền thông, CNTT hoặc Marketing.'),
 
--- 8
-('DV008', 'Phòng Bán hàng Khu vực Duyên Hải - VNPT Trà Vinh', 'Khóm 1, Phường 1, TX Duyên Hải, Tỉnh Trà Vinh', NULL, 'vnptduyenhai@vnpt.vn', 'Đơn vị kinh doanh trực thuộc VNPT Trà Vinh.', 'Sinh viên CNTT, Kinh doanh hoặc Hệ thống thông tin.'),
+('DV007','Công ty TNHH Giải Pháp Cloud Air',
+'571/25A Phạm Văn Bạch, Q.Tân Bình, TP.HCM','02838123456','cloudair@cloudair.vn',
+'Công ty chuyên cung cấp giải pháp điện toán đám mây và hạ tầng CNTT.',
+'Sinh viên CNTT, Hệ thống thông tin, Điện toán đám mây.'),
 
--- 9
-('DV009', 'Khoa Kỹ thuật và Công nghệ (TVU)', '126 Nguyễn Thiện Thành, K4, P5, TP Trà Vinh', NULL, 'ktcn@tvu.edu.vn', 'Khoa đào tạo các ngành kỹ thuật và công nghệ của Trường Đại học Trà Vinh.', 'Sinh viên khoa CNTT, Kỹ thuật; thực tập theo phân công.'),
+('DV008','Phòng Bán hàng Khu vực Duyên Hải - VNPT Trà Vinh',
+'TX Duyên Hải, Tỉnh Trà Vinh','02943898901','vnptduyenhai@vnpt.vn',
+'Đơn vị kinh doanh trực thuộc VNPT Trà Vinh.',
+'Sinh viên CNTT, Kinh doanh hoặc Hệ thống thông tin.'),
 
--- 10
-('DV010', 'Phòng Công nghệ Thông tin - Trường Đại học Trà Vinh', 'Trường Đại học Trà Vinh, TP Trà Vinh', NULL, 'cntt@tvu.edu.vn', 'Đơn vị phụ trách quản lý và vận hành hệ thống CNTT của nhà trường.', 'Sinh viên CNTT năm 3 trở lên, có kiến thức phần cứng và phần mềm.'),
+('DV009','Khoa Kỹ thuật và Công nghệ (TVU)',
+'126 Nguyễn Thiện Thành, TP Trà Vinh','02943890012','ktcn@tvu.edu.vn',
+'Khoa đào tạo các ngành kỹ thuật và công nghệ của Trường Đại học Trà Vinh.',
+'Sinh viên khoa CNTT, Kỹ thuật.'),
 
--- 11
-('DV011', 'Phòng Công tác Sinh viên - Trường Đại học Trà Vinh', 'Trường Đại học Trà Vinh, TP Trà Vinh', NULL, 'ctsv@tvu.edu.vn', 'Đơn vị quản lý và hỗ trợ công tác sinh viên.', 'Sinh viên CNTT hoặc Hành chính.'),
+('DV010','Phòng Công nghệ Thông tin - Trường Đại học Trà Vinh',
+'Trường Đại học Trà Vinh','02943890123','cntt@tvu.edu.vn',
+'Đơn vị quản lý và vận hành hệ thống CNTT.',
+'Sinh viên CNTT năm 3 trở lên.'),
 
--- 12
-('DV012', 'Trung tâm CNTT Tài nguyên và Môi trường - Sở TN&MT Trà Vinh', 'TP Trà Vinh, Tỉnh Trà Vinh', NULL, 'cntt@tnmttravinh.gov.vn', 'Trung tâm CNTT trực thuộc Sở Tài nguyên và Môi trường tỉnh Trà Vinh.', 'Sinh viên CNTT, Hệ thống thông tin.'),
+('DV011','Phòng Công tác Sinh viên - Trường Đại học Trà Vinh',
+'Trường Đại học Trà Vinh','02943890234','ctsv@tvu.edu.vn',
+'Đơn vị quản lý và hỗ trợ sinh viên.',
+'Sinh viên CNTT hoặc Hành chính.'),
 
--- 13
-('DV013', 'Trung tâm CNTT VNPT Trà Vinh', '109 Nguyễn Chí Thanh, P9, TP Trà Vinh', NULL, 'cntttravinh@vnpt.vn', 'Đơn vị phụ trách hạ tầng và giải pháp CNTT của VNPT Trà Vinh.', 'Sinh viên CNTT, Mạng máy tính.'),
+('DV012','Trung tâm CNTT TN&MT Trà Vinh',
+'TP Trà Vinh','02943890345','cntt@tnmttravinh.gov.vn',
+'Trung tâm CNTT trực thuộc Sở TN&MT.',
+'Sinh viên CNTT, Hệ thống thông tin.'),
 
--- 14
-('DV014', 'FPT Bến Tre', 'Tỉnh Bến Tre', NULL, 'fptbentre@fpt.com.vn', 'Chi nhánh FPT hoạt động tại tỉnh Bến Tre.', 'Sinh viên CNTT, Phần mềm hoặc Mạng máy tính.'),
- 
- -- 15
-('DV015', 'Bộ môn CNTT - Khoa KT&CN - Trường Đại học Trà Vinh', '126 Nguyễn Thiện Thành, K4, P5, TP Trà Vinh', NULL, 'bmcntt@tvu.edu.vn', 'Bộ môn đào tạo và nghiên cứu lĩnh vực Công nghệ Thông tin thuộc Khoa Kỹ thuật và Công nghệ.', 'Sinh viên CNTT năm 3 trở lên, thực tập theo phân công của khoa.'),
+('DV013','Trung tâm CNTT VNPT Trà Vinh',
+'109 Nguyễn Chí Thanh, TP Trà Vinh','02943890456','cntttravinh@vnpt.vn',
+'Đơn vị phụ trách hạ tầng CNTT VNPT.',
+'Sinh viên CNTT, Mạng máy tính.'),
 
--- 16
-('DV016', 'Công ty TNHH Công nghệ Cao Hùng', 'TP Trà Vinh', NULL, 'caohung@congnghe.vn', 'Doanh nghiệp hoạt động trong lĩnh vực công nghệ và dịch vụ CNTT.', 'Sinh viên CNTT, Phần mềm hoặc Mạng máy tính.'),
+('DV014','FPT Bến Tre',
+'Tỉnh Bến Tre','02753891234','fptbentre@fpt.com.vn',
+'Chi nhánh FPT tại Bến Tre.',
+'Sinh viên CNTT.'),
 
--- 17
-('DV017', 'Khoa Máy tính CNTT - Trường Cao đẳng Nghề Trà Vinh', 'TP Trà Vinh, Tỉnh Trà Vinh', NULL, 'cntt@tvvc.edu.vn', 'Đơn vị đào tạo ngành Công nghệ Thông tin bậc cao đẳng nghề.', 'Sinh viên CNTT, hỗ trợ giảng dạy và hệ thống.'),
+('DV015','Bộ môn CNTT - Khoa KT&CN - TVU',
+'Trường Đại học Trà Vinh','02943890567','bmcntt@tvu.edu.vn',
+'Bộ môn CNTT thuộc Khoa KT&CN.',
+'Sinh viên CNTT năm 3 trở lên.'),
 
--- 18
-('DV018', 'Công ty Nhiệt điện Duyên Hải', 'Ấp Mù U, Xã Dân Thành, TX Duyên Hải, Tỉnh Trà Vinh', NULL, 'nhietdienduyenhai@evn.vn', 'Nhà máy nhiệt điện trực thuộc Tập đoàn Điện lực Việt Nam.', 'Sinh viên CNTT, Tự động hóa hoặc Hệ thống.'),
+('DV016','Công ty TNHH Công nghệ Cao Hùng',
+'TP Trà Vinh','02943890678','caohung@congnghe.vn',
+'Doanh nghiệp công nghệ.',
+'Sinh viên CNTT.'),
 
--- 19
-('DV019', 'Đài Phát thanh và Truyền hình Trà Vinh', 'TP Trà Vinh, Tỉnh Trà Vinh', NULL, 'dttt@travinh.gov.vn', 'Cơ quan báo chí – truyền thông của tỉnh Trà Vinh.', 'Sinh viên CNTT, Truyền thông đa phương tiện.'),
+('DV017','Khoa Máy tính CNTT - CĐ Nghề Trà Vinh',
+'TP Trà Vinh','02943890789','cntt@tvvc.edu.vn',
+'Đơn vị đào tạo CNTT.',
+'Sinh viên CNTT.'),
 
--- 20
-('DV020', 'Bưu điện Tỉnh Trà Vinh', '577 Mậu Thân, P6, TP Trà Vinh', NULL, 'buudientv@vnpost.vn', 'Đơn vị cung cấp dịch vụ bưu chính và chuyển phát.', 'Sinh viên CNTT, Hệ thống thông tin.'),
+('DV018','Công ty Nhiệt điện Duyên Hải',
+'TX Duyên Hải, Trà Vinh','02943890890','nhietdienduyenhai@evn.vn',
+'Nhà máy nhiệt điện.',
+'Sinh viên CNTT, Tự động hóa.'),
 
--- 21
-('DV021', 'Công ty TNHH Vi tính Toàn Phúc', 'TP Trà Vinh', NULL, 'toanphuc@vitinh.vn', 'Doanh nghiệp kinh doanh và sửa chữa thiết bị tin học.', 'Sinh viên CNTT, Phần cứng máy tính.'),
+('DV019','Đài PT-TH Trà Vinh',
+'TP Trà Vinh','02943890901','dttt@travinh.gov.vn',
+'Cơ quan báo chí.',
+'Sinh viên CNTT, Truyền thông.'),
 
--- 22
-('DV022', 'Công ty TNHH Công nghệ Anh Quân', '8/24 Nguyễn Đình Khơi, Q. Tân Bình, TP. Hồ Chí Minh', NULL, 'anhquan@congnghe.vn', 'Công ty chuyên cung cấp giải pháp và thiết bị công nghệ.', 'Sinh viên CNTT, Kỹ thuật máy tính.'),
+('DV020','Bưu điện Tỉnh Trà Vinh',
+'577 Mậu Thân, TP Trà Vinh','02943891012','buudientv@vnpost.vn',
+'Dịch vụ bưu chính.',
+'Sinh viên CNTT.'),
 
--- 23
-('DV023', 'Viettel Post Trà Vinh', '156 Nguyễn Đáng, P7, TP Trà Vinh', NULL, 'viettelpost.tv@viettel.com.vn', 'Đơn vị chuyển phát nhanh thuộc Tập đoàn Viettel.', 'Sinh viên CNTT, Hệ thống thông tin.'),
+('DV021','Công ty TNHH Vi tính Toàn Phúc',
+'TP Trà Vinh','02943891123','toanphuc@vitinh.vn',
+'Kinh doanh & sửa chữa thiết bị tin học.',
+'Sinh viên CNTT.'),
 
--- 24
-('DV024', 'FPT Vĩnh Long', 'Tỉnh Vĩnh Long', NULL, 'fptvinhlong@fpt.com.vn', 'Chi nhánh FPT hoạt động tại tỉnh Vĩnh Long.', 'Sinh viên CNTT, Phần mềm hoặc Mạng máy tính.'),
+('DV022','Công ty TNHH Công nghệ Anh Quân',
+'Q.Tân Bình, TP.HCM','02838124567','anhquan@congnghe.vn',
+'Giải pháp công nghệ.',
+'Sinh viên CNTT.'),
 
--- 25
-('DV025', 'Ngân hàng TNHH MTV VIKKI - Chi nhánh Trà Vinh', '17 Nguyễn Đáng, P9, TP Trà Vinh', NULL, 'vikki.tv@bank.vn', 'Ngân hàng thương mại hoạt động trên địa bàn tỉnh Trà Vinh.', 'Sinh viên CNTT, Hệ thống thông tin hoặc Phần mềm.'),
+('DV023','Viettel Post Trà Vinh',
+'156 Nguyễn Đáng, TP Trà Vinh','02943891234','viettelpost.tv@viettel.com.vn',
+'Chuyển phát nhanh.',
+'Sinh viên CNTT.'),
 
--- 26
-('DV026', 'Ban Quản lý Ký túc xá - Trường Đại học Trà Vinh', 'Trường Đại học Trà Vinh, TP Trà Vinh', NULL, 'ktx@tvu.edu.vn', 'Đơn vị quản lý và vận hành khu ký túc xá sinh viên.', 'Sinh viên CNTT, Hành chính hoặc Hệ thống.'),
+('DV024','FPT Vĩnh Long',
+'Tỉnh Vĩnh Long','02703891234','fptvinhlong@fpt.com.vn',
+'Chi nhánh FPT.',
+'Sinh viên CNTT.'),
 
--- 27
-('DV027', 'Trung tâm Ngoại ngữ - Tin học Victory', '105 Kiên Thị Nhẫn, K1, P7, TP Trà Vinh', NULL, 'victory@ngoaingu.vn', 'Trung tâm đào tạo ngoại ngữ và tin học.', 'Sinh viên CNTT, Tin học ứng dụng.'),
+('DV025','Ngân hàng VIKKI Trà Vinh',
+'17 Nguyễn Đáng, TP Trà Vinh','02943891345','vikki.tv@bank.vn',
+'Ngân hàng thương mại.',
+'Sinh viên CNTT.'),
 
--- 28
-('DV028', 'Trung tâm Tin học và Viễn thông Đồng Tiến', 'TP Trà Vinh', NULL, 'dongtien@cntt.vn', 'Đơn vị đào tạo và cung cấp dịch vụ CNTT và viễn thông.', 'Sinh viên CNTT, Mạng máy tính.'),
+('DV026','Ban Quản lý KTX TVU',
+'Trường Đại học Trà Vinh','02943891456','ktx@tvu.edu.vn',
+'Quản lý KTX.',
+'Sinh viên CNTT.'),
 
--- 29
-('DV029', 'Trung tâm Văn hóa Miền Tây - Trường Claska (TVU)', 'Trường Đại học Trà Vinh, TP Trà Vinh', NULL, 'vanhoa@tvu.edu.vn', 'Đơn vị đào tạo và giao lưu văn hóa – kỹ năng.', 'Sinh viên CNTT, Truyền thông.'),
+('DV027','TT Ngoại ngữ - Tin học Victory',
+'105 Kiên Thị Nhẫn, TP Trà Vinh','02943891567','victory@ngoaingu.vn',
+'Đào tạo ngoại ngữ & tin học.',
+'Sinh viên CNTT.'),
 
--- 30
-('DV030', 'Trường Thực hành Sư phạm Trà Vinh', '227 Phạm Ngũ Lão, K4, P1, TP Trà Vinh', NULL, 'thsp@travinh.edu.vn', 'Trường thực hành trực thuộc ngành giáo dục tỉnh Trà Vinh.', 'Sinh viên CNTT, Quản trị hệ thống.'),
+('DV028','TT Tin học & Viễn thông Đồng Tiến',
+'TP Trà Vinh','02943891678','dongtien@cntt.vn',
+'Dịch vụ CNTT.',
+'Sinh viên CNTT.'),
 
--- 31
-('DV031', 'Trung tâm CNTT VNPT Trà Vinh', '109 Nguyễn Chí Thanh, P9, TP Trà Vinh', NULL, 'cntttravinh@vnpt.vn', 'Đơn vị phụ trách hạ tầng CNTT và viễn thông VNPT Trà Vinh.', 'Sinh viên CNTT, Mạng máy tính.'),
- 
- -- 32
-('DV032', 'Công ty Cổ phần Điện gió Trường Thành Trà Vinh', 'Tỉnh Trà Vinh', NULL, 'diengio@truongthanh.vn', 'Doanh nghiệp hoạt động trong lĩnh vực năng lượng tái tạo, điện gió.', 'Sinh viên CNTT, Tự động hóa hoặc Hệ thống.'),
+('DV029','TT Văn hóa Miền Tây - TVU',
+'Trường Đại học Trà Vinh','02943891789','vanhoa@tvu.edu.vn',
+'Đào tạo văn hóa – kỹ năng.',
+'Sinh viên CNTT.'),
 
--- 33
-('DV033', 'Công ty TNHH Thiết Bị Số CMT', 'TP Trà Vinh', NULL, 'cmt@thietbiso.vn', 'Doanh nghiệp cung cấp thiết bị số và giải pháp CNTT.', 'Sinh viên CNTT, Kỹ thuật máy tính.'),
+('DV030','Trường THSP Trà Vinh',
+'227 Phạm Ngũ Lão, TP Trà Vinh','02943891890','thsp@travinh.edu.vn',
+'Trường thực hành sư phạm.',
+'Sinh viên CNTT.'),
 
--- 34
-('DV034', 'Công ty TNHH Trà Bắc (Trabaco)', 'Tỉnh Trà Vinh', NULL, 'trabaco@traba.vn', 'Doanh nghiệp hoạt động trong lĩnh vực sản xuất và chế biến.', 'Sinh viên CNTT, Văn phòng hoặc Hệ thống.'),
+('DV031','Trung tâm CNTT VNPT Trà Vinh',
+'109 Nguyễn Chí Thanh, TP Trà Vinh','02943891901','cntttravinh@vnpt.vn',
+'Hạ tầng CNTT.',
+'Sinh viên CNTT.'),
 
--- 35
-('DV035', 'Thư viện Tỉnh Trà Vinh', 'TP Trà Vinh, Tỉnh Trà Vinh', NULL, 'thuvien@travinh.gov.vn', 'Đơn vị phục vụ lưu trữ, quản lý và khai thác tài liệu.', 'Sinh viên CNTT, Thư viện – Thông tin.'),
+('DV032','CTCP Điện gió Trường Thành',
+'Tỉnh Trà Vinh','02943892012','diengio@truongthanh.vn',
+'Năng lượng tái tạo.',
+'Sinh viên CNTT.'),
 
--- 36
-('DV036', 'Trung tâm Dịch vụ Việc làm Trường Đại học Trà Vinh', 'Trường Đại học Trà Vinh, TP Trà Vinh', NULL, 'vieclam@tvu.edu.vn', 'Đơn vị hỗ trợ giới thiệu việc làm và kết nối doanh nghiệp.', 'Sinh viên CNTT, Hệ thống thông tin.'),
+('DV033','Công ty TNHH Thiết Bị Số CMT',
+'TP Trà Vinh','02943892123','cmt@thietbiso.vn',
+'Thiết bị số.',
+'Sinh viên CNTT.'),
 
--- 37
-('DV037', 'Trung tâm ĐHTT và CNTT - VNPT', 'Tỉnh Trà Vinh', NULL, 'dhttcntt@vnpt.vn', 'Trung tâm tích hợp và triển khai giải pháp CNTT của VNPT.', 'Sinh viên CNTT, Mạng máy tính.'),
+('DV034','Công ty TNHH Trà Bắc (Trabaco)',
+'Tỉnh Trà Vinh','02943892234','trabaco@traba.vn',
+'Sản xuất & chế biến.',
+'Sinh viên CNTT.'),
 
--- 38
-('DV038', 'Trung tâm Giáo dục Thường xuyên TP Trà Vinh', 'TP Trà Vinh, Tỉnh Trà Vinh', NULL, 'gdtx@travinh.edu.vn', 'Đơn vị đào tạo và bồi dưỡng giáo dục thường xuyên.', 'Sinh viên CNTT, Quản trị hệ thống.'),
+('DV035','Thư viện Tỉnh Trà Vinh',
+'TP Trà Vinh','02943892345','thuvien@travinh.gov.vn',
+'Lưu trữ & khai thác tài liệu.',
+'Sinh viên CNTT.'),
 
--- 39
-('DV039', 'Trung tâm Học liệu – Phát triển Dạy và Học', 'Trường Đại học Trà Vinh, TP Trà Vinh', NULL, 'hoclieu@tvu.edu.vn', 'Đơn vị hỗ trợ học liệu và phát triển hoạt động giảng dạy.', 'Sinh viên CNTT, Hệ thống hoặc Phần mềm.'),
+('DV036','TT DV Việc làm TVU',
+'Trường Đại học Trà Vinh','02943892456','vieclam@tvu.edu.vn',
+'Giới thiệu việc làm.',
+'Sinh viên CNTT.'),
 
--- 40
-('DV040', 'Trung tâm Nghiên cứu Phát triển – Viện Phát triển Nguồn lực (TVU)', 'Trường Đại học Trà Vinh, TP Trà Vinh', NULL, 'nghiencuu@tvu.edu.vn', 'Đơn vị nghiên cứu và phát triển trực thuộc Trường Đại học Trà Vinh.', 'Sinh viên CNTT, Hệ thống thông tin, Phần mềm.'),
+('DV037','TT ĐHTT & CNTT VNPT',
+'Tỉnh Trà Vinh','02943892567','dhttcntt@vnpt.vn',
+'Tích hợp hệ thống.',
+'Sinh viên CNTT.'),
 
--- 41
-('DV041', 'Trường Trung cấp Nghề Dân tộc Nội trú An Giang', 'Tỉnh An Giang', NULL, 'dantoc@angiang.edu.vn', 'Cơ sở đào tạo nghề cho học sinh dân tộc nội trú.', 'Sinh viên CNTT, Hỗ trợ kỹ thuật.'),
+('DV038','TT GDTX TP Trà Vinh',
+'TP Trà Vinh','02943892678','gdtx@travinh.edu.vn',
+'Giáo dục thường xuyên.',
+'Sinh viên CNTT.'),
 
--- 42
-('DV042', 'Ủy ban Nhân dân Tỉnh Trà Vinh', 'TP Trà Vinh, Tỉnh Trà Vinh', NULL, 'ubnd@travinh.gov.vn', 'Cơ quan hành chính nhà nước cấp tỉnh.', 'Sinh viên CNTT, Hệ thống thông tin, Chính phủ điện tử.');
+('DV039','TT Học liệu – PT Dạy & Học',
+'Trường Đại học Trà Vinh','02943892789','hoclieu@tvu.edu.vn',
+'Hỗ trợ học liệu.',
+'Sinh viên CNTT.'),
+
+('DV040','TT Nghiên cứu Phát triển – TVU',
+'Trường Đại học Trà Vinh','02943892890','nghiencuu@tvu.edu.vn',
+'Nghiên cứu & phát triển.',
+'Sinh viên CNTT.'),
+
+('DV041','Trường TC Nghề DTNT An Giang',
+'Tỉnh An Giang','02943892901','dantoc@angiang.edu.vn',
+'Đào tạo nghề.',
+'Sinh viên CNTT.'),
+
+('DV042','UBND Tỉnh Trà Vinh',
+'TP Trà Vinh','02943893012','ubnd@travinh.gov.vn',
+'Cơ quan hành chính cấp tỉnh.',
+'Sinh viên CNTT.');
 
 -- Chèn dữ liệu mẫu cho bảng can_bo_huong_dan
 INSERT INTO can_bo_huong_dan

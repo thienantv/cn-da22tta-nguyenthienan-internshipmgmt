@@ -123,7 +123,7 @@ const Header = () => {
         {user ? (
           <div className="header-user">
             <span className="user-role">{getRoleLabel(user.role)}</span>
-            <span className="user-name">{user.name}</span>
+            <span className="user-name">{user.ho_ten || user.name || user.username}</span>
             <Link to={
               user.role === 'admin' ? '/thong-tin-ca-nhan-admin' :
               user.role === 'can_bo_quan_ly' ? '/thong-tin-ca-nhan-can-bo' :

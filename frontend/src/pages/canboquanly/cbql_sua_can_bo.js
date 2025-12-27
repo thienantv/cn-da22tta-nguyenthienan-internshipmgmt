@@ -90,7 +90,7 @@ const CanBoSua = () => {
 
       // Redirect về danh sách và truyền state updatedCanBo
       setTimeout(() => {
-        navigate('/quan-ly-can-bo-huong-dan', { state: { updatedCanBo: res.data.data } });
+        navigate('/can-bo/chi-tiet-can-bo/' + ma_can_bo, { state: { updatedCanBo: res.data.data } });
       }, 1200);
     } catch (err) {
       showError(err.response?.data?.message || 'Cập nhật thất bại');
